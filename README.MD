@@ -2,7 +2,7 @@
 LIS系列三轴加速度传感器
 
 
-## DFRobot_H3LIS Library for Arduino
+## DFRobot_LIS Library for Arduino
 ---------------------------------------------------------
 
 Provide an Arduino library to get Three-axis acceleration by reading data from LIS.
