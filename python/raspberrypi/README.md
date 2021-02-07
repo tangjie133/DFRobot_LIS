@@ -1,4 +1,4 @@
-# DFRobot_H3LIS
+# DFRobot_LIS
 The H3LIS200DL is a low-power high performance 3-axis linear accelerometer <br>
 belonging to the “nano” family, with digital I2C/SPI <br>
 serial interface standard output. <br>
@@ -14,7 +14,7 @@ guaranteed to operate over an extended <br>
 temperature range from -40 °C to +85 °C.<br>
 
 
-## DFRobot_H3LIS Library for RaspberryPi
+## DFRobot_LIS Library for RaspberryPi
 ---------------------------------------------------------
 
 Provide an RaspberryPi library to get Three-axis acceleration by reading data from H3LIS200DL.
@@ -54,8 +54,11 @@ To use this library, first download the library file, paste it into the \Arduino
   '''
     @brief Set the measurement range
     @param range:Range(g)
-               RANGE_100_G =0 # ±100g
-               RANGE_200_G = 1# ±200g
+                 RANGE_100_G =0 #±100g
+                 RANGE_200_G = 1# ±200g
+                 LIS331H_6G = 6  #±6G
+                 LIS331H_12G = 12  #±12G
+                 LIS331H_24G = 24   #±24G
   '''
   set_range(self,range_r)
 

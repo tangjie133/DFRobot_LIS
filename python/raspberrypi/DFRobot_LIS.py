@@ -238,8 +238,11 @@ class DFRobot_LIS(object):
   '''
     @brief Set the measurement range
     @param range:Range(g)
-                 RANGE_100_G =0 # Â±100g
-                 RANGE_200_G = 1# Â±200g
+                 RANGE_100_G =0 #¡À100g
+                 RANGE_200_G = 1# ¡À200g
+                 LIS331H_6G = 6  #¡À6G
+                 LIS331H_12G = 12  #¡À12G
+                 LIS331H_24G = 24   #¡À24G
   '''
   def set_range(self,range_r):
     regester = self.REG_CTRL_REG4
