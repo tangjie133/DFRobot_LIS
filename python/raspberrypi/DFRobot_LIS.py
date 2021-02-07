@@ -20,8 +20,11 @@ import numpy as np
 
 I2C_MODE                  = 0x01
 SPI_MODE                  = 0x02
-class SPI:
+H3LIS200DL        = 0x01  
+LIS331HH          = 0x02  
 
+class SPI:
+  
   MODE_1 = 1
   MODE_2 = 2
   MODE_3 = 3
@@ -100,7 +103,7 @@ class GPIO:
   
   def cleanup(self):
     RPIGPIO.cleanup()
-class DFRobot_H3LIS(object):
+class DFRobot_LIS(object):
   REG_CARD_ID = 0x0F     #Chip id
   REG_CTRL_REG1 = 0x20     #Control register 1
   REG_CTRL_REG4 = 0x23     #Control register 4
@@ -109,9 +112,12 @@ class DFRobot_H3LIS(object):
   REG_CTRL_REG5 = 0x24     #Control register 5
   REG_CTRL_REG6 = 0x25     #Control register 6
   REG_STATUS_REG = 0x27    #Status register
-  REG_OUT_X = 0x29     #Acceleration register
-  REG_OUT_Y = 0x2B     #Acceleration register
-  REG_OUT_Z = 0x2D     #Acceleration register
+  REG_OUT_X_L = 0x28     #Acceleration register
+  REG_OUT_X_H = 0x29
+  REG_OUT_Y_L = 0x2A     #Acceleration register
+  REG_OUT_Y_H = 0x2B     #Acceleration register
+  REG_OUT_Z_L = 0x2C     #Acceleration register
+  REG_OUT_Z_H = 0x2D     #Acceleration register
   REG_INT1_THS = 0x32     #Interrupt source 1 threshold
   REG_INT2_THS = 0x36     #Interrupt source 2 threshold
   REG_INT1_CFG = 0x30     #Interrupt source 1 configuration register
@@ -124,6 +130,7 @@ class DFRobot_H3LIS(object):
   __uart_i2c     =  0
   __range = 100
   __reset = 0
+  __chip = 0
   '''
     Power mode selection, determine the frequency of data collection
     Represents the number of data collected per second
@@ -141,8 +148,12 @@ class DFRobot_H3LIS(object):
   '''
   Sensor range selection
   '''
-  RANGE_100_G =0# Â±100g
-  RANGE_200_G = 1# Â±200g
+  H3LIS200DL_100G =100  # ¡À100G
+  H3LIS200DL_200G = 200 # ¡À200G
+
+  LIS331H_6G = 6  #¡À6G
+  LIS331H_12G = 12  #¡À12G
+  LIS331H_24G = 24   #¡À24G
 
   '''
   # High-pass filter cut-off frequency configuration
@@ -181,14 +192,17 @@ class DFRobot_H3LIS(object):
   INT_2 = 1,#int2
   
   ERROR                     = -1
-  def __init__(self ,bus ,Baud):
+  def __init__(self ,bus ,Baud,chip1):
     __reset = 1
     if bus != 0:
       self.i2cbus = smbus.SMBus(bus)
       self.__uart_i2c = I2C_MODE
+      
     else:
       self.__uart_i2c = SPI_MODE
-
+    #print("chip1 =")
+    #print(chip1)
+    self.__chip = chip1
 
 
   '''
@@ -232,12 +246,23 @@ class DFRobot_H3LIS(object):
     if(self.__uart_i2c == SPI_MODE):
       regester  = self.REG_CTRL_REG4 | 0x80
     reg = self.read_reg(regester)
-    if range_r == self.RANGE_100_G:
-     reg = reg & (~0x10)
-     self.__range = 100
-    else:
-     reg = reg | 0x10
-     self.__range = 200
+    if self.__chip == H3LIS200DL:
+        if range_r == self.H3LIS200DL_100G:
+         reg = reg & (~0x10)
+         self.__range = 100
+        else:
+         reg = reg | 0x10
+         self.__range = 200
+    elif self.__chip == LIS331HH:
+        self.__range = range_r
+        if range_r == self.LIS331H_6G:
+         reg = reg&(~(3<<4))
+        elif range_r == self.LIS331H_6G:
+         reg = reg&(~(3<<4))
+         reg = reg | (0x01<<4)
+        elif range_r == self.LIS331H_6G:
+         reg = reg&(~(3<<4))
+         reg = reg | (0x03<<4)
     #print(reg)
     self.write_reg(self.REG_CTRL_REG4,reg)
 
@@ -473,36 +498,51 @@ class DFRobot_H3LIS(object):
   def read_acce_xyz(self):
     regester = self.REG_STATUS_REG
     if(self.__uart_i2c == SPI_MODE):
-      regester  = self.REG_STATUS_REG | 0x80
+      regester  = self.REG_STATUS_REG | 0x80; 
     reg = self.read_reg(regester)
      # reg = 1
-    data1 = [0]
-    data2 = [0]
-    data3 = [0]
+    data = [0,0,0,0,0,0,0]
     offset = 0
+    x = 0
+    y = 0
+    z = 0
     if(reg & 0x01) == 1:
         if(self.__uart_i2c == SPI_MODE):
-            offset = 0x80
+		       offset = 0x80
      
-        data1[0] = self.read_reg(self.REG_OUT_X+offset)
-        data2[0] = self.read_reg(self.REG_OUT_Y+offset)
-        data3[0] = self.read_reg(self.REG_OUT_Z+offset)
-        data1[0] = np.int8(data1[0])
-        data2[0] = np.int8(data2[0])
-        data3[0] = np.int8(data3[0])
+        data[0] = self.read_reg(self.REG_OUT_X_L+offset)
+        data[1] = self.read_reg(self.REG_OUT_X_H+offset)
+        data[2] = self.read_reg(self.REG_OUT_Y_L+offset)
+        data[3] = self.read_reg(self.REG_OUT_Y_H+offset)
+        data[4] = self.read_reg(self.REG_OUT_Z_L+offset)
+        data[5] = self.read_reg(self.REG_OUT_Z_H+offset)
+        
+        data[0] = np.int8(data[0])
+        data[1] = np.int8(data[1])
+        data[2] = np.int8(data[2])
+        data[3] = np.int8(data[3])
+        data[4] = np.int8(data[4])
+        data[5] = np.int8(data[5])
 
-    x = (data1[0]*self.__range)/128
-    y = (data2[0]*self.__range)/128
-    z = (data3[0]*self.__range)/128
-      
+        if self.__chip == H3LIS200DL:
+            x = (data[1]*self.__range)/128
+            y = (data[3]*self.__range)/128
+            z = (data[5]*self.__range)/128
+        elif self.__chip == LIS331HH:
+            x = data[1]*256+data[0]
+            x = (x*1000*self.__range)/(256*128)
+            y = data[3]*256+data[2]
+            y = (y*1000*self.__range)/(256*128)
+            z = data[5]*256+data[4]
+            z = (z*1000*self.__range)/(256*128)
     return x,y,z
 '''
   @brief An example of an i2c interface module
 '''
-class DFRobot_H3LIS_I2C(DFRobot_H3LIS): 
+class DFRobot_H3LIS_I2C(DFRobot_LIS): 
   def __init__(self ,bus ,addr):
     self.__addr = addr
-    super(DFRobot_H3LIS_I2C, self).__init__(bus,0)
+    super(DFRobot_H3LIS_I2C, self).__init__(bus,0,1)
 
   '''
     @brief writes data to a register
@@ -531,16 +571,82 @@ class DFRobot_H3LIS_I2C(DFRobot_H3LIS):
     #print(rslt)
     return rslt
 
-class DFRobot_H3LIS_SPI(DFRobot_H3LIS): 
+class DFRobot_H3LIS_SPI(DFRobot_LIS): 
 
 
   def __init__(self ,cs):
-    super(DFRobot_H3LIS_SPI, self).__init__(0,cs)
+    super(DFRobot_H3LIS_SPI, self).__init__(0,cs,1)
     #DFRobot_H3LIS.__init__(0,0)
     #self._busy = GPIO(busy, GPIO.IN)
     self.__cs = GPIO(cs, GPIO.OUT)
     self.__cs.setOut(GPIO.LOW)
     self._spi = SPI(0, 0)
+    
+  '''
+    @brief writes data to a register
+    @param reg register address
+    @param value written data
+  '''
+  def write_reg(self, reg, data):
+     data1 =[reg,data]
+     self.__cs.setOut(GPIO.LOW)
+     self._spi.transfer(data1)
+     self.__cs.setOut(GPIO.HIGH)
+     #self._spi.transfer(data)
+  '''
+    @brief read the data from the register
+    @param reg register address
+    @param value read data
+  '''
+  def read_reg(self, reg):
+     data1 =[reg]
+     self.__cs.setOut(GPIO.LOW)
+     self._spi.transfer(data1)
+     time.sleep(0.01)
+     data = self._spi.readData(1)
+     self.__cs.setOut(GPIO.HIGH)
+     #print(data)
+     return  data[0]
+class DFRobot_LIS331HH_I2C(DFRobot_LIS): 
+  def __init__(self ,bus ,addr):
+    self.__addr = addr
+    super(DFRobot_LIS331HH_I2C, self).__init__(bus,0,2)
+
+  '''
+    @brief writes data to a register
+    @param reg register address
+    @param value written data
+  '''
+  def write_reg(self, reg, data):
+        data1 = [0]
+        data1[0] = data
+        self.i2cbus.write_i2c_block_data(self.__addr ,reg,data1)
+        #self.i2cbus.write_byte(self.__addr ,reg)
+        #self.i2cbus.write_byte(self.__addr ,data)
+  '''
+    @brief read the data from the register
+    @param reg register address
+    @param value read data
+  '''
+  def read_reg(self, reg):
+    self.i2cbus.write_byte(self.__addr,reg)
+    time.sleep(0.01)
+    rslt = self.i2cbus.read_byte(self.__addr)
+    #print(rslt)
+    return rslt
+
+class DFRobot_LIS331HH_SPI(DFRobot_LIS): 
+
+
+  def __init__(self ,cs):
+    super(DFRobot_LIS331HH_SPI, self).__init__(0,cs,2)
+    #DFRobot_H3LIS.__init__(0,0)
+    #self._busy = GPIO(busy, GPIO.IN)
+    self.__cs = GPIO(cs, GPIO.OUT)
+    self.__cs.setOut(GPIO.LOW)
+    self._spi = SPI(0, 0)
+
+    #print("LIS331HH")
 
     
   '''

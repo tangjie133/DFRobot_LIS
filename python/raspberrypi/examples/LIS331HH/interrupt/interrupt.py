@@ -9,15 +9,15 @@
    @version  V1.0
    @date  2021-01-16
    @get from https://www.dfrobot.com
-   @https://github.com/DFRobot/DFRobot_H3LIS
+   @https://github.com/DFRobot/DFRobot_LIS
 """
 
 import threading
 
 import sys
-sys.path.append("../..") # set system path to top
+sys.path.append("../../..") # set system path to top
 
-from DFRobot_H3LIS import *
+from DFRobot_LIS import *
 import time
 
 INT1 = 26                           #Interrupt pin
@@ -26,17 +26,15 @@ def int_pad_callback():
   global int_pad_Flag
   int_pad_Flag = True
 
-
-
 #如果你想要用SPI驱动此模块，打开下面两行的注释,并通过SPI连接好模块和树莓派
 #RASPBERRY_PIN_CS =  27              #Chip selection pin when SPI is selected
-#acce = DFRobot_H3LIS_SPI(RASPBERRY_PIN_CS)
+#acce = DFRobot_LIS331HH_SPI(RASPBERRY_PIN_CS)
 
 
-#如果你想要应IIC驱动此模块，打开下面三行的注释，并通过I2C连接好模块和树莓派
+#如果你想要应IIC驱动此模块，打开下面三行的注释，并通过I2C连接好模块和树莓树莓派
 I2C_MODE         = 0x01             #default use I2C1
 ADDRESS_0        = 0x19             #I2C address
-acce = DFRobot_H3LIS_I2C(I2C_MODE ,ADDRESS_0)
+acce = DFRobot_LIS331HH_I2C(I2C_MODE ,ADDRESS_0)
 
 int_pad = GPIO(INT1, GPIO.IN)                   # set int_Pad to input
 int_pad.setInterrupt(GPIO.FALLING, int_pad_callback) #set int_Pad interrupt callback
@@ -51,10 +49,12 @@ print(acce.get_id())
 
 '''
 set range:Range(g)
-         RANGE_100_G   # ±100g
-         RANGE_200_G   # ±200g
+          LIS331H_6G = 6  #±6G
+          LIS331H_12G = 12  #±12G
+          LIS331H_24G = 24   #±24G
 '''
-acce.set_range(acce.RANGE_100_G)
+acce.set_range(acce.LIS331H_6G)
+
 
 '''
 Set data measurement rate
@@ -75,7 +75,7 @@ acce.set_acquire_rate(acce.NORMAL_50HZ)
 Set the threshold of interrupt source 1 interrupt
 threshold Threshold(g),范围是设置好的的测量量程
 '''
-acce.set_int1_th(5);
+acce.set_int1_th(2);
 
 '''
 @brief Enable interrupt
@@ -97,7 +97,7 @@ time.sleep(1)
 while True:
     
     if(int_pad_Flag == True):
-      #Check whether the interrupt event is generated in interrupt 1
+      #Check whether the interrupt event'source' is generated in interrupt 1
       if acce.get_int1_event(acce.Y_HIGHERTHAN_TH) == True:
          print("The acceleration in the y direction is greater than the threshold")
       
@@ -111,4 +111,4 @@ while True:
     #Get the acceleration in the three directions of xyz
     x,y,z = acce.read_acce_xyz()
     time.sleep(0.1)
-    print("Acceleration [X = %.2f g,Y = %.2f g,Z = %.2f g]"%(x,y,z))
+    print("Acceleration [X = %.2f mg,Y = %.2f mg,Z = %.2f mg]"%(x,y,z))

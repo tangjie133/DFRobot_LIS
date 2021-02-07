@@ -9,24 +9,32 @@
    @version  V1.0
    @date  2021-01-16
    @get from https://www.dfrobot.com
-   @https://github.com/DFRobot/DFRobot_H3LIS
+   @https://github.com/DFRobot/DFRobot_LIS
 """
 
 import sys
-sys.path.append("../..") # set system path to top
+sys.path.append("../../..") # set system path to top
 
-from DFRobot_H3LIS import *
+from DFRobot_LIS import *
 import time
+
+INT1 = 26                           #Interrupt pin
+int_pad_Flag = False                 #intPad flag
+def int_pad_callback():
+  global int_pad_Flag
+  int_pad_Flag = True
 
 #如果你想要用SPI驱动此模块，打开下面两行的注释,并通过SPI连接好模块和树莓派
 #RASPBERRY_PIN_CS =  27              #Chip selection pin when SPI is selected
-#acce = DFRobot_H3LIS_SPI(RASPBERRY_PIN_CS)
+#acce = DFRobot_LIS331HH_SPI(RASPBERRY_PIN_CS)
 
 
-#如果你想要应IIC驱动此模块，打开下面三行的注释，并通过I2C连接好模块和树莓派
+#如果你想要应IIC驱动此模块，打开下面三行的注释，并通过I2C连接好模块和树莓树莓派
 I2C_MODE         = 0x01             #default use I2C1
 ADDRESS_0        = 0x19             #I2C address
-acce = DFRobot_H3LIS_I2C(I2C_MODE ,ADDRESS_0)
+acce = DFRobot_LIS331HH_I2C(I2C_MODE ,ADDRESS_0)
+int_pad = GPIO(INT1, GPIO.IN)                   # set int_Pad to input
+int_pad.setInterrupt(GPIO.FALLING, int_pad_callback) #set int_Pad 
 
 #Chip initialization
 acce.begin()
@@ -36,10 +44,11 @@ print(acce.get_id())
 
 '''
 set range:Range(g)
-             RANGE_100_G   # ±100g
-             RANGE_200_G   # ±200g
+          LIS331H_6G = 6  #±6G
+          LIS331H_12G = 12  #±12G
+          LIS331H_24G = 24   #±24G
 '''
-acce.set_range(acce.RANGE_100_G)
+acce.set_range(acce.LIS331H_6G)
 
 '''
 Set data measurement rate
@@ -54,7 +63,7 @@ Set data measurement rate
          NORMAL_400HZ 
          NORMAL_1000HZ 
 '''
-acce.set_acquire_rate(acce.NORMAL_50HZ)
+acce.set_acquire_rate(acce.LOWPOWER_HALFHZ)
 '''
    Set the threshold of interrupt source 1 interrupt
    threshold Threshold(g),范围是设置好的的测量量程
@@ -86,4 +95,6 @@ while True:
     #当有中断产生，能观察到芯片测量的频率明显变快
     x,y,z = acce.read_acce_xyz()
     time.sleep(0.1)
-    print("Acceleration [X = %.2f g,Y = %.2f g,Z = %.2f g]"%(x,y,z))
+    print("Acceleration [X = %.2f mg,Y = %.2f mg,Z = %.2f mg]"%(x,y,z))
+    if(int_pad_Flag == True):
+      print("Out of sleep mode")

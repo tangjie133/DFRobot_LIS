@@ -55,10 +55,11 @@ void setup(void){
   
   /**
     set range:Range(g)
-              eH3LIS200DL_100g,/< ±100g>/
-              eH3LIS200DL_200g,/< ±200g>/
+              eH3lis200dl_100g,/< ±100g>/
+              eH3lis200dl_200g,/< ±200g>/
   */
-  acce.setRange(/*Range = */DFRobot_LIS::eH3LIS200DL_100g);
+  acce.setRange(/*Range = */DFRobot_LIS::eH3lis200dl_100g);
+
 
   /**
    “sleep to wake-up”  need to put the chip in low power mode first

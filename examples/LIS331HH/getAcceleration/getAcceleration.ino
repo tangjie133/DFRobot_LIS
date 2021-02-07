@@ -84,10 +84,10 @@ void loop(void){
     //acce.getAcceFromXYZ(/*accx = */ax,/*accy = */ay,/*accz = */az);//第二种获取三方向加速度的方法
     Serial.print("Acceleration x: "); //print acceleration
     Serial.print(ax);
-    Serial.print(" g \ty: ");
+    Serial.print(" mg \ty: ");
     Serial.print(ay);
-    Serial.print(" g \tz: ");
+    Serial.print(" mg \tz: ");
     Serial.print(az);
-    Serial.println(" g");
+    Serial.println(" mg");
     delay(300);
 }

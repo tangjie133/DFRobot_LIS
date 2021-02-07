@@ -82,8 +82,8 @@ typedef enum{
   Sensor range selection
 */
 typedef enum{
-  eH3LIS200DL_100g,/**< ±100g>*/
-  eH3LIS200DL_200g,/**< ±200g>*/
+  eH3lis200dl_100g,/**< ±100g>*/
+  eH3lis200dl_200g,/**< ±200g>*/
 
   eLis331h_6g = 6,/**<±6g>*/
   eLis331h_12g = 12,/**<±12g>*/

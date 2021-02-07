@@ -129,11 +129,11 @@ void loop(void){
    //Get the acceleration in the three directions of xyz
    Serial.print("Acceleration x: "); 
    Serial.print(acce.readAccX());
-   Serial.print(" g \ty: ");
+   Serial.print(" mg \ty: ");
    Serial.print(acce.readAccY());
-   Serial.print(" g \tz: ");
+   Serial.print(" mg \tz: ");
    Serial.print(acce.readAccZ());
-   Serial.println(" g");
+   Serial.println(" mg");
 
    
    if(intFlag == 1){

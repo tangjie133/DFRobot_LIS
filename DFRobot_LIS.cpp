@@ -56,10 +56,10 @@ bool DFRobot_LIS::setRange(eRange_t range){
   switch(chip)
   {
     case H3LIS200DL :{
-      if(range == eH3LIS200DL_100g){
+      if(range == eH3lis200dl_100g){
          reg = reg & (~0x10);
          _range = 100;
-       } else if(range == eH3LIS200DL_200g){
+       } else if(range == eH3lis200dl_200g){
          reg = reg | 0x10;
          _range = 200;
        } else {
