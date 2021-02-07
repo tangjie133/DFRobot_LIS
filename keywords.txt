@@ -1,0 +1,93 @@
+#######################################
+# Syntax Coloring Map For DFRobot_LIS
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+DFRobot_LIS	KEYWORD1
+DFRobot_H3LIS200DL_I2C	KEYWORD1
+DFRobot_H3LIS200DL_SPI	KEYWORD1
+DFRobot_LIS331HH_I2C	KEYWORD1
+DFRobot_LIS331HH_SPI	KEYWORD1
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+begin	KEYWORD2
+readWeight	KEYWORD2
+addCommand	KEYWORD2
+getCalibration	KEYWORD2
+setCalibration	KEYWORD2
+getID	KEYWORD2
+enableXYZ	KEYWORD2
+enableInterruptEvent	KEYWORD2
+setRange	KEYWORD2
+setAcquireRate	KEYWORD2
+setHFilterMode	KEYWORD2
+
+setInt1Th	KEYWORD2
+setInt2Th	KEYWORD2
+enableSleep	KEYWORD2
+getAcceFromXYZ	KEYWORD2
+getInt2Event	KEYWORD2
+getInt1Event	KEYWORD2
+readAccX	KEYWORD2
+readAccZ	KEYWORD2
+readAccY	KEYWORD2
+
+
+
+
+
+
+
+
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+
+
+ePowerDown_0HZ	LITERAL1
+eLowPower_halfHZ	LITERAL1
+eLowPower_1HZ	LITERAL1
+eLowPower_2HZ	LITERAL1
+eLowPower_5HZ	LITERAL1
+eLowPower_10HZ	LITERAL1
+eNormal_50HZ	LITERAL1
+eNormal_100HZ	LITERAL1
+eNormal_400HZ	LITERAL1
+eNormal_1000HZ	LITERAL1
+
+eH3LIS200DL_100g	LITERAL1
+eH3LIS200DL_200g	LITERAL1
+
+eLis331h_6g	LITERAL1
+eLis331h_12g	LITERAL1
+eLis331h_24g	LITERAL1
+
+eCutoffMode1	LITERAL1
+eCutoffMode2	LITERAL1
+eCutoffMode3	LITERAL1
+eCutoffMode4	LITERAL1
+eShutDown	LITERAL1
+eXLowThanTh	LITERAL1
+eXhigherThanTh	LITERAL1
+eYLowThanTh	LITERAL1
+eYhigherThanTh	LITERAL1
+eZLowThanTh	LITERAL1
+eZhigherThanTh	LITERAL1
+eEventError	LITERAL1
+eINT1	LITERAL1
+eINT2	LITERAL1
+sAccel_t	LITERAL1
+
+
+
+
+
+
+
