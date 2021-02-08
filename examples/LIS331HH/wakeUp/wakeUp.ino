@@ -47,6 +47,7 @@ void setup(void){
   Serial.begin(9600);
   //Chip initialization
   while(acce.begin()){
+     delay(1000);
      Serial.println("init failure");
   }
     //Get chip id
