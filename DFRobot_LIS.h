@@ -10,13 +10,10 @@
  * @https://github.com/DFRobot/DFRobot_LIS
  */
 
-#ifndef DFROBOT_H3LIS200DL_H
-#define DFROBOT_H3LIS200DL_H
-#if ARDUINO >= 100
- #include "Arduino.h"
-#else
- #include "WProgram.h"
-#endif
+#ifndef DFROBOT_LIS_H
+#define DFROBOT_LIS_H
+
+#include "Arduino.h"
 #include <Wire.h>
 #include <SPI.h>
 //#define ENABLE_DBG
@@ -27,12 +24,12 @@
 #define DBG(...)
 #endif
 
-#define H3LIS200DL_I2C_ADDR  (0x19)  /*sensor IIC address*/
-#define LIS331HH_I2C_ADDR  (0x19)  /*sensor LIS331HH IIC address*/
-#define H3LIS200DL        0x01     //
-#define LIS331HH          0x02     //
-#define ERR_DATA_BUS      -1      //error in data bus
-#define ERR_IC_VERSION    -2      //chip version mismatch
+#define H3LIS200DL_I2C_ADDR  (0x19)  /*sensor H3LIS200DL IIC address*/
+#define LIS331HH_I2C_ADDR    (0x19)    /*sensor LIS331HH IIC address*/
+#define H3LIS200DL            0x01       
+#define LIS331HH              0x02       
+#define ERR_DATA_BUS          -1         //error in data bus
+#define ERR_IC_VERSION        -2         //chip version mismatch
 
 
 class DFRobot_LIS
@@ -91,25 +88,25 @@ typedef enum{
   
 }eRange_t;
 
-/*!     High-pass filter cut-off frequency configuration
+/*!                        High-pass filter cut-off frequency configuration
  * |--------------------------------------------------------------------------------------------------------|
  * |                |    ft [Hz]      |        ft [Hz]       |       ft [Hz]        |        ft [Hz]        |
  * |   mode         |Data rate = 50 Hz|   Data rate = 100 Hz |  Data rate = 400 Hz  |   Data rate = 1000 Hz |
  * |--------------------------------------------------------------------------------------------------------|
- * |  eCutoffMode1  |     1           |         2            |            8         |             20        |
+ * |  eCutOffMode1  |     1           |         2            |            8         |             20        |
  * |--------------------------------------------------------------------------------------------------------|
- * |  eCutoffMode2  |    0.5          |         1            |            4         |             10        |
+ * |  eCutOffMode2  |    0.5          |         1            |            4         |             10        |
  * |--------------------------------------------------------------------------------------------------------|
- * |  eCutoffMode3  |    0.25         |         0.5          |            2         |             5         |
+ * |  eCutOffMode3  |    0.25         |         0.5          |            2         |             5         |
  * |--------------------------------------------------------------------------------------------------------|
- * |  eCutoffMode4  |    0.125        |         0.25         |            1         |             2.5       |
+ * |  eCutOffMode4  |    0.125        |         0.25         |            1         |             2.5       |
  * |--------------------------------------------------------------------------------------------------------|
  */
 typedef enum{
-  eCutoffMode1 = 0,
-  eCutoffMode2,
-  eCutoffMode3,
-  eCutoffMode4,
+  eCutOffMode1 = 0,
+  eCutOffMode2,
+  eCutOffMode3,
+  eCutOffMode4,
   eShutDown,
 }eHighPassFilter_t;
 
@@ -118,11 +115,11 @@ typedef enum{
 */
 typedef enum{
   eXLowThanTh = 0,/**<The acceleration in the x direction is less than the threshold>*/
-  eXhigherThanTh ,/**<The acceleration in the x direction is greater than the threshold>*/
+  eXHigherThanTh ,/**<The acceleration in the x direction is greater than the threshold>*/
   eYLowThanTh,/**<The acceleration in the y direction is less than the threshold>*/
-  eYhigherThanTh,/**<The acceleration in the y direction is greater than the threshold>*/
+  eYHigherThanTh,/**<The acceleration in the y direction is greater than the threshold>*/
   eZLowThanTh,/**<The acceleration in the z direction is less than the threshold>*/
-  eZhigherThanTh,/**<The acceleration in the z direction is greater than the threshold>*/
+  eZHigherThanTh,/**<The acceleration in the z direction is greater than the threshold>*/
   eEventError,/**< No event>*/
 }eInterruptEvent_t;
 
@@ -150,7 +147,7 @@ public:
    * @brief Initialize the function
    * @return Return 0 indicates a successful initialization, while other values indicates failure and return to error code.
    */
-  int begin(void);
+  uint8_t begin(void);
  
   /**
    * @brief Get chip id
@@ -165,11 +162,11 @@ public:
               eINT2,/<int2>/
    * @param event Interrupt event selection
                    eXLowThanTh = 0,/<The acceleration in the x direction is less than the threshold>/
-                   eXhigherThanTh ,/<The acceleration in the x direction is greater than the threshold>/
+                   eXHigherThanTh ,/<The acceleration in the x direction is greater than the threshold>/
                    eYLowThanTh,/<The acceleration in the y direction is less than the threshold>/
-                   eYhigherThanTh,/<The acceleration in the y direction is greater than the threshold>/
+                   eYHigherThanTh,/<The acceleration in the y direction is greater than the threshold>/
                    eZLowThanTh,/<The acceleration in the z direction is less than the threshold>/
-                   eZhigherThanTh,/<The acceleration in the z direction is greater than the threshold>/
+                   eZHigherThanTh,/<The acceleration in the z direction is greater than the threshold>/
    */
   void enableInterruptEvent(eInterruptSource_t source, eInterruptEvent_t event);
   
@@ -181,13 +178,14 @@ public:
                   
                   eLis331h_6g = 6,//±6g
                   eLis331h_12g = 12 //±12g
-                  eLis331h_24g = 24 //±24g
+                  eLis331h_24g = 24 //±24g  
+    @return true(设置成功)/false(设置失败)
    */
   bool setRange(eRange_t range);
   
   /**
    * @brief Set data measurement rate
-   * @param rate:rate(HZ)
+   * @param rate rate(HZ)
                   ePowerDown_0HZ   //测量关闭
                   eLowPower_halfHZ //0.5 hz
                   eLowPower_1HZ
@@ -204,23 +202,23 @@ public:
   /**
    * @brief Set data filtering mode
    * @param mode Four modes
-                 eCutoffMode1 = 0,
-                 eCutoffMode2,
-                 eCutoffMode3,
-                 eCutoffMode4,
+                 eCutOffMode1 = 0,
+                 eCutOffMode2,
+                 eCutOffMode3,
+                 eCutOffMode4,
                  eShutDown,  无过滤
    *|---------------------------High-pass filter cut-off frequency configuration-----------------------------|
    *|--------------------------------------------------------------------------------------------------------|
    *|                |    ft [Hz]      |        ft [Hz]       |       ft [Hz]        |        ft [Hz]        |
    *|   mode         |Data rate = 50 Hz|   Data rate = 100 Hz |  Data rate = 400 Hz  |   Data rate = 1000 Hz |
    *|--------------------------------------------------------------------------------------------------------|
-   *|  eCutoffMode1  |     1           |         2            |            8         |             20        |
+   *|  eCutOffMode1  |     1           |         2            |            8         |             20        |
    *|--------------------------------------------------------------------------------------------------------|
-   *|  eCutoffMode2  |    0.5          |         1            |            4         |             10        |
+   *|  eCutOffMode2  |    0.5          |         1            |            4         |             10        |
    *|--------------------------------------------------------------------------------------------------------|
-   *|  eCutoffMode3  |    0.25         |         0.5          |            2         |             5         |
+   *|  eCutOffMode3  |    0.25         |         0.5          |            2         |             5         |
    *|--------------------------------------------------------------------------------------------------------|
-   *|  eCutoffMode4  |    0.125        |         0.25         |            1         |             2.5       |
+   *|  eCutOffMode4  |    0.125        |         0.25         |            1         |             2.5       |
    *|--------------------------------------------------------------------------------------------------------|
    */
   void setHFilterMode(eHighPassFilter_t mode);
@@ -242,7 +240,7 @@ public:
    * @param enable true(enable)\false(disable)
    * @return 1 表示使能失败/0 表示使能成功
    */
-  int enableSleep(bool enable);
+  uint8_t enableSleep(bool enable);
   
 
 
@@ -250,11 +248,11 @@ public:
    * @brief Check whether the interrupt event'event' is generated in interrupt 1
    * @param event Interrupt event
                    eXLowThanTh = 0,/<The acceleration in the x direction is less than the threshold>/
-                   eXhigherThanTh ,/<The acceleration in the x direction is greater than the threshold>/
+                   eXHigherThanTh ,/<The acceleration in the x direction is greater than the threshold>/
                    eYLowThanTh,/<The acceleration in the y direction is less than the threshold>/
-                   eYhigherThanTh,/<The acceleration in the y direction is greater than the threshold>/
+                   eYHigherThanTh,/<The acceleration in the y direction is greater than the threshold>/
                    eZLowThanTh,/<The acceleration in the z direction is less than the threshold>/
-                   eZhigherThanTh,/<The acceleration in the z direction is greater than the threshold>/
+                   eZHigherThanTh,/<The acceleration in the z direction is greater than the threshold>/
    * @return true 产生了此事件
              false 未产生此事件
    */
@@ -264,11 +262,11 @@ public:
    * @brief Check whether the interrupt event'event' is generated in interrupt 2
    * @param event Interrupt event
                    eXLowThanTh = 0,/<The acceleration in the x direction is less than the threshold>/
-                   eXhigherThanTh ,/<The acceleration in the x direction is greater than the threshold>/
+                   eXHigherThanTh ,/<The acceleration in the x direction is greater than the threshold>/
                    eYLowThanTh,/<The acceleration in the y direction is less than the threshold>/
-                   eYhigherThanTh,/<The acceleration in the y direction is greater than the threshold>/
+                   eYHigherThanTh,/<The acceleration in the y direction is greater than the threshold>/
                    eZLowThanTh,/<The acceleration in the z direction is less than the threshold>/
-                   eZhigherThanTh,/<The acceleration in the z direction is greater than the threshold>/
+                   eZHigherThanTh,/<The acceleration in the z direction is greater than the threshold>/
    * @return true 产生了此事件
              false 未产生此事件
    */
@@ -276,19 +274,19 @@ public:
   
   /**
    * @brief Get the acceleration in the x direction
-   * @return acceleration (unit:g)
+   * @return acceleration from x (unit:g)
    */
   long readAccX();
   
   /**
    * @brief Get the acceleration in the y direction
-   * @return acceleration (unit:g)
+   * @return acceleration from y(unit:g)
    */
   long readAccY();
   
   /**
    * @brief Get the acceleration in the z direction
-   * @return acceleration (unit:g)
+   * @return acceleration from z(unit:g)
    */
   long readAccZ();
   
@@ -308,8 +306,8 @@ public:
   
   /**
    * @brief 设置睡眠状态的标志
-   * @param true(将现在的模式标记为睡眠模式)
-            false(将现在的模式标记为正常模式)
+   * @param into true(将现在的模式标记为睡眠模式)
+                 false(将现在的模式标记为正常模式)
    */
   void setSleepFlag(bool into);
 protected:
@@ -318,28 +316,24 @@ protected:
   uint8_t _range = 100;
   uint8_t chip = 0;
   bool state = true;
-  virtual uint8_t readReg(uint8_t reg,void * pBuf ,size_t size) = 0;
+  
   /**
-   * @brief Write command into sensor chip 
-   * @param reg  
-   * @param data  Data included in command
-   * @param size  The number of the byte of command
+   * @brief read data from sensor chip register
+   * @param reg chip register 
+   * @param pBuf  buf for store data to read 
+   * @param size  number of data to read
+   */
+  virtual uint8_t readReg(uint8_t reg,void * pBuf ,size_t size) = 0;
+  
+  /**
+   * @brief Write data to sensor register 
+   * @param reg register
+   * @param pBuf  buf for store data to write 
+   * @param size  The number of the data in pBuf
    */
   virtual uint8_t  writeReg(uint8_t reg,const void *pBuf,size_t size)= 0; 
-private:
-  /**
-   * @brief Get the acceleration in the three directions of xyz
-   * @return Three-axis acceleration 
-             acc_x;
-             acc_y;
-             acc_z;
-   */
-  sAccel_t getAcceFromXYZ();
-  void enableXYZ();
-  bool getDataFlag();
+
 };
-
-
 
 class DFRobot_H3LIS200DL_I2C : public DFRobot_LIS{
 public:
@@ -353,33 +347,34 @@ public:
    * @brief init function
    * @return Return 1 if initialization succeeds, otherwise return non-zero and error code.
    */
-  int begin(void);
+  uint8_t begin(void);
 protected:
 
   /**
-   * @brief Write command into sensor chip 
-   * @param 
-   * @param data  Data included in command
-   * @param size  The number of the byte of command
+   * @brief read data from sensor chip register
+   * @param reg chip register 
+   * @param pBuf  buf for store data to read 
+   * @param size  number of data to read
    */
   uint8_t readReg(uint8_t reg,void * pBuf ,size_t size);
+  
   /**
-   * @brief Write command into sensor chip 
-   * @param reg  
-   * @param data  Data included in command
-   * @param size  The number of the byte of command
+   * @brief Write data to sensor register 
+   * @param reg register
+   * @param pBuf  buf for store data to write 
+   * @param size  The number of the data in pBuf
    */
   uint8_t  writeReg(uint8_t reg,const void *pBuf,size_t size); 
 private:
   uint8_t _deviceAddr;
   TwoWire *_pWire;
 };
-class DFRobot_H3LIS200DL_SPI : public DFRobot_LIS{
 
+class DFRobot_H3LIS200DL_SPI : public DFRobot_LIS{
 public:
   /*!
    * @brief Constructor 
-   * @param cs : Chip selection pinChip selection pin
+   * @param cs : Chip selection pin 
    * @param spi :SPI controller
    */
   DFRobot_H3LIS200DL_SPI(uint8_t cs,SPIClass *spi=&SPI);
@@ -388,27 +383,29 @@ public:
    * @brief init function
    * @return Return 1 if initialization succeeds, otherwise return non-zero and error code.
    */
-  int begin(void);
+  uint8_t begin(void);
 protected:
 
   /**
-   * @brief Write command into sensor chip 
-   * @param 
-   * @param data  Data included in command
-   * @param size  The number of the byte of command
+   * @brief read data from sensor chip register
+   * @param reg chip register 
+   * @param pBuf  buf for store data to read 
+   * @param size  number of data to read
    */
   uint8_t readReg(uint8_t reg,void * pBuf ,size_t size);
+  
   /**
-   * @brief Write command into sensor chip 
-   * @param reg  
-   * @param data  Data included in command
-   * @param size  The number of the byte of command
+   * @brief Write data to sensor register 
+   * @param reg register
+   * @param pBuf  buf for store data to write 
+   * @param size  The number of the data in pBuf
    */
   uint8_t  writeReg(uint8_t reg,const void *pBuf,size_t size); 
 private:
   SPIClass *_pSpi;
   uint8_t _cs;
 };
+
 class DFRobot_LIS331HH_I2C : public DFRobot_LIS{
 public:
   /*!
@@ -421,34 +418,35 @@ public:
    * @brief init function
    * @return Return 1 if initialization succeeds, otherwise return non-zero and error code.
    */
-  int begin(void);
+  uint8_t begin(void);
 protected:
 
   /**
-   * @brief Write command into sensor chip 
-   * @param 
-   * @param data  Data included in command
-   * @param size  The number of the byte of command
+   * @brief read data from sensor chip register
+   * @param reg chip register 
+   * @param pBuf  buf for store data to read 
+   * @param size  number of data to read
    */
-    uint8_t readReg(uint8_t reg,void * pBuf ,size_t size);
+  uint8_t readReg(uint8_t reg,void * pBuf ,size_t size);
+  
   /**
-   * @brief Write command into sensor chip 
-   * @param reg  
-   * @param data  Data included in command
-   * @param size  The number of the byte of command
+   * @brief Write data to sensor register 
+   * @param reg register
+   * @param pBuf  buf for store data to write 
+   * @param size  The number of the data in pBuf
    */
-    uint8_t  writeReg(uint8_t reg,const void *pBuf,size_t size); 
+  uint8_t  writeReg(uint8_t reg,const void *pBuf,size_t size); 
 private:
     uint8_t _deviceAddr;
     TwoWire *_pWire;
 };
-class DFRobot_LIS331HH_SPI : public DFRobot_LIS{
 
+class DFRobot_LIS331HH_SPI : public DFRobot_LIS{
 public:
 
   /*!
    * @brief Constructor 
-   * @param cs : Chip selection pinChip selection pin
+   * @param cs : Chip selection pin
    * @param spi :SPI controller
    */
   DFRobot_LIS331HH_SPI(uint8_t cs,SPIClass *spi=&SPI);
@@ -457,23 +455,24 @@ public:
    * @brief init function
    * @return Return 1 if initialization succeeds, otherwise return non-zero and error code.
    */
-  int begin(void);
+  uint8_t begin(void);
 protected:
 
   /**
-   * @brief Write command into sensor chip 
-   * @param 
-   * @param data  Data included in command
-   * @param size  The number of the byte of command
+   * @brief read data from sensor chip register
+   * @param reg chip register 
+   * @param pBuf  buf for store data to read 
+   * @param size  number of data to read
    */
-    uint8_t readReg(uint8_t reg,void * pBuf ,size_t size);
+  uint8_t readReg(uint8_t reg,void * pBuf ,size_t size);
+  
   /**
-   * @brief Write command into sensor chip 
-   * @param reg  
-   * @param data  Data included in command
-   * @param size  The number of the byte of command
+   * @brief Write data to sensor register 
+   * @param reg register
+   * @param pBuf  buf for store data to write 
+   * @param size  The number of the data in pBuf
    */
-    uint8_t  writeReg(uint8_t reg,const void *pBuf,size_t size); 
+  uint8_t  writeReg(uint8_t reg,const void *pBuf,size_t size); 
 private:
     SPIClass *_pSpi;
     uint8_t _cs;

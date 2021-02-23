@@ -1,23 +1,35 @@
 # DFRobot_LIS
-The H3LIS200DL is a low-power high performance 3-axis linear accelerometer <br>
-belonging to the “nano” family, with digital I2C/SPI <br>
+The H3LIS200DL is a low-power high performance 3-axis linear accelerometer 
+belonging to the “nano” family, with digital I2C/SPI 
 serial interface standard output. <br>
-The device features ultra-low-power operational <br>
-modes that allow advanced power saving and <br>
+The device features ultra-low-power operational 
+modes that allow advanced power saving and 
 smart sleep-to-wakeup functions.<br>
-The H3LIS200DL has dynamically user selectable full scales of ±100g/±200g and is <br>
-capable of measuring accelerations with output <br>
+The H3LIS200DL has dynamically user selectable full scales of ±100g/±200g and is 
+capable of measuring accelerations with output 
 data rates from 0.5 Hz to 1 kHz.<br>
-The H3LIS200DL is available in a small thin <br>
-plastic land grid array package (LGA) and is <br>
-guaranteed to operate over an extended <br>
+The H3LIS200DL is available in a small thin 
+plastic land grid array package (LGA) and is 
+guaranteed to operate over an extended 
 temperature range from -40 °C to +85 °C.<br>
 
+The LIS331HH is an ultra low-power high 
+performance high full-scale three axes linear 
+accelerometer belonging to the “nano” family, with 
+digital I2C/SPI serial interface standard output. 
+The device features ultra low-power operational 
+modes that allow advanced power saving and 
+smart sleep to wake-up functions. 
+The LIS331HH has dynamically user selectable 
+full scales of ±6g/±12g/±24g and it is capable of 
+measuring accelerations with output data rates 
+from 0.5 Hz to 1 kHz. The self-test capability 
+allows the user to check the funct
 
 ## DFRobot_LIS Library for RaspberryPi
 ---------------------------------------------------------
 
-Provide an RaspberryPi library to get Three-axis acceleration by reading data from H3LIS200DL.
+Provide an RaspberryPi library to get Three-axis acceleration by reading data from H3LIS200DL and LIS331HH.
 
 ## Table of Contents
 
@@ -30,7 +42,7 @@ Provide an RaspberryPi library to get Three-axis acceleration by reading data fr
 
 ## Summary
 
-Provide an RaspberryPi library to get Three-axis acceleration by reading data from H3LIS200DL.
+Provide an RaspberryPi library to get Three-axis acceleration by reading data from H3LIS200DL and LIS331HH.
 
 ## Installation
 
@@ -53,7 +65,7 @@ To use this library, first download the library file, paste it into the \Arduino
 
   '''
     @brief Set the measurement range
-    @param range:Range(g)
+    @param range Range(g)
                  RANGE_100_G =0 #±100g
                  RANGE_200_G = 1# ±200g
                  LIS331H_6G = 6  #±6G
@@ -64,7 +76,7 @@ To use this library, first download the library file, paste it into the \Arduino
 
   '''
     @brief Set data measurement rate
-    @param rate:rate(HZ)
+    @param rate rate(HZ)
                  POWERDOWN_0HZ = 0
                  LOWPOWER_HALFHZ = 1 
                  LOWPOWER_1HZ = 2
@@ -81,13 +93,13 @@ To use this library, first download the library file, paste it into the \Arduino
 
   '''
     @brief Set the threshold of interrupt source 1 interrupt
-    @param threshold:Threshold(g)
+    @param threshold Threshold(g)
   '''
   set_int1_th(self,threshold)
 
   '''
     @brief Set interrupt source 2 interrupt generation threshold
-    @param threshold:Threshold(g)
+    @param threshold Threshold(g)
   '''
   set_int2_th(self,threshold)
   
@@ -109,7 +121,7 @@ To use this library, first download the library file, paste it into the \Arduino
 
   '''
     @brief Check whether the interrupt event'event' is generated in interrupt 1
-    @param event:Interrupt event
+    @param event Interrupt event
                   X_LOWTHAN_TH = 0 <The acceleration in the x direction is less than the threshold>
                   X_HIGHERTHAN_TH  = 1<The acceleration in the x direction is greater than the threshold>
                   Y_LOWTHAN_TH = 2<The acceleration in the y direction is less than the threshold>
@@ -124,7 +136,7 @@ To use this library, first download the library file, paste it into the \Arduino
          
   '''
     @brief Check whether the interrupt event'event' is generated in interrupt 2
-    @param event:Interrupt event
+    @param event Interrupt event
                   X_LOWTHAN_TH = 0 <The acceleration in the x direction is less than the threshold>
                   X_HIGHERTHAN_TH  = 1<The acceleration in the x direction is greater than the threshold>
                   Y_LOWTHAN_TH = 2<The acceleration in the y direction is less than the threshold>
@@ -139,13 +151,13 @@ To use this library, first download the library file, paste it into the \Arduino
 
   '''
     @brief Enable sleep wake function
-    @param enable:True(enable)/False(disable)
+    @param enable True(enable)/False(disable)
   '''
   enable_sleep(self, enable)
   
   '''
     @brief Set data filtering mode
-    @param mode:Four modes
+    @param mode Four modes
                 CUTOFF_MODE1 = 0
                 CUTOFF_MODE2 = 1
                 CUTOFF_MODE3 = 2
@@ -178,7 +190,7 @@ To use this library, first download the library file, paste it into the \Arduino
 
 MCU                | Work Well    | Work Wrong   | Untested    | Remarks
 ------------------ | :----------: | :----------: | :---------: | -----
-raspberry pi 3             |      √         |            |             | 
+Raspberry Pi              |      √         |            |             | 
 
 
 

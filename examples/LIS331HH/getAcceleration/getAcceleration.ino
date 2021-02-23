@@ -1,6 +1,7 @@
 /**！
  * @file getAcceleration.ino
- * @brief Get the acceleration in x, y, z directions
+ * @brief 获取x,y,z三个方向的加速度值,范围(±6g/±12g/±24g)
+ * @n 在使用SPI时片选引脚可以通过 LIS331HH_CS 的值修改
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
  * @author [fengli](li.feng@dfrobot.com)
@@ -9,7 +10,6 @@
  * @get from https://www.dfrobot.com
  * @https://github.com/DFRobot/DFRobot_LIS
  */
-
 
 #include <DFRobot_LIS.h>
 
@@ -36,6 +36,7 @@ DFRobot_LIS331HH_I2C acce;
  * @param spi :SPI controller
  */
 //DFRobot_LIS331HH_SPI acce(/*cs = */LIS331HH_CS);
+
 void setup(void){
 
   Serial.begin(9600);
@@ -74,8 +75,6 @@ void setup(void){
 }
 
 void loop(void){
-
-
 
     //Get the acceleration in the three directions of xyz
     long ax,ay,az;

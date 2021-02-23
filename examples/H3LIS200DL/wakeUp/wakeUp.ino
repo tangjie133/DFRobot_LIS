@@ -1,8 +1,9 @@
 /**！
  * @file wakeUp.ino
  * @brief 使用睡眠唤醒功能
-   @n 现象：使用此功能需要先让模块处于低功耗模式,此时的测量速率会很慢
-   @n 当有设置好的中断事件产生,模块会进入正常模式,从而测量速率加快
+ * @n 现象：使用此功能需要先让模块处于低功耗模式,此时的测量速率会很慢
+ * @n 当有设置好的中断事件产生,模块会进入正常模式,从而测量速率加快
+ * @n 在使用SPI时,片选引脚时可以通过改变宏H3LIS200DL_CS的值修改
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
  * @author [fengli](li.feng@dfrobot.com)
@@ -36,11 +37,14 @@ DFRobot_H3LIS200DL_I2C acce;
  * @param spi :SPI controller
  */
 //DFRobot_H3LIS200DL_SPI acce(/*cs = */H3LIS200DL_CS);
+
 //中断产生标志
-volatile int intFlag = 0;
+volatile bool intFlag = false;
+
 void interEvent(){
-  intFlag = 1;
+  intFlag = true;
 }
+
 void setup(void){
 
   Serial.begin(9600);
@@ -86,20 +90,20 @@ void setup(void){
   //Enable sleep wake function
   acce.enableSleep(true);
   Serial.println("sleep");
-  /**
-   * @brief Enable interrupt
-   * @param source:Interrupt pin selection
-              eINT1 = 0,/<int1 >/
-              eINT2,/<int2>/
-   * @param event:Interrupt event selection
+  /*!
+    Enable interrupt
+    Interrupt pin selection:
+      eINT1 = 0,/<int1 >/
+      eINT2,/<int2>/
+    Interrupt event selection:
                    eXLowThanTh = 0,/<The acceleration in the x direction is less than the threshold>/
-                   eXhigherThanTh ,/<The acceleration in the x direction is greater than the threshold>/
+                   eXHigherThanTh ,/<The acceleration in the x direction is greater than the threshold>/
                    eYLowThanTh,/<The acceleration in the y direction is less than the threshold>/
-                   eYhigherThanTh,/<The acceleration in the y direction is greater than the threshold>/
+                   eYHigherThanTh,/<The acceleration in the y direction is greater than the threshold>/
                    eZLowThanTh,/<The acceleration in the z direction is less than the threshold>/
-                   eZhigherThanTh,/<The acceleration in the z direction is greater than the threshold>/
+                   eZHigherThanTh,/<The acceleration in the z direction is greater than the threshold>/
    */
-  acce.enableInterruptEvent(/*int pin*/DFRobot_LIS::eINT1,/*interrupt = */DFRobot_LIS::eZhigherThanTh);
+  acce.enableInterruptEvent(/*int pin*/DFRobot_LIS::eINT1,/*interrupt event = */DFRobot_LIS::eZHigherThanTh);
   
   #if defined(ESP32) || defined(ESP8266)||defined(ARDUINO_SAM_ZERO)
   attachInterrupt(digitalPinToInterrupt(D6)/*Query the interrupt number of the D6 pin*/,interEvent,CHANGE);

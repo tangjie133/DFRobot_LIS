@@ -1,7 +1,8 @@
 /**！
  * @file interrupt.ino
  * @brief Enable  interrupt events in the sensor, and get
-   @n the interrupt signal through the interrupt pin 1/2
+ * @n the interrupt signal through the interrupt pin 1/2
+ * @n 在使用SPI时,片选引脚时可以通过改变宏H3LIS200DL_CS的值修改
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
  * @author [fengli](li.feng@dfrobot.com)
@@ -35,10 +36,12 @@ DFRobot_H3LIS200DL_I2C acce;
  * @param spi :SPI controller
  */
 //DFRobot_H3LIS200DL_SPI acce(/*cs = */H3LIS200DL_CS);
+
 //中断产生标志
-volatile int intFlag = 0;
+volatile bool intFlag = false;
+
 void interEvent(){
-  intFlag = 1;
+  intFlag = true;
 }
 
 void setup(void){
@@ -110,27 +113,27 @@ void setup(void){
    */
   acce.setInt1Th(/*Threshold = */6);//单位为:g
 
-  /**
-   * @brief Enable interrupt
-   * @param source:Interrupt pin selection
-              eINT1 = 0,/<int1 >/
-              eINT2,/<int2>/
-   * @param event:Interrupt event selection
+  /*!
+    Enable interrupt
+    Interrupt pin selection:
+      eINT1 = 0,/<int1 >/
+      eINT2,/<int2>/
+    Interrupt event selection:
                    eXLowThanTh = 0,/<The acceleration in the x direction is less than the threshold>/
-                   eXhigherThanTh ,/<The acceleration in the x direction is greater than the threshold>/
+                   eXHigherThanTh ,/<The acceleration in the x direction is greater than the threshold>/
                    eYLowThanTh,/<The acceleration in the y direction is less than the threshold>/
-                   eYhigherThanTh,/<The acceleration in the y direction is greater than the threshold>/
+                   eYHigherThanTh,/<The acceleration in the y direction is greater than the threshold>/
                    eZLowThanTh,/<The acceleration in the z direction is less than the threshold>/
-                   eZhigherThanTh,/<The acceleration in the z direction is greater than the threshold>/
+                   eZHigherThanTh,/<The acceleration in the z direction is greater than the threshold>/
    */
-  acce.enableInterruptEvent(/*int pin*/DFRobot_LIS::eINT1,/*interrupt = */DFRobot_LIS::eZhigherThanTh);
+  acce.enableInterruptEvent(/*int pin*/DFRobot_LIS::eINT1,/*interrupt event = */DFRobot_LIS::eZHigherThanTh);
   
   delay(1000);
 }
 
 void loop(void){
     //Get the acceleration in the three directions of xyz
-    Serial.print("Acceleration x: "); //print acceleration
+    Serial.print("Acceleration x: "); 
     Serial.print(acce.readAccX());
     Serial.print(" g \ty: ");
     Serial.print(acce.readAccY());
@@ -139,17 +142,17 @@ void loop(void){
     Serial.println(" g");
     delay(300);
    //The interrupt flag is set
-   if(intFlag == 1){
-      //Check whether the interrupt event is generated in interrupt 1
-      if(acce.getInt1Event(DFRobot_LIS::eYhigherThanTh)){
+   if(intFlag == true){
+      //Check wheher the interrupt event is generated in interrupt 1
+      if(acce.getInt1Event(DFRobot_LIS::eYHigherThanTh)){
         Serial.println("The acceleration in the y direction is greater than the threshold");
       }
-     if(acce.getInt1Event(DFRobot_LIS::eZhigherThanTh)){
+     if(acce.getInt1Event(DFRobot_LIS::eZHigherThanTh)){
        Serial.println("The acceleration in the z direction is greater than the threshold");
       }
-      if(acce.getInt1Event(DFRobot_LIS::eXhigherThanTh)){
+      if(acce.getInt1Event(DFRobot_LIS::eXHigherThanTh)){
         Serial.println("The acceleration in the x direction is greater than the threshold");
       }
-      intFlag = 0;
+      intFlag = false;
    }
 }

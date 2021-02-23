@@ -13,7 +13,7 @@
 #include <DFRobot_LIS.h>
 DFRobot_LIS::DFRobot_LIS(){}
 
-int DFRobot_LIS::begin(void){
+uint8_t DFRobot_LIS::begin(void){
 
 
   uint8_t identifier = 0; 
@@ -199,10 +199,6 @@ void DFRobot_LIS::enableInterruptEvent(eInterruptSource_t source,eInterruptEvent
 
   if(reset == 1){
      reg = 0;
-	 //Serial.println("reset");
-     //uint8_t reg1 = 0x84;
-     //writeReg(LIS331HH_REG_CTRL_REG3,&reg1,1);
-    // writeReg(LIS331HH_REG_INT2_CFG,&reg,1);
      reset = 0;
   }
   switch(event){
@@ -210,7 +206,7 @@ void DFRobot_LIS::enableInterruptEvent(eInterruptSource_t source,eInterruptEvent
       reg = reg | 0x01;
       break;
     }
-    case eXhigherThanTh :{
+    case eXHigherThanTh :{
       reg = reg | 0x02;
       break;
     }
@@ -218,7 +214,7 @@ void DFRobot_LIS::enableInterruptEvent(eInterruptSource_t source,eInterruptEvent
       reg = reg | 0x04;
       break;
     }
-    case eYhigherThanTh :{
+    case eYHigherThanTh :{
       reg = reg | 0x08;
       break;
     }
@@ -226,7 +222,7 @@ void DFRobot_LIS::enableInterruptEvent(eInterruptSource_t source,eInterruptEvent
       reg = reg | 0x10;
       break;
     }
-    case eZhigherThanTh :{
+    case eZHigherThanTh :{
       reg = reg | 0x20;
       break;
     }
@@ -266,34 +262,8 @@ bool DFRobot_LIS::getInt2Event(eInterruptEvent_t event)
   return false;
 }
 
-/*
-void DFRobot_LIS::setInt1PadSource(eInterruptSource_t source){
-  uint8_t reg = 0;
-  readReg(H3LIS200DL_REG_CTRL_REG3,&reg,1);
-  if(source == eINT1){
-     reg = reg & (~3);
-     //reg = reg & (~(3<<3));
-     reg = reg | (3 << 3);
-     //reg = reg | 3;
-  }else if(source == eINT2){
-     reg = reg & (~(3<<3));
-     reg = reg | 3;
-  }
-  
-  writeReg(H3LIS200DL_REG_CTRL_REG3,&reg,1);
-}
-void DFRobot_LIS::setInt2PadSource(eInterruptSource_t source){
-  uint8_t reg = 0;
-  readReg(H3LIS200DL_REG_CTRL_REG3,&reg,1);
-  if(source == eINT1){
-   
-  }else if(eINT2 == eINT2){
 
-  }
-  writeReg(H3LIS200DL_REG_CTRL_REG3,&reg,1);
-}
-*/
-int DFRobot_LIS::enableSleep(bool enable)
+uint8_t DFRobot_LIS::enableSleep(bool enable)
 {
   uint8_t reg = 0;
   uint8_t readRe = 0;
@@ -335,14 +305,6 @@ void DFRobot_LIS::setHFilterMode(eHighPassFilter_t mode){
   writeReg(REG_CTRL_REG2,&reg,1);
 }
 
-
-void DFRobot_LIS::enableXYZ(){
-  uint8_t reg = 0;
-  readReg(REG_CTRL_REG1,&reg,1);
-  reg = reg | 0x07;
-  DBG(reg);
-  writeReg(REG_CTRL_REG1,&reg,1);
-}
 
 
 long DFRobot_LIS::readAccX(){
@@ -540,7 +502,7 @@ DFRobot_H3LIS200DL_I2C::DFRobot_H3LIS200DL_I2C(TwoWire * pWire,uint8_t addr)
     chip = H3LIS200DL;
 }
 
-int DFRobot_H3LIS200DL_I2C::begin(void)
+uint8_t DFRobot_H3LIS200DL_I2C::begin(void)
 {
   _pWire->begin();
   return DFRobot_LIS::begin();
@@ -598,7 +560,7 @@ DFRobot_H3LIS200DL_SPI::DFRobot_H3LIS200DL_SPI(uint8_t cs,SPIClass *pSpi)
 
 
 
-int DFRobot_H3LIS200DL_SPI::begin(void){
+uint8_t DFRobot_H3LIS200DL_SPI::begin(void){
 
   _pSpi->begin();
   pinMode(_cs,OUTPUT);
@@ -654,7 +616,7 @@ DFRobot_LIS331HH_I2C::DFRobot_LIS331HH_I2C(TwoWire * pWire,uint8_t addr)
     chip = LIS331HH;
 }
 
-int DFRobot_LIS331HH_I2C::begin(void)
+uint8_t DFRobot_LIS331HH_I2C::begin(void)
 {
   _pWire->begin();
   return DFRobot_LIS::begin();
@@ -701,7 +663,7 @@ DFRobot_LIS331HH_SPI::DFRobot_LIS331HH_SPI(uint8_t cs,SPIClass *pSpi)
   chip = LIS331HH;
 }
 
-int DFRobot_LIS331HH_SPI::begin(void){
+uint8_t DFRobot_LIS331HH_SPI::begin(void){
 
   _pSpi->begin();
   pinMode(_cs,OUTPUT);

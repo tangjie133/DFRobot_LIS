@@ -1,6 +1,7 @@
 /**！
  * @file getAcceleration.ino
- * @brief Get the acceleration in x, y, z directions
+ * @brief 获取x,y,z三个方向的加速度值,量程(±100g/±200g)
+ * @n 在使用SPI时,片选引脚时可以通过改变宏H3LIS200DL_CS的值修改
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
  * @author [fengli](li.feng@dfrobot.com)
@@ -9,7 +10,6 @@
  * @get from https://www.dfrobot.com
  * @https://github.com/DFRobot/DFRobot_H3LIS
  */
-
 
 #include <DFRobot_LIS.h>
 
@@ -32,8 +32,8 @@ DFRobot_H3LIS200DL_I2C acce;
 #endif
 /*!
  * @brief Constructor 
- * @param cs : Chip selection pinChip selection pin
- * @param spi :SPI controller
+ * @param cs  Chip selection pinChip selection pin
+ * @param spi  SPI controller
  */
 //DFRobot_H3LIS200DL_SPI acce(/*cs = */H3LIS200DL_CS);
 
@@ -75,21 +75,19 @@ void setup(void){
 
 void loop(void){
 
-
-
-    //Get the acceleration in the three directions of xyz
-    long ax,ay,az;
-    ax = acce.readAccX();//Get the acceleration in the x direction
-    ay = acce.readAccY();//Get the acceleration in the y direction
-    az = acce.readAccZ();//Get the acceleration in the z direction
-    //acce.getAcceFromXYZ(/*accx = */ax,/*accy = */ay,/*accz = */az);//第二种获取三方向加速度的方法
-    Serial.print("Acceleration x: "); //print acceleration
-    Serial.print(ax);
-    Serial.print(" g \ty: ");
-    Serial.print(ay);
-    Serial.print(" g \tz: ");
-    Serial.print(az);
-    Serial.println(" g");
-    delay(300);
+  //Get the acceleration in the three directions of xyz
+  long ax,ay,az;
+  ax = acce.readAccX();//Get the acceleration in the x direction
+  ay = acce.readAccY();//Get the acceleration in the y direction
+  az = acce.readAccZ();//Get the acceleration in the z direction
+  //acce.getAcceFromXYZ(/*accx = */ax,/*accy = */ay,/*accz = */az);//第二种获取三方向加速度的方法
+  Serial.print("Acceleration x: "); //print acceleration
+  Serial.print(ax);
+  Serial.print(" g\t  y: ");
+  Serial.print(ay);
+  Serial.print(" g\t  z: ");
+  Serial.print(az);
+  Serial.println(" g");
+  delay(300);
 
 }
