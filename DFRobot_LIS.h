@@ -35,26 +35,26 @@
 class DFRobot_LIS
 {
 public:
-  #define REG_CARD_ID    0x0F     /*Chip id*/
-  #define REG_CTRL_REG1  0x20     /*Control register 1*/
-  #define REG_CTRL_REG4  0x23     /*Control register 4*/
-  #define REG_CTRL_REG2  0x21     /*Control register 2*/
-  #define REG_CTRL_REG3  0x22     /*Control register 3*/
-  #define REG_CTRL_REG5  0x24     /*Control register 5*/
-  #define REG_CTRL_REG6  0x25     /*Control register 6*/
-  #define REG_STATUS_REG 0x27     /*Status register*/
+  #define REG_CARD_ID      0x0F     /*Chip id*/
+  #define REG_CTRL_REG1    0x20     /*Control register 1*/
+  #define REG_CTRL_REG4    0x23     /*Control register 4*/
+  #define REG_CTRL_REG2    0x21     /*Control register 2*/
+  #define REG_CTRL_REG3    0x22     /*Control register 3*/
+  #define REG_CTRL_REG5    0x24     /*Control register 5*/
+  #define REG_CTRL_REG6    0x25     /*Control register 6*/
+  #define REG_STATUS_REG   0x27     /*Status register*/
   #define REG_OUT_X_L      0x28     /*The low order of the X-axis acceleration register*/
   #define REG_OUT_X_H      0x29     /*The high point of the X-axis acceleration register*/
   #define REG_OUT_Y_L      0x2A     /*The low order of the Y-axis acceleration register*/
   #define REG_OUT_Y_H      0x2B     /*The high point of the Y-axis acceleration register*/
   #define REG_OUT_Z_L      0x2C     /*The low order of the Z-axis acceleration register*/
   #define REG_OUT_Z_H      0x2D     /*The high point of the Z-axis acceleration register*/
-  #define REG_INT1_THS   0x32     /*Interrupt source 1 threshold*/
-  #define REG_INT2_THS   0x36     /*Interrupt source 2 threshold*/
-  #define REG_INT1_CFG   0x30     /*Interrupt source 1 configuration register*/
-  #define REG_INT2_CFG   0x34     /*Interrupt source 2 configuration register*/
-  #define REG_INT1_SRC   0x31     /*Interrupt source 1 status register*/
-  #define REG_INT2_SRC   0x35     /*Interrupt source 2 status register*
+  #define REG_INT1_THS     0x32     /*Interrupt source 1 threshold*/
+  #define REG_INT2_THS     0x36     /*Interrupt source 2 threshold*/
+  #define REG_INT1_CFG     0x30     /*Interrupt source 1 configuration register*/
+  #define REG_INT2_CFG     0x34     /*Interrupt source 2 configuration register*/
+  #define REG_INT1_SRC     0x31     /*Interrupt source 1 status register*/
+  #define REG_INT2_SRC     0x35     /*Interrupt source 2 status register*
 
 public:
 
