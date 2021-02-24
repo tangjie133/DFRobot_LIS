@@ -39,7 +39,7 @@ DFRobot_LIS331HH_I2C acce;
 //DFRobot_LIS331HH_SPI acce(/*cs = */LIS331HH_CS);
 
 //中断产生标志
-volatile int intFlag = 0;
+volatile uint8_t intFlag = 0;
 void interEvent(){
   intFlag = 1;
   acce.setSleepFlag(false);
