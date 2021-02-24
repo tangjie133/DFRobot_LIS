@@ -65,8 +65,8 @@ class DFRobot_LIS(object):
   '''
   Sensor range selection
   '''
-  H3LIS200DL_100G = 100 # ±100G
-  H3LIS200DL_200G = 200 # ±200G
+  H3LIS200DL_100G = 100 #±100G
+  H3LIS200DL_200G = 200 #±200G
 
   LIS331H_6G      = 6   #±6G
   LIS331H_12G     = 12  #±12G
@@ -293,8 +293,8 @@ class DFRobot_LIS(object):
                   Z_LOWTHAN_TH     = 4<The acceleration in the z direction is less than the threshold
                   Z_HIGHERTHAN_TH  = 5<The acceleration in the z direction is greater than the threshold>
                   EVENT_ERROR      = 6 <No event>
-    @return true 锛歱roduce
-            false锛欼nterrupt event
+    @return true 产生了此事件
+            false 未产生此事件
   '''
   def get_int1_event(self,event):
     reg = self.read_reg(self.REG_INT1_SRC)
@@ -313,8 +313,8 @@ class DFRobot_LIS(object):
                   Z_LOWTHAN_TH     = 4<The acceleration in the z direction is less than the threshold
                   Z_HIGHERTHAN_TH  = 5<The acceleration in the z direction is greater than the threshold>
                   EVENT_ERROR      = 6 <No event>
-    @return true 锛歱roduce
-            false锛欼nterrupt event
+    @return true 产生了此事件
+            false 未产生此事件
   '''
   def get_int2_event(self,event):
     reg = self.read_reg(self.REG_INT2_SRC)
@@ -435,6 +435,13 @@ class DFRobot_H3LIS_I2C(DFRobot_LIS):
     time.sleep(0.01)
     rslt = self.i2cbus.read_byte(self.__addr)
     return rslt
+  
+  '''
+    @brief  Set External Interrupt
+    @param pin Interrupt pin
+    @param cb Interrupt service function
+    @param mode Interrupt trigger mode
+  '''
   def attach_interrupt(self,pin, cb,mode):
     RPIGPIO.setup(pin, RPIGPIO.IN)
     if mode != RPIGPIO.RISING and mode != RPIGPIO.FALLING and mode != RPIGPIO.BOTH:
@@ -476,7 +483,13 @@ class DFRobot_H3LIS_SPI(DFRobot_LIS):
      data = self.__spi.readbytes(1)
      RPIGPIO.output(self.__cs, RPIGPIO.HIGH)
      return  data[0]
-
+  
+  '''
+    @brief  Set External Interrupt
+    @param pin Interrupt pin
+    @param cb Interrupt service function
+    @param mode Interrupt trigger mode
+  '''
   def attach_interrupt(self,pin, cb,mode):
     RPIGPIO.setup(pin, RPIGPIO.IN)
     if mode != RPIGPIO.RISING and mode != RPIGPIO.FALLING and mode != RPIGPIO.BOTH:
@@ -511,6 +524,13 @@ class DFRobot_LIS331HH_I2C(DFRobot_LIS):
     rslt = self.i2cbus.read_byte(self.__addr)
     #print(rslt)
     return rslt
+  
+  '''
+    @brief  Set External Interrupt
+    @param pin Interrupt pin
+    @param cb Interrupt service function
+    @param mode Interrupt trigger mode
+  '''
   def attach_interrupt(self,pin, cb,mode):
     RPIGPIO.setup(pin, RPIGPIO.IN)
     if mode != RPIGPIO.RISING and mode != RPIGPIO.FALLING and mode != RPIGPIO.BOTH:
@@ -554,7 +574,13 @@ class DFRobot_LIS331HH_SPI(DFRobot_LIS):
      RPIGPIO.output(self.__cs, RPIGPIO.HIGH)
      #print(data)
      return  data[0]
-
+  
+  '''
+    @brief  Set External Interrupt
+    @param pin Interrupt pin
+    @param cb Interrupt service function
+    @param mode Interrupt trigger mode
+  '''
   def attach_interrupt(self,pin, cb,mode):
     RPIGPIO.setup(pin, RPIGPIO.IN)
     if mode != RPIGPIO.RISING and mode != RPIGPIO.FALLING and mode != RPIGPIO.BOTH:
