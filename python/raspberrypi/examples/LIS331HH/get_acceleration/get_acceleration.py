@@ -1,7 +1,8 @@
 # -*- coding:utf-8 -*-
 """
   @file get_acceleration.py
-  @brief Get the acceleration in x, y, z directions
+  @brief 获取x,y,z三个方向的加速度值,范围(±6g/±12g/±24g)
+  @n 在使用SPI时,片选引脚时可以通过改变RASPBERRY_PIN_CS的值修改
   @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
   @licence     The MIT License (MIT)
   @author [fengli](li.feng@dfrobot.com)
@@ -22,10 +23,10 @@ import time
 #acce = DFRobot_LIS331HH_SPI(RASPBERRY_PIN_CS)
 
 
-#如果你想要应IIC驱动此模块，打卡下面三行的注释，并通过I2C连接好模块和树莓派
-I2C_MODE         = 0x01             #default use I2C1
-ADDRESS_0        = 0x19             #I2C address
-acce = DFRobot_LIS331HH_I2C(I2C_MODE ,ADDRESS_0)
+#如果你想要应IIC驱动此模块，打开下面三行的注释，并通过I2C连接好模块和树莓派
+I2C_BUS         = 0x01            #default use I2C1
+ADDRESS         = 0x19            #I2C address
+acce = DFRobot_LIS331HH_I2C(I2C_BUS ,ADDRESS)
 
 #Chip initialization
 acce.begin()
@@ -35,9 +36,9 @@ print(acce.get_id())
 
 '''
 set range:Range(g)
-          LIS331H_6G = 6  #±6G
+          LIS331H_6G  = 6   #±6G
           LIS331H_12G = 12  #±12G
-          LIS331H_24G = 24   #±24G
+          LIS331H_24G = 24  #±24G
 '''
 acce.set_range(acce.LIS331H_6G)
 

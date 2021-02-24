@@ -127,8 +127,6 @@ To use this library, first download the library file, paste it into the \Arduino
    */
   uint8_t enableSleep(bool enable);
   
-
-
   /**
    * @brief Check whether the interrupt event'event' is generated in interrupt 1
    * @param event Interrupt event
@@ -195,7 +193,6 @@ To use this library, first download the library file, paste it into the \Arduino
                  false(将现在的模式标记为正常模式)
    */
   void setSleepFlag(bool into);
-protected:
 ```
 
 ## Compatibility
@@ -211,6 +208,10 @@ Micro:bit        |      √       |              |             |
 FireBeetle-M0        |      √       |              |             | 
 Raspberry Pi      |      √       |              |             | 
 
+CHIP                | Work Well    | Work Wrong  | Remarks
+------------------ | :----------: | :----------| -----
+H3LIS200DL       |      √       |              |             
+LIS331HH      |      √       |              |   
 ## History
 
 - data 2021-2-1

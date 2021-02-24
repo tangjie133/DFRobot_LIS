@@ -66,27 +66,27 @@ To use this library, first download the library file, paste it into the \Arduino
   '''
     @brief Set the measurement range
     @param range Range(g)
-                 RANGE_100_G =0 #±100g
-                 RANGE_200_G = 1# ±200g
-                 LIS331H_6G = 6  #±6G
-                 LIS331H_12G = 12  #±12G
-                 LIS331H_24G = 24   #±24G
+                 RANGE_100_G    #±100g
+                 RANGE_200_G    # ±200g
+                 LIS331H_6G     #±6G
+                 LIS331H_12G    #±12G
+                 LIS331H_24G    #±24G
   '''
   set_range(self,range_r)
 
   '''
     @brief Set data measurement rate
     @param rate rate(HZ)
-                 POWERDOWN_0HZ = 0
-                 LOWPOWER_HALFHZ = 1 
-                 LOWPOWER_1HZ = 2
-                 LOWPOWER_2HZ = 3
-                 LOWPOWER_5HZ = 4
-                 LOWPOWER_10HZ = 5 
-                 NORMAL_50HZ = 6
-                 NORMAL_100HZ = 7
-                 NORMAL_400HZ = 8
-                 NORMAL_1000HZ = 9
+                 POWERDOWN_0HZ   
+                 LOWPOWER_HALFHZ 
+                 LOWPOWER_1HZ    
+                 LOWPOWER_2HZ 
+                 LOWPOWER_5HZ
+                 LOWPOWER_10HZ 
+                 NORMAL_50HZ
+                 NORMAL_100HZ 
+                 NORMAL_400HZ 
+                 NORMAL_1000HZ 
   '''
   set_acquire_rate(self, rate)
 
@@ -109,26 +109,26 @@ To use this library, first download the library file, paste it into the \Arduino
              INT_1 = 0,/<int pad 1 >/
              INT_2,/<int pad 2>/
     @param event Interrupt event selection
-                 X_LOWTHAN_TH = 0 <The acceleration in the x direction is less than the threshold>
+                 X_LOWTHAN_TH     = 0 <The acceleration in the x direction is less than the threshold>
                  X_HIGHERTHAN_TH  = 1<The acceleration in the x direction is greater than the threshold>
-                 Y_LOWTHAN_TH = 2<The acceleration in the y direction is less than the threshold>
-                 Y_HIGHERTHAN_TH = 3<The acceleration in the y direction is greater than the threshold>
-                 Z_LOWTHAN_TH = 4<The acceleration in the z direction is less than the threshold
-                 Z_HIGHERTHAN_TH = 5<The acceleration in the z direction is greater than the threshold>
-                 EVENT_ERROR = 6 <No event>
+                 Y_LOWTHAN_TH     = 2<The acceleration in the y direction is less than the threshold>
+                 Y_HIGHERTHAN_TH  = 3<The acceleration in the y direction is greater than the threshold>
+                 Z_LOWTHAN_TH     = 4<The acceleration in the z direction is less than the threshold
+                 Z_HIGHERTHAN_TH  = 5<The acceleration in the z direction is greater than the threshold>
+                 EVENT_ERROR      = 6 <No event>
   '''
   enable_int_event(self,source,event)
 
   '''
     @brief Check whether the interrupt event'event' is generated in interrupt 1
     @param event Interrupt event
-                  X_LOWTHAN_TH = 0 <The acceleration in the x direction is less than the threshold>
+                  X_LOWTHAN_TH     = 0 <The acceleration in the x direction is less than the threshold>
                   X_HIGHERTHAN_TH  = 1<The acceleration in the x direction is greater than the threshold>
-                  Y_LOWTHAN_TH = 2<The acceleration in the y direction is less than the threshold>
-                  Y_HIGHERTHAN_TH = 3<The acceleration in the y direction is greater than the threshold>
-                  Z_LOWTHAN_TH = 4<The acceleration in the z direction is less than the threshold
-                  Z_HIGHERTHAN_TH = 5<The acceleration in the z direction is greater than the threshold>
-                  EVENT_ERROR = 6 <No event>
+                  Y_LOWTHAN_TH     = 2<The acceleration in the y direction is less than the threshold>
+                  Y_HIGHERTHAN_TH  = 3<The acceleration in the y direction is greater than the threshold>
+                  Z_LOWTHAN_TH     = 4<The acceleration in the z direction is less than the threshold
+                  Z_HIGHERTHAN_TH  = 5<The acceleration in the z direction is greater than the threshold>
+                  EVENT_ERROR      = 6 <No event>
     @return True ：产生了此事件
             False：未产生此事件
   '''
@@ -137,13 +137,13 @@ To use this library, first download the library file, paste it into the \Arduino
   '''
     @brief Check whether the interrupt event'event' is generated in interrupt 2
     @param event Interrupt event
-                  X_LOWTHAN_TH = 0 <The acceleration in the x direction is less than the threshold>
+                  X_LOWTHAN_TH     = 0 <The acceleration in the x direction is less than the threshold>
                   X_HIGHERTHAN_TH  = 1<The acceleration in the x direction is greater than the threshold>
-                  Y_LOWTHAN_TH = 2<The acceleration in the y direction is less than the threshold>
-                  Y_HIGHERTHAN_TH = 3<The acceleration in the y direction is greater than the threshold>
-                  Z_LOWTHAN_TH = 4<The acceleration in the z direction is less than the threshold
-                  Z_HIGHERTHAN_TH = 5<The acceleration in the z direction is greater than the threshold>
-                  EVENT_ERROR = 6 <No event>
+                  Y_LOWTHAN_TH     = 2<The acceleration in the y direction is less than the threshold>
+                  Y_HIGHERTHAN_TH  = 3<The acceleration in the y direction is greater than the threshold>
+                  Z_LOWTHAN_TH     = 4<The acceleration in the z direction is less than the threshold
+                  Z_HIGHERTHAN_TH  = 5<The acceleration in the z direction is greater than the threshold>
+                  EVENT_ERROR      = 6 <No event>
     @return True ：产生了此事件
             False：未产生此事件
   '''
@@ -162,7 +162,7 @@ To use this library, first download the library file, paste it into the \Arduino
                 CUTOFF_MODE2 = 1
                 CUTOFF_MODE3 = 2
                 CUTOFF_MODE4 = 3
-     High-pass filter cut-off frequency configuration
+                            High-pass filter cut-off frequency configuration
     |--------------------------------------------------------------------------------------------------------|
     |                |    ft [Hz]      |        ft [Hz]       |       ft [Hz]        |        ft [Hz]        |
     |   mode         |Data rate = 50 Hz|   Data rate = 100 Hz |  Data rate = 400 Hz  |   Data rate = 1000 Hz |
@@ -192,8 +192,10 @@ MCU                | Work Well    | Work Wrong   | Untested    | Remarks
 ------------------ | :----------: | :----------: | :---------: | -----
 Raspberry Pi              |      √         |            |             | 
 
-
-
+CHIP                | Work Well    | Work Wrong  | Remarks
+------------------ | :----------: | :----------| -----
+H3LIS200DL       |      √       |              |             
+LIS331HH      |      √       |              |   
 
 ## History
 

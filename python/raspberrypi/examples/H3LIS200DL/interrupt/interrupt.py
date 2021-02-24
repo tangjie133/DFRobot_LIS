@@ -22,10 +22,9 @@ import time
 
 INT1 = 26                           #Interrupt pin
 int_pad_Flag = False                 #intPad flag
-def int_pad_callback():
+def int_pad_callback(status):
   global int_pad_Flag
   int_pad_Flag = True
-
 
 
 #如果你想要用SPI驱动此模块，打开下面两行的注释,并通过SPI连接好模块和树莓派
@@ -34,12 +33,12 @@ def int_pad_callback():
 
 
 #如果你想要应IIC驱动此模块，打开下面三行的注释，并通过I2C连接好模块和树莓派
-I2C_MODE         = 0x01             #default use I2C1
-ADDRESS_0        = 0x19             #I2C address
-acce = DFRobot_H3LIS_I2C(I2C_MODE ,ADDRESS_0)
+I2C_BUS         = 0x01            #default use I2C1
+ADDRESS         = 0x19            #I2C address
+acce = DFRobot_H3LIS_I2C(I2C_BUS ,ADDRESS)
 
-int_pad = GPIO(INT1, GPIO.IN)                   # set int_Pad to input
-int_pad.setInterrupt(GPIO.FALLING, int_pad_callback) #set int_Pad interrupt callback
+# set int_Pad to input
+acce.attach_interrupt(INT1, int_pad_callback,RPIGPIO.RISING) #set int_Pad interrupt callback
 
 
 #Chip initialization
@@ -83,13 +82,13 @@ acce.set_int1_th(5);
          INT_1 = 0,/<int pad 1 >/
          INT_2,/<int pad 2>/
 @param event Interrupt event selection
-             X_LOWTHAN_TH = 0 <The acceleration in the x direction is less than the threshold>
+             X_LOWTHAN_TH     = 0<The acceleration in the x direction is less than the threshold>
              X_HIGHERTHAN_TH  = 1<The acceleration in the x direction is greater than the threshold>
-             Y_LOWTHAN_TH = 2<The acceleration in the y direction is less than the threshold>
-             Y_HIGHERTHAN_TH = 3<The acceleration in the y direction is greater than the threshold>
-             Z_LOWTHAN_TH = 4<The acceleration in the z direction is less than the threshold
-             Z_HIGHERTHAN_TH = 5<The acceleration in the z direction is greater than the threshold>
-             EVENT_ERROR = 6 <No event>
+             Y_LOWTHAN_TH     = 2<The acceleration in the y direction is less than the threshold>
+             Y_HIGHERTHAN_TH  = 3<The acceleration in the y direction is greater than the threshold>
+             Z_LOWTHAN_TH     = 4<The acceleration in the z direction is less than the threshold
+             Z_HIGHERTHAN_TH  = 5<The acceleration in the z direction is greater than the threshold>
+             EVENT_ERROR      = 6 <No event>
 '''
 acce.enable_int_event(acce.INT_1,acce.Y_HIGHERTHAN_TH)
 time.sleep(1)

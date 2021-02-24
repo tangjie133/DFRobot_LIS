@@ -3,6 +3,7 @@
    @file interrupt.py
    @brief Enable interrupt events in the sensor, and get
    @n the interrupt signal through the interrupt pin
+   @n 在使用SPI时,片选引脚时可以通过改变RASPBERRY_PIN_CS的值修改
    @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
    @licence     The MIT License (MIT)
    @author [fengli](li.feng@dfrobot.com)
@@ -22,7 +23,7 @@ import time
 
 INT1 = 26                           #Interrupt pin
 int_pad_Flag = False                 #intPad flag
-def int_pad_callback():
+def int_pad_callback(status):
   global int_pad_Flag
   int_pad_Flag = True
 
@@ -31,13 +32,12 @@ def int_pad_callback():
 #acce = DFRobot_LIS331HH_SPI(RASPBERRY_PIN_CS)
 
 
-#如果你想要应IIC驱动此模块，打开下面三行的注释，并通过I2C连接好模块和树莓树莓派
-I2C_MODE         = 0x01             #default use I2C1
-ADDRESS_0        = 0x19             #I2C address
-acce = DFRobot_LIS331HH_I2C(I2C_MODE ,ADDRESS_0)
+#如果你想要应IIC驱动此模块，打开下面三行的注释，并通过I2C连接好模块和树莓派
+I2C_BUS         = 0x01            #default use I2C1
+ADDRESS         = 0x19            #I2C address
+acce = DFRobot_LIS331HH_I2C(I2C_BUS ,ADDRESS)
 
-int_pad = GPIO(INT1, GPIO.IN)                   # set int_Pad to input
-int_pad.setInterrupt(GPIO.FALLING, int_pad_callback) #set int_Pad interrupt callback
+acce.attach_interrupt(INT1, int_pad_callback,RPIGPIO.RISING) #set int_Pad interrupt callback
 
 
 #Chip initialization
@@ -75,29 +75,30 @@ acce.set_acquire_rate(acce.NORMAL_50HZ)
 Set the threshold of interrupt source 1 interrupt
 threshold Threshold(g),范围是设置好的的测量量程
 '''
-acce.set_int1_th(2);
+acce.set_int2_th(2);
 
 '''
-@brief Enable interrupt
-@param source Interrupt pin selection
+Enable interrupt
+Interrupt pin selection
          INT_1 = 0,/<int pad 1 >/
          INT_2,/<int pad 2>/
-@param event Interrupt event selection
-             X_LOWTHAN_TH = 0 <The acceleration in the x direction is less than the threshold>
+Interrupt event selection
+             X_LOWTHAN_TH     = 0<The acceleration in the x direction is less than the threshold>
              X_HIGHERTHAN_TH  = 1<The acceleration in the x direction is greater than the threshold>
-             Y_LOWTHAN_TH = 2<The acceleration in the y direction is less than the threshold>
-             Y_HIGHERTHAN_TH = 3<The acceleration in the y direction is greater than the threshold>
-             Z_LOWTHAN_TH = 4<The acceleration in the z direction is less than the threshold
-             Z_HIGHERTHAN_TH = 5<The acceleration in the z direction is greater than the threshold>
-             EVENT_ERROR = 6 <No event>
+             Y_LOWTHAN_TH     = 2<The acceleration in the y direction is less than the threshold>
+             Y_HIGHERTHAN_TH  = 3<The acceleration in the y direction is greater than the threshold>
+             Z_LOWTHAN_TH     = 4<The acceleration in the z direction is less than the threshold
+             Z_HIGHERTHAN_TH  = 5<The acceleration in the z direction is greater than the threshold>
+             EVENT_ERROR      = 6 <No event>
 '''
-acce.enable_int_event(acce.INT_1,acce.Y_HIGHERTHAN_TH)
+acce.enable_int_event(acce.INT_2,acce.Y_HIGHERTHAN_TH)
 time.sleep(1)
 
 while True:
     
     if(int_pad_Flag == True):
       #Check whether the interrupt event'source' is generated in interrupt 1
+      print(int_pad_Flag)
       if acce.get_int1_event(acce.Y_HIGHERTHAN_TH) == True:
          print("The acceleration in the y direction is greater than the threshold")
       
