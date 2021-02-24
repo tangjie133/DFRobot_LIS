@@ -295,6 +295,7 @@ public:
    * @param accx 储存x方向加速度的变量
    * @param accy 储存y方向加速度的变量
    * @param accz 储存z方向加速度的变量
+   * @return true(成功获取数据)/false(数据未准备好)
    */
   bool getAcceFromXYZ(long &accx,long &accy,long &accz);
 
@@ -355,6 +356,7 @@ protected:
    * @param reg chip register 
    * @param pBuf  buf for store data to read 
    * @param size  number of data to read
+   * @return 成功读数据的个数
    */
   uint8_t readReg(uint8_t reg,void * pBuf ,size_t size);
   
@@ -363,6 +365,7 @@ protected:
    * @param reg register
    * @param pBuf  buf for store data to write 
    * @param size  The number of the data in pBuf
+   * @return 成功发送数据的个数
    */
   uint8_t  writeReg(uint8_t reg,const void *pBuf,size_t size); 
 private:
@@ -391,6 +394,7 @@ protected:
    * @param reg chip register 
    * @param pBuf  buf for store data to read 
    * @param size  number of data to read
+   * @return 成功读数据的个数
    */
   uint8_t readReg(uint8_t reg,void * pBuf ,size_t size);
   
@@ -399,6 +403,7 @@ protected:
    * @param reg register
    * @param pBuf  buf for store data to write 
    * @param size  The number of the data in pBuf
+   * @return 成功发送数据的个数
    */
   uint8_t  writeReg(uint8_t reg,const void *pBuf,size_t size); 
 private:
@@ -426,6 +431,7 @@ protected:
    * @param reg chip register 
    * @param pBuf  buf for store data to read 
    * @param size  number of data to read
+   * @return 成功读数据的个数
    */
   uint8_t readReg(uint8_t reg,void * pBuf ,size_t size);
   
@@ -434,6 +440,7 @@ protected:
    * @param reg register
    * @param pBuf  buf for store data to write 
    * @param size  The number of the data in pBuf
+   * @return 成功发送数据的个数
    */
   uint8_t  writeReg(uint8_t reg,const void *pBuf,size_t size); 
 private:
@@ -463,6 +470,7 @@ protected:
    * @param reg chip register 
    * @param pBuf  buf for store data to read 
    * @param size  number of data to read
+   * @return 成功读数据的个数
    */
   uint8_t readReg(uint8_t reg,void * pBuf ,size_t size);
   
@@ -471,6 +479,7 @@ protected:
    * @param reg register
    * @param pBuf  buf for store data to write 
    * @param size  The number of the data in pBuf
+   * @return 成功发送数据的个数
    */
   uint8_t  writeReg(uint8_t reg,const void *pBuf,size_t size); 
 private:
