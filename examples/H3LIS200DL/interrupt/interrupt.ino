@@ -50,7 +50,7 @@ void setup(void){
     //Chip initialization
   while(acce.begin()){
      delay(1000);
-     Serial.println("init failure");
+     Serial.println("初始化失败，请检查连线与I2C地址设置");
   }
   //Get chip id
   Serial.print("chip id : ");

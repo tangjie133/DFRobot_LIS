@@ -2,7 +2,7 @@
  * @file interrupt.ino
  * @brief Enable  interrupt events in the sensor, and get
  * @n the interrupt signal through the interrupt pin 1/2
- * @n 在使用SPI时,片选引脚时可以通过改变宏LIS331HH_CS的值修改
+ * @n 在使用SPI时,片选引脚可以通过改变宏LIS331HH_CS的值修改
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
  * @author [fengli](li.feng@dfrobot.com)
@@ -32,8 +32,8 @@ DFRobot_LIS331HH_I2C acce;
 #endif
 /*!
  * @brief Constructor 
- * @param cs : Chip selection pinChip selection pin
- * @param spi :SPI controller
+ * @param cs Chip selection pinChip selection pin
+ * @param spi SPI controller
  */
 //DFRobot_LIS331HH_SPI acce(/*cs = */LIS331HH_CS);
 
@@ -49,7 +49,7 @@ void setup(void){
   //Chip initialization
   while(acce.begin()){
      delay(1000);
-     Serial.println("init failure");
+     Serial.println("初始化失败，请检查连线与I2C地址设置");
   }
   Serial.print("chip id : ");
   Serial.println(acce.getID(),HEX);
