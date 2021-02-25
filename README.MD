@@ -178,6 +178,7 @@ To use this library, first download the library file, paste it into the \Arduino
    * @param accx 储存x方向加速度的变量
    * @param accy 储存y方向加速度的变量
    * @param accz 储存z方向加速度的变量
+   * @return true(成功获取数据)/false(数据未准备好)
    */
   bool getAcceFromXYZ(long &accx,long &accy,long &accz);
 
