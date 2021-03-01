@@ -120,12 +120,12 @@ void setup(void){
       eINT1 = 0,/<int1 >/
       eINT2,/<int2>/
     Interrupt event selection:
-                   eXLowThanTh = 0,/<The acceleration in the x direction is less than the threshold>/
-                   eXHigherThanTh ,/<The acceleration in the x direction is greater than the threshold>/
-                   eYLowThanTh,/<The acceleration in the y direction is less than the threshold>/
-                   eYHigherThanTh,/<The acceleration in the y direction is greater than the threshold>/
-                   eZLowThanTh,/<The acceleration in the z direction is less than the threshold>/
-                   eZHigherThanTh,/<The acceleration in the z direction is greater than the threshold>/
+      eXLowThanTh =,/<The acceleration in the x direction is less than the threshold>/
+      eXHigherThanTh ,/<The acceleration in the x direction is greater than the threshold>/
+      eYLowThanTh,/<The acceleration in the y direction is less than the threshold>/
+      eYHigherThanTh,/<The acceleration in the y direction is greater than the threshold>/
+      eZLowThanTh,/<The acceleration in the z direction is less than the threshold>/
+      eZHigherThanTh,/<The acceleration in the z direction is greater than the threshold>/
    */
   acce.enableInterruptEvent(/*int pin*/DFRobot_LIS::eINT1,/*interrupt event = */DFRobot_LIS::eZHigherThanTh);
   

@@ -50,7 +50,7 @@ To use this library, first download the library file, paste it into the \Arduino
               eINT1 = 0,/<int1 >/
               eINT2,/<int2>/
    * @param event Interrupt event selection
-                   eXLowThanTh = 0,/<The acceleration in the x direction is less than the threshold>/
+                   eXLowThanTh ,/<The acceleration in the x direction is less than the threshold>/
                    eXHigherThanTh ,/<The acceleration in the x direction is greater than the threshold>/
                    eYLowThanTh,/<The acceleration in the y direction is less than the threshold>/
                    eYHigherThanTh,/<The acceleration in the y direction is greater than the threshold>/
@@ -134,7 +134,7 @@ To use this library, first download the library file, paste it into the \Arduino
   /**
    * @brief Check whether the interrupt event'event' is generated in interrupt 1
    * @param event Interrupt event
-                   eXLowThanTh = 0,/<The acceleration in the x direction is less than the threshold>/
+                   eXLowThanTh ,/<The acceleration in the x direction is less than the threshold>/
                    eXHigherThanTh ,/<The acceleration in the x direction is greater than the threshold>/
                    eYLowThanTh,/<The acceleration in the y direction is less than the threshold>/
                    eYHigherThanTh,/<The acceleration in the y direction is greater than the threshold>/
@@ -148,7 +148,7 @@ To use this library, first download the library file, paste it into the \Arduino
   /**
    * @brief Check whether the interrupt event'event' is generated in interrupt 2
    * @param event Interrupt event
-                   eXLowThanTh = 0,/<The acceleration in the x direction is less than the threshold>/
+                   eXLowThanTh ,/<The acceleration in the x direction is less than the threshold>/
                    eXHigherThanTh ,/<The acceleration in the x direction is greater than the threshold>/
                    eYLowThanTh,/<The acceleration in the y direction is less than the threshold>/
                    eYHigherThanTh,/<The acceleration in the y direction is greater than the threshold>/
