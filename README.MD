@@ -4,15 +4,10 @@ LIS系列三轴加速度传感器
 CHIP                | Work Well    | Work Wrong  | Remarks
 ------------------ | :----------: | :----------| -----
 H3LIS200DL       |      √       |              |             
-LIS331HH      |      √       |              |   
-<<<<<<< HEAD
-![正反面svg效果图](https://github.com/cdjq/DFRobot_Sensor/raw/master/resources/images/SEN0245svg1.png)
-
-=======
+LIS331HH      |      √       |              |  
 
 ![正反面svg效果图](https://github.com/cdjq/DFRobot_Sensor/raw/master/resources/images/SEN0245svg1.png)
 
->>>>>>> ef995af2902cfba31462486c157ab67cb4e6be9c
 ## 产品链接（链接到英文商城）
     SKU：产品名称
 
