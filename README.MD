@@ -5,6 +5,7 @@ CHIP                | Work Well    | Work Wrong  | Remarks
 ------------------ | :----------: | :----------| -----
 H3LIS200DL       |      √       |              |             
 LIS331HH      |      √       |              |   
+
 ![正反面svg效果图](https://github.com/cdjq/DFRobot_Sensor/raw/master/resources/images/SEN0245svg1.png)
 
 ## 产品链接（链接到英文商城）
