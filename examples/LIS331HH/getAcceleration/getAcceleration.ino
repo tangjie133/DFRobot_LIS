@@ -1,6 +1,6 @@
 /**！
  * @file getAcceleration.ino
- * @brief 获取x,y,z三个方向的加速度值,范围(±6g/±12g/±24g)
+ * @brief 获取x,y,z三个方向的加速度值,三个方向加速度的量程可选择±6g/±12g/±24g
  * @n 在使用SPI时片选引脚可以通过 LIS331HH_CS 的值修改
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
@@ -41,7 +41,7 @@ void setup(void){
 
   Serial.begin(9600);
   //Chip initialization
-  while(acce.begin()){
+  while(!acce.begin()){
      delay(1000);
      Serial.println("初始化失败，请检查连线与I2C地址设置");
   }

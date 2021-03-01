@@ -2,7 +2,7 @@
  * @file wakeUp.ino
  * @brief 使用睡眠唤醒功能
  * @n 现象：使用此功能需要先让模块处于低功耗模式,此时的测量速率会很慢
- * @n 当有设置好的中断事件产生,模块会进入正常模式,从而测量速率加快
+ * @n 当有设置好的中断事件产生,模块会进入正常模式,测量速率加快
  * @n 在使用SPI时,片选引脚时可以通过改变宏H3LIS200DL_CS的值修改
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
@@ -49,7 +49,7 @@ void setup(void){
 
   Serial.begin(9600);
   //Chip initialization
-  while(acce.begin()){
+  while(!acce.begin()){
      delay(1000);
      Serial.println("初始化失败，请检查连线与I2C地址设置");
   }
