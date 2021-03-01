@@ -43,8 +43,7 @@ class DFRobot_LIS(object):
   REG_INT1_SRC   = 0x31       #Interrupt source 1 status register
   REG_INT2_SRC   = 0x35       #Interrupt source 2 status register
   SPI_READ_BIT   = 0X80       # bit 0: RW bit. When 0, the data DI(7:0) is written into the device. When 1, the data DO(7:0) from the device is read.
-  0x10
-  ENABLE_FILTER  = 0X10       #使能滤波
+  ENABLE_FILTER  = 0X10       #浣胯兘婊ゆ尝
   __reset = 0
   __chip = 0
   
@@ -66,12 +65,12 @@ class DFRobot_LIS(object):
   '''
   Sensor range selection
   '''
-  H3LIS200DL_100G = 100 #±100G
-  H3LIS200DL_200G = 200 #±200G
+  H3LIS200DL_100G = 100 #卤100G
+  H3LIS200DL_200G = 200 #卤200G
 
-  LIS331H_6G      = 6   #±6G
-  LIS331H_12G     = 12  #±12G
-  LIS331H_24G     = 24  #±24G
+  LIS331H_6G      = 6   #卤6G
+  LIS331H_12G     = 12  #卤12G
+  LIS331H_24G     = 24  #卤24G
 
   '''
   #                           High-pass filter cut-off frequency configuration
@@ -115,7 +114,7 @@ class DFRobot_LIS(object):
 
   '''
     @brief Initialize the function
-    @return return True(成功)/False(失败)
+    @return return True(鎴愬姛)/False(澶辫触)
   '''
   def begin(self):
     identifier = self.read_reg(self.REG_CARD_ID)
@@ -213,8 +212,8 @@ class DFRobot_LIS(object):
                  Z_LOWTHAN_TH     = 0X10  #The acceleration in the z direction is less than the threshold
                  Z_HIGHERTHAN_TH  = 0X20  #The acceleration in the z direction is greater than the threshold
                  EVENT_ERROR      = 0  # No event
-    @return true 产生了此事件
-            false 未产生此事件
+    @return true 浜х敓浜嗘浜嬩欢
+            false 鏈骇鐢熸浜嬩欢
   '''
   def get_int1_event(self,event):
     reg = self.read_reg(self.REG_INT1_SRC)
@@ -233,8 +232,8 @@ class DFRobot_LIS(object):
                  Z_LOWTHAN_TH     = 0X10  #The acceleration in the z direction is less than the threshold
                  Z_HIGHERTHAN_TH  = 0X20  #The acceleration in the z direction is greater than the threshold
                  EVENT_ERROR      = 0  # No event
-    @return true 产生了此事件
-            false 未产生此事件
+    @return true 浜х敓浜嗘浜嬩欢
+            false 鏈骇鐢熸浜嬩欢
   '''
   def get_int2_event(self,event):
     reg = self.read_reg(self.REG_INT2_SRC)
@@ -299,8 +298,8 @@ class DFRobot_H3LIS200DL_I2C(DFRobot_LIS):
   '''
     @brief Set the measurement range
     @param range:Range(g)
-                 H3LIS200DL_100G = 100   #±100g
-                 H3LIS200DL_200G = 200   #±200g
+                 H3LIS200DL_100G = 100   #卤100g
+                 H3LIS200DL_200G = 200   #卤200g
   '''
   def set_range(self,range_r):
     global _range 
@@ -370,8 +369,8 @@ class DFRobot_H3LIS200DL_SPI(DFRobot_LIS):
   '''
     @brief Set the measurement range
     @param range:Range(g)
-                 H3LIS200DL_100G = 100   #±100g
-                 H3LIS200DL_200G = 200   #±200g
+                 H3LIS200DL_100G = 100   #卤100g
+                 H3LIS200DL_200G = 200   #卤200g
   '''
   def set_range(self,range_r):
     global _range 
@@ -439,9 +438,9 @@ class DFRobot_LIS331HH_I2C(DFRobot_LIS):
   '''
     @brief Set the measurement range
     @param range:Range(g)
-                 LIS331H_6G  = 6  #±6G
-                 LIS331H_12G = 12 #±12G
-                 LIS331H_24G = 24 #±24G
+                 LIS331H_6G  = 6  #卤6G
+                 LIS331H_12G = 12 #卤12G
+                 LIS331H_24G = 24 #卤24G
   '''
   def set_range(self,range_r):
     global _range   
@@ -529,9 +528,9 @@ class DFRobot_LIS331HH_SPI(DFRobot_LIS):
   '''
     @brief Set the measurement range
     @param range:Range(g)
-                 LIS331H_6G  = 6  #±6G
-                 LIS331H_12G = 12 #±12G
-                 LIS331H_24G = 24 #±24G
+                 LIS331H_6G  = 6  #卤6G
+                 LIS331H_12G = 12 #卤12G
+                 LIS331H_24G = 24 #卤24G
   '''
   def set_range(self,range_r):
     global _range   
