@@ -1,8 +1,10 @@
 # -*- coding:utf-8 -*-
 """
    @file wake_up.py
- * @brief Use sleep wakeup function
-   @n 现象：在睡眠唤醒功能里面，当有中断产生，传感器采集速率明显变快
+   @brief 使用睡眠唤醒功能
+   @n 现象：使用此功能需要先让模块处于低功耗模式,此时的测量速率会很慢
+   @n 当有设置好的中断事件产生,模块会进入正常模式,测量速率加快
+   @n 在使用SPI时,片选引脚时可以通过改变宏RASPBERRY_PIN_CS的值修改
    @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
    @licence     The MIT License (MIT)
    @author [fengli](li.feng@dfrobot.com)
@@ -20,19 +22,19 @@ import time
 
 #如果你想要用SPI驱动此模块，打开下面两行的注释,并通过SPI连接好模块和树莓派
 #RASPBERRY_PIN_CS =  27              #Chip selection pin when SPI is selected
-#acce = DFRobot_H3LIS_SPI(RASPBERRY_PIN_CS)
+#acce = DFRobot_H3LIS200DL_SPI(RASPBERRY_PIN_CS)
 
 
-#如果你想要应IIC驱动此模块，打开下面三行的注释，并通过I2C连接好模块和树莓派
+#如果你想要应IIC驱动此模块，打开下面三行的注释，并通过I2C连接好模块和树莓树派,可通过板子上面的拨码切换I2C地址
 I2C_BUS         = 0x01            #default use I2C1
-ADDRESS         = 0x19            #I2C address
-acce = DFRobot_H3LIS_I2C(I2C_BUS ,ADDRESS)
+#ADDRESS_0       = 0x18            #I2C address 0
+ADDRESS_1       = 0x19            #I2C address 1
+acce = DFRobot_H3LIS200DL_I2C(I2C_BUS ,ADDRESS_1)
 
 #Chip initialization
 acce.begin()
 #Get chip id
-print("chip id :")
-print(acce.get_id())
+print('chip id :%x'%acce.get_id())
 
 '''
 set range:Range(g)
@@ -65,18 +67,18 @@ acce.set_int1_th(5)
 acce.enable_sleep(True)
 
 '''
-@brief Enable interrupt
-@param source Interrupt pin selection
+Enable interrupt
+Interrupt pin selection
          INT_1 = 0,/<int pad 1 >/
          INT_2,/<int pad 2>/
-@param event Interrupt event selection
-             X_LOWTHAN_TH     = 0<The acceleration in the x direction is less than the threshold>
-             X_HIGHERTHAN_TH  = 1<The acceleration in the x direction is greater than the threshold>
-             Y_LOWTHAN_TH     = 2<The acceleration in the y direction is less than the threshold>
-             Y_HIGHERTHAN_TH  = 3<The acceleration in the y direction is greater than the threshold>
-             Z_LOWTHAN_TH     = 4<The acceleration in the z direction is less than the threshold
-             Z_HIGHERTHAN_TH  = 5<The acceleration in the z direction is greater than the threshold>
-             EVENT_ERROR      = 6 <No event>
+Interrupt event selection
+             X_LOWTHAN_TH     = 1<The acceleration in the x direction is less than the threshold>
+             X_HIGHERTHAN_TH  = 2<The acceleration in the x direction is greater than the threshold>
+             Y_LOWTHAN_TH     = 4<The acceleration in the y direction is less than the threshold>
+             Y_HIGHERTHAN_TH  = 8<The acceleration in the y direction is greater than the threshold>
+             Z_LOWTHAN_TH     = 0x10<The acceleration in the z direction is less than the threshold
+             Z_HIGHERTHAN_TH  = 0x20<The acceleration in the z direction is greater than the threshold>
+             EVENT_ERROR      = 0 <No event>
 '''
 acce.enable_int_event(acce.INT_1,acce.Y_HIGHERTHAN_TH)
 time.sleep(1)

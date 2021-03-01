@@ -69,7 +69,6 @@ void DFRobot_LIS::enableInterruptEvent(eInterruptSource_t source,eInterruptEvent
     readReg(REG_INT1_CFG,&reg,1);
   else
     readReg(REG_INT2_CFG,&reg,1);
-
   if(reset == 1){
      reg = 0;
      reset = 0;
@@ -344,6 +343,7 @@ uint8_t DFRobot_H3LIS200DL_SPI::readReg(uint8_t reg,void * pBuf ,size_t size){
   }
   uint8_t * _pBuf = (uint8_t *)pBuf;
   size_t count = 0;
+  reg = reg | SPI_READ_BIT;
 #if (defined NRF5)
   _pSpi->beginTransaction(SPISettings(1000000, MSBFIRST, SPI_MODE1));
 #else
@@ -514,6 +514,7 @@ uint8_t DFRobot_LIS331HH_I2C::readReg(uint8_t reg, void* pBuf, size_t size)
   if(pBuf == NULL){
     DBG("pBuf ERROR!! : null pointer");
   }
+
   uint8_t * _pBuf = (uint8_t *)pBuf;
   _pWire->beginTransmission(_deviceAddr);
   _pWire->write(&reg, 1);
@@ -652,7 +653,7 @@ uint8_t DFRobot_LIS331HH_SPI::readReg(uint8_t reg,void * pBuf ,size_t size){
   }
   uint8_t * _pBuf = (uint8_t *)pBuf;
   size_t count = 0;
-
+  reg = reg | SPI_READ_BIT;
   DBG(reg);
 #if (defined NRF5)
   _pSpi->beginTransaction(SPISettings(1000000, MSBFIRST, SPI_MODE1));

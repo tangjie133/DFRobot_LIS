@@ -26,6 +26,10 @@ measuring accelerations with output data rates
 from 0.5 Hz to 1 kHz. The self-test capability 
 allows the user to check the funct
 
+CHIP                | Work Well    | Work Wrong  | Remarks
+------------------ | :----------: | :----------| -----
+H3LIS200DL       |      √       |              |             
+LIS331HH      |      √       |              |   
 ## DFRobot_LIS Library for RaspberryPi
 ---------------------------------------------------------
 
@@ -46,7 +50,13 @@ Provide an RaspberryPi library to get Three-axis acceleration by reading data fr
 
 ## Installation
 
-To use this library, first download the library file, paste it into the \Arduino\libraries directory, then open the examples folder and run the demo in the folder.
+To use this library, first download the library to Raspberry Pi, then open the routines folder. To execute one routine, demox.py, type python demox.py on the command line. for example, you need to type:
+
+```
+cd DFRobot_LIS/python/raspberry/examples/LIS331HH/get_acceleration
+python get_acceleration.py
+```
+
 
 ## Methods
 
@@ -66,8 +76,8 @@ To use this library, first download the library file, paste it into the \Arduino
   '''
     @brief Set the measurement range
     @param range Range(g)
-                 RANGE_100_G    #±100g
-                 RANGE_200_G    # ±200g
+                 H3LIS200DL_100G = 100 #±100G
+                 H3LIS200DL_200G = 200 #±200G
                  LIS331H_6G     #±6G
                  LIS331H_12G    #±12G
                  LIS331H_24G    #±24G
@@ -90,7 +100,6 @@ To use this library, first download the library file, paste it into the \Arduino
   '''
   set_acquire_rate(self, rate)
 
-
   '''
     @brief Set the threshold of interrupt source 1 interrupt
     @param threshold Threshold(g)
@@ -109,26 +118,26 @@ To use this library, first download the library file, paste it into the \Arduino
              INT_1 = 0,/<int pad 1 >/
              INT_2,/<int pad 2>/
     @param event Interrupt event selection
-                 X_LOWTHAN_TH     = 0 <The acceleration in the x direction is less than the threshold>
-                 X_HIGHERTHAN_TH  = 1<The acceleration in the x direction is greater than the threshold>
-                 Y_LOWTHAN_TH     = 2<The acceleration in the y direction is less than the threshold>
-                 Y_HIGHERTHAN_TH  = 3<The acceleration in the y direction is greater than the threshold>
-                 Z_LOWTHAN_TH     = 4<The acceleration in the z direction is less than the threshold
-                 Z_HIGHERTHAN_TH  = 5<The acceleration in the z direction is greater than the threshold>
-                 EVENT_ERROR      = 6 <No event>
+             X_LOWTHAN_TH     = 1<The acceleration in the x direction is less than the threshold>
+             X_HIGHERTHAN_TH  = 2<The acceleration in the x direction is greater than the threshold>
+             Y_LOWTHAN_TH     = 4<The acceleration in the y direction is less than the threshold>
+             Y_HIGHERTHAN_TH  = 8<The acceleration in the y direction is greater than the threshold>
+             Z_LOWTHAN_TH     = 0x10<The acceleration in the z direction is less than the threshold
+             Z_HIGHERTHAN_TH  = 0x20<The acceleration in the z direction is greater than the threshold>
+             EVENT_ERROR      = 0 <No event>
   '''
   enable_int_event(self,source,event)
 
   '''
     @brief Check whether the interrupt event'event' is generated in interrupt 1
     @param event Interrupt event
-                  X_LOWTHAN_TH     = 0 <The acceleration in the x direction is less than the threshold>
-                  X_HIGHERTHAN_TH  = 1<The acceleration in the x direction is greater than the threshold>
-                  Y_LOWTHAN_TH     = 2<The acceleration in the y direction is less than the threshold>
-                  Y_HIGHERTHAN_TH  = 3<The acceleration in the y direction is greater than the threshold>
-                  Z_LOWTHAN_TH     = 4<The acceleration in the z direction is less than the threshold
-                  Z_HIGHERTHAN_TH  = 5<The acceleration in the z direction is greater than the threshold>
-                  EVENT_ERROR      = 6 <No event>
+             X_LOWTHAN_TH     = 1<The acceleration in the x direction is less than the threshold>
+             X_HIGHERTHAN_TH  = 2<The acceleration in the x direction is greater than the threshold>
+             Y_LOWTHAN_TH     = 4<The acceleration in the y direction is less than the threshold>
+             Y_HIGHERTHAN_TH  = 8<The acceleration in the y direction is greater than the threshold>
+             Z_LOWTHAN_TH     = 0x10<The acceleration in the z direction is less than the threshold
+             Z_HIGHERTHAN_TH  = 0x20<The acceleration in the z direction is greater than the threshold>
+             EVENT_ERROR      = 0 <No event>
     @return True ：产生了此事件
             False：未产生此事件
   '''
@@ -137,13 +146,13 @@ To use this library, first download the library file, paste it into the \Arduino
   '''
     @brief Check whether the interrupt event'event' is generated in interrupt 2
     @param event Interrupt event
-                  X_LOWTHAN_TH     = 0 <The acceleration in the x direction is less than the threshold>
-                  X_HIGHERTHAN_TH  = 1<The acceleration in the x direction is greater than the threshold>
-                  Y_LOWTHAN_TH     = 2<The acceleration in the y direction is less than the threshold>
-                  Y_HIGHERTHAN_TH  = 3<The acceleration in the y direction is greater than the threshold>
-                  Z_LOWTHAN_TH     = 4<The acceleration in the z direction is less than the threshold
-                  Z_HIGHERTHAN_TH  = 5<The acceleration in the z direction is greater than the threshold>
-                  EVENT_ERROR      = 6 <No event>
+             X_LOWTHAN_TH     = 1<The acceleration in the x direction is less than the threshold>
+             X_HIGHERTHAN_TH  = 2<The acceleration in the x direction is greater than the threshold>
+             Y_LOWTHAN_TH     = 4<The acceleration in the y direction is less than the threshold>
+             Y_HIGHERTHAN_TH  = 8<The acceleration in the y direction is greater than the threshold>
+             Z_LOWTHAN_TH     = 0x10<The acceleration in the z direction is less than the threshold
+             Z_HIGHERTHAN_TH  = 0x20<The acceleration in the z direction is greater than the threshold>
+             EVENT_ERROR      = 0 <No event>
     @return True ：产生了此事件
             False：未产生此事件
   '''
@@ -192,10 +201,7 @@ MCU                | Work Well    | Work Wrong   | Untested    | Remarks
 ------------------ | :----------: | :----------: | :---------: | -----
 Raspberry Pi              |      √         |            |             | 
 
-CHIP                | Work Well    | Work Wrong  | Remarks
------------------- | :----------: | :----------| -----
-H3LIS200DL       |      √       |              |             
-LIS331HH      |      √       |              |   
+
 
 ## History
 

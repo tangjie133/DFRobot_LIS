@@ -56,8 +56,8 @@ public:
   #define REG_INT1_SRC     0x31     /*Interrupt source 1 status register*/
   #define REG_INT2_SRC     0x35     /*Interrupt source 2 status register*/
   
-  #define   SPI_                      /*READ bit. The value is 1.*/
-
+  #define SPI_READ_BIT     0X80   /* bit 0: RW bit. When 0, the data DI(7:0) is written into the device. When 1, the data DO(7:0) 
+from the device is read.*/
 public:
 
 /**
@@ -67,13 +67,13 @@ public:
 typedef enum{
    ePowerDown_0HZ = 0,/*测量关闭*/
    eLowPower_halfHZ = 0x40,/*0.5 hz*/
-   eLowPower_1HZ = 0x60,
-   eLowPower_2HZ = 0x80,
-   eLowPower_5HZ = 0xA0,
+   eLowPower_1HZ  = 0x60,
+   eLowPower_2HZ  = 0x80,
+   eLowPower_5HZ  = 0xA0,
    eLowPower_10HZ = 0xC0,
-   eNormal_50HZ = 0x20,
-   eNormal_100HZ = 0x28,
-   eNormal_400HZ = 0x30,
+   eNormal_50HZ   = 0x20,
+   eNormal_100HZ  = 0x28,
+   eNormal_400HZ  = 0x30,
    eNormal_1000HZ = 0x38,
 }ePowerMode_t;
 
