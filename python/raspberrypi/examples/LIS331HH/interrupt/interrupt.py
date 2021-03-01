@@ -31,12 +31,15 @@ def int_pad_callback(status):
 #RASPBERRY_PIN_CS =  27              #Chip selection pin when SPI is selected
 #acce = DFRobot_LIS331HH_SPI(RASPBERRY_PIN_CS)
 
+
 #如果你想要应IIC驱动此模块，打开下面三行的注释，并通过I2C连接好模块和树莓派
 I2C_BUS         = 0x01            #default use I2C1
 ADDRESS         = 0x19            #I2C address
 acce = DFRobot_LIS331HH_I2C(I2C_BUS ,ADDRESS)
 
-acce.attach_interrupt(INT1, int_pad_callback,RPIGPIO.RISING) #set int_Pad interrupt callback
+#set int_Pad interrupt callback
+acce.attach_interrupt(INT1, int_pad_callback,RPIGPIO.RISING) 
+
 
 #Chip initialization
 acce.begin()

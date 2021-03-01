@@ -35,6 +35,7 @@ I2C_BUS         = 0x01            #default use I2C1
 ADDRESS         = 0x19            #I2C address
 acce = DFRobot_LIS331HH_I2C(I2C_BUS ,ADDRESS)
 
+# set int_Pad to input
 acce.attach_interrupt(INT1, int_pad_callback,RPIGPIO.RISING) #set int_Pad interrupt callback
 
 #Chip initialization

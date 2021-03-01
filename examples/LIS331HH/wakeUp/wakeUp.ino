@@ -48,7 +48,7 @@ void setup(void){
 
   Serial.begin(9600);
   //Chip initialization
-  while(acce.begin()){
+  while(!acce.begin()){
      delay(1000);
      Serial.println("初始化失败，请检查连线与I2C地址设置");
   }
@@ -136,7 +136,6 @@ void setup(void){
 void loop(void){
   //Get the acceleration in the three directions of xyz
   //If the chip is awakened, you can see a change in the frequency of data acquisition
-  //Get the acceleration in the three directions of xyz
   Serial.print("Acceleration x: "); 
   Serial.print(acce.readAccX());
   Serial.print(" mg \ty: ");

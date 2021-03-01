@@ -16,7 +16,7 @@
 #include "Arduino.h"
 #include <Wire.h>
 #include <SPI.h>
-//#define ENABLE_DBG
+#define ENABLE_DBG
 
 #ifdef ENABLE_DBG
 #define DBG(...) {Serial.print("["); Serial.print(__FUNCTION__); Serial.print("(): "); Serial.print(__LINE__); Serial.print(" ] "); Serial.println(__VA_ARGS__);}
@@ -24,7 +24,7 @@
 #define DBG(...)
 #endif
 
-#define H3LIS200DL_I2C_ADDR  (0x19)  /*sensor H3LIS200DL IIC address*/
+#define H3LIS200DL_I2C_ADDR  (0x19)    /*sensor H3LIS200DL IIC address*/
 #define LIS331HH_I2C_ADDR    (0x19)    /*sensor LIS331HH IIC address*/
 #define H3LIS200DL            0x01       
 #define LIS331HH              0x02       
@@ -54,7 +54,9 @@ public:
   #define REG_INT1_CFG     0x30     /*Interrupt source 1 configuration register*/
   #define REG_INT2_CFG     0x34     /*Interrupt source 2 configuration register*/
   #define REG_INT1_SRC     0x31     /*Interrupt source 1 status register*/
-  #define REG_INT2_SRC     0x35     /*Interrupt source 2 status register*
+  #define REG_INT2_SRC     0x35     /*Interrupt source 2 status register*/
+  
+  #define   SPI_                      /*READ bit. The value is 1.*/
 
 public:
 
@@ -64,23 +66,23 @@ public:
 */
 typedef enum{
    ePowerDown_0HZ = 0,/*测量关闭*/
-   eLowPower_halfHZ,/*0.5 hz*/
-   eLowPower_1HZ,
-   eLowPower_2HZ,
-   eLowPower_5HZ,
-   eLowPower_10HZ,
-   eNormal_50HZ,
-   eNormal_100HZ,
-   eNormal_400HZ,
-   eNormal_1000HZ,
+   eLowPower_halfHZ = 0x40,/*0.5 hz*/
+   eLowPower_1HZ = 0x60,
+   eLowPower_2HZ = 0x80,
+   eLowPower_5HZ = 0xA0,
+   eLowPower_10HZ = 0xC0,
+   eNormal_50HZ = 0x20,
+   eNormal_100HZ = 0x28,
+   eNormal_400HZ = 0x30,
+   eNormal_1000HZ = 0x38,
 }ePowerMode_t;
 
 /**
   Sensor range selection
 */
 typedef enum{
-  eH3lis200dl_100g,/**< ±100g>*/
-  eH3lis200dl_200g,/**< ±200g>*/
+  eH3lis200dl_100g = 100,/**< ±100g>*/
+  eH3lis200dl_200g = 200,/**< ±200g>*/
 
   eLis331h_6g = 6,/**<±6g>*/
   eLis331h_12g = 12,/**<±12g>*/
@@ -114,13 +116,13 @@ typedef enum{
   Interrupt event
 */
 typedef enum{
-  eXLowThanTh = 0,/**<The acceleration in the x direction is less than the threshold>*/
-  eXHigherThanTh ,/**<The acceleration in the x direction is greater than the threshold>*/
-  eYLowThanTh,/**<The acceleration in the y direction is less than the threshold>*/
-  eYHigherThanTh,/**<The acceleration in the y direction is greater than the threshold>*/
-  eZLowThanTh,/**<The acceleration in the z direction is less than the threshold>*/
-  eZHigherThanTh,/**<The acceleration in the z direction is greater than the threshold>*/
-  eEventError,/**< No event>*/
+  eXLowThanTh = 0x1,    /**<The acceleration in the x direction is less than the threshold>*/
+  eXHigherThanTh = 0x2, /**<The acceleration in the x direction is greater than the threshold>*/
+  eYLowThanTh = 0x4,    /**<The acceleration in the y direction is less than the threshold>*/
+  eYHigherThanTh = 0x8, /**<The acceleration in the y direction is greater than the threshold>*/
+  eZLowThanTh = 0x10,   /**<The acceleration in the z direction is less than the threshold>*/
+  eZHigherThanTh = 0x20,/**<The acceleration in the z direction is greater than the threshold>*/
+  eEventError = 0,      /**< No event>*/
 }eInterruptEvent_t;
 
 /**
@@ -131,23 +133,13 @@ typedef enum{
   eINT2,/**<int2>*/
 }eInterruptSource_t;
 
-/**
-  Store acceleration in three directions
-*/
-typedef struct
-{
- float acc_x;/**<acceleration in x direction(g)>*/
- float acc_y;/**<acceleration in y direction(g)>*/
- float acc_z;/**<acceleration in z direction(g)>*/
-}sAccel_t;
-
 public:
   DFRobot_LIS();
   /**
    * @brief Initialize the function
-   * @return Return 0 indicates a successful initialization, while other values indicates failure and return to error code.
+   * @return return true(成功)/false(失败)
    */
-  uint8_t begin(void);
+  bool begin(void);
  
   /**
    * @brief Get chip id
@@ -169,19 +161,6 @@ public:
                    eZHigherThanTh,/<The acceleration in the z direction is greater than the threshold>/
    */
   void enableInterruptEvent(eInterruptSource_t source, eInterruptEvent_t event);
-  
-  /**
-   * @brief Set the measurement range
-   * @param range Range(g)
-                  eH3lis200dl_100g, //±100g
-                  eH3lis200dl_200g, //±200g
-                  
-                  eLis331h_6g = 6,//±6g
-                  eLis331h_12g = 12 //±12g
-                  eLis331h_24g = 24 //±24g  
-    @return true(设置成功)/false(设置失败)
-   */
-  bool setRange(eRange_t range);
   
   /**
    * @brief Set data measurement rate
@@ -238,9 +217,9 @@ public:
   /**
    * @brief Enable sleep wake function
    * @param enable true(enable)\false(disable)
-   * @return 1 表示使能失败/0 表示使能成功
+   * @return -1 表示使能失败/0 表示使能成功
    */
-  uint8_t enableSleep(bool enable);
+  int8_t enableSleep(bool enable);
   
 
 
@@ -271,33 +250,6 @@ public:
              false 未产生此事件
    */
   bool getInt2Event(eInterruptEvent_t event);
-  
-  /**
-   * @brief Get the acceleration in the x direction
-   * @return acceleration from x (unit:g)
-   */
-  long readAccX();
-  
-  /**
-   * @brief Get the acceleration in the y direction
-   * @return acceleration from y(unit:g)
-   */
-  long readAccY();
-  
-  /**
-   * @brief Get the acceleration in the z direction
-   * @return acceleration from z(unit:g)
-   */
-  long readAccZ();
-  
-  /**
-   * @brief Get the acceleration in the three directions of xyz
-   * @param accx 储存x方向加速度的变量
-   * @param accy 储存y方向加速度的变量
-   * @param accz 储存z方向加速度的变量
-   * @return true(成功获取数据)/false(数据未准备好)
-   */
-  bool getAcceFromXYZ(long &accx,long &accy,long &accz);
 
   /**
    * @brief 获取传感器是否处于睡眠模式
@@ -312,10 +264,10 @@ public:
    */
   void setSleepFlag(bool into);
 protected:
+
   uint8_t _interface = 0;
   uint8_t reset = 0;
   uint8_t _range = 100;
-  uint8_t chip = 0;
   bool state = true;
   
   /**
@@ -346,9 +298,45 @@ public:
   DFRobot_H3LIS200DL_I2C(TwoWire * pWire = &Wire,uint8_t addr = H3LIS200DL_I2C_ADDR);
   /**
    * @brief init function
-   * @return Return 1 if initialization succeeds, otherwise return non-zero and error code.
+   * @return true(成功)/false(失败)
    */
-  uint8_t begin(void);
+  bool begin(void);
+  
+  /**
+   * @brief Set the measurement range
+   * @param range Range(g)
+                  eH3lis200dl_100g, //±100g
+                  eH3lis200dl_200g, //±200g
+    @return true(设置成功)/false(设置失败)
+   */
+  bool setRange(eRange_t range);
+
+  /**
+   * @brief Get the acceleration in the x direction
+   * @return acceleration from x (unit:g)
+   */
+  long readAccX();
+  
+  /**
+   * @brief Get the acceleration in the y direction
+   * @return acceleration from y(unit:g)
+   */
+  long readAccY();
+  
+  /**
+   * @brief Get the acceleration in the z direction
+   * @return acceleration from z(unit:g)
+   */
+  long readAccZ();
+  
+  /**
+   * @brief Get the acceleration in the three directions of xyz
+   * @param accx 储存x方向加速度的变量
+   * @param accy 储存y方向加速度的变量
+   * @param accz 储存z方向加速度的变量
+   * @return true(成功获取数据)/false(数据未准备好)
+   */
+  bool getAcceFromXYZ(long &accx,long &accy,long &accz);
 protected:
 
   /**
@@ -384,9 +372,45 @@ public:
   
   /**
    * @brief init function
-   * @return Return 1 if initialization succeeds, otherwise return non-zero and error code.
+   * @return true(成功)/false(失败)
    */
-  uint8_t begin(void);
+  bool begin(void);
+  
+  /**
+   * @brief Set the measurement range
+   * @param range Range(g)
+                  eH3lis200dl_100g, //±100g
+                  eH3lis200dl_200g, //±200g
+    @return true(设置成功)/false(设置失败)
+   */
+  bool setRange(eRange_t range);
+  
+  /**
+   * @brief Get the acceleration in the x direction
+   * @return acceleration from x (unit:g)
+   */
+  long readAccX();
+  
+  /**
+   * @brief Get the acceleration in the y direction
+   * @return acceleration from y(unit:g)
+   */
+  long readAccY();
+  
+  /**
+   * @brief Get the acceleration in the z direction
+   * @return acceleration from z(unit:g)
+   */
+  long readAccZ();
+  
+  /**
+   * @brief Get the acceleration in the three directions of xyz
+   * @param accx 储存x方向加速度的变量
+   * @param accy 储存y方向加速度的变量
+   * @param accz 储存z方向加速度的变量
+   * @return true(成功获取数据)/false(数据未准备好)
+   */
+  bool getAcceFromXYZ(long &accx,long &accy,long &accz);
 protected:
 
   /**
@@ -421,9 +445,46 @@ public:
   DFRobot_LIS331HH_I2C(TwoWire * pWire = &Wire,uint8_t addr = LIS331HH_I2C_ADDR);
   /**
    * @brief init function
-   * @return Return 1 if initialization succeeds, otherwise return non-zero and error code.
+   * @return true(成功)/false(失败)
    */
-  uint8_t begin(void);
+  bool begin(void);
+  
+  /**
+   * @brief Set the measurement range
+   * @param range Range(g)
+                  eLis331h_6g = 6,//±6g
+                  eLis331h_12g = 12 //±12g
+                  eLis331h_24g = 24 //±24g  
+    @return true(设置成功)/false(设置失败)
+   */
+  bool setRange(eRange_t range);
+  /**
+   * @brief Get the acceleration in the x direction
+   * @return acceleration from x (unit:g)
+   */
+  long readAccX();
+  
+  /**
+   * @brief Get the acceleration in the y direction
+   * @return acceleration from y(unit:g)
+   */
+  long readAccY();
+  
+  /**
+   * @brief Get the acceleration in the z direction
+   * @return acceleration from z(unit:g)
+   */
+  long readAccZ();
+  
+  /**
+   * @brief Get the acceleration in the three directions of xyz
+   * @param accx 储存x方向加速度的变量
+   * @param accy 储存y方向加速度的变量
+   * @param accz 储存z方向加速度的变量
+   * @return true(成功获取数据)/false(数据未准备好)
+   */
+  bool getAcceFromXYZ(long &accx,long &accy,long &accz);
+  
 protected:
 
   /**
@@ -460,9 +521,46 @@ public:
   
   /**
    * @brief init function
-   * @return Return 1 if initialization succeeds, otherwise return non-zero and error code.
+   * @return true(成功)/false(失败)
    */
-  uint8_t begin(void);
+  bool begin(void);
+  
+  /**
+   * @brief Set the measurement range
+   * @param range Range(g)
+                  eLis331h_6g = 6,//±6g
+                  eLis331h_12g = 12 //±12g
+                  eLis331h_24g = 24 //±24g  
+    @return true(设置成功)/false(设置失败)
+   */
+  bool setRange(eRange_t range);
+  
+  /**
+   * @brief Get the acceleration in the x direction
+   * @return acceleration from x (unit:g)
+   */
+  long readAccX();
+  
+  /**
+   * @brief Get the acceleration in the y direction
+   * @return acceleration from y(unit:g)
+   */
+  long readAccY();
+  
+  /**
+   * @brief Get the acceleration in the z direction
+   * @return acceleration from z(unit:g)
+   */
+  long readAccZ();
+  
+  /**
+   * @brief Get the acceleration in the three directions of xyz
+   * @param accx 储存x方向加速度的变量
+   * @param accy 储存y方向加速度的变量
+   * @param accz 储存z方向加速度的变量
+   * @return true(成功获取数据)/false(数据未准备好)
+   */
+  bool getAcceFromXYZ(long &accx,long &accy,long &accz);
 protected:
 
   /**
@@ -481,7 +579,7 @@ protected:
    * @param size  The number of the data in pBuf
    * @return 成功发送数据的个数
    */
-  uint8_t  writeReg(uint8_t reg,const void *pBuf,size_t size); 
+  uint8_t writeReg(uint8_t reg,const void *pBuf,size_t size); 
 private:
     SPIClass *_pSpi;
     uint8_t _cs;

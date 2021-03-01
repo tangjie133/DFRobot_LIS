@@ -1,11 +1,14 @@
 # DFRobot_LIS
 LIS系列三轴加速度传感器
 
+CHIP                | Work Well    | Work Wrong  | Remarks
+------------------ | :----------: | :----------| -----
+H3LIS200DL       |      √       |              |             
+LIS331HH      |      √       |              |   
+![正反面svg效果图](https://github.com/cdjq/DFRobot_Sensor/raw/master/resources/images/SEN0245svg1.png)
 
-## DFRobot_LIS Library for Arduino
----------------------------------------------------------
-
-Provide an Arduino library to get Three-axis acceleration by reading data from LIS.
+## 产品链接（链接到英文商城）
+    SKU：产品名称
 
 ## Table of Contents
 
@@ -178,7 +181,6 @@ To use this library, first download the library file, paste it into the \Arduino
    * @param accx 储存x方向加速度的变量
    * @param accy 储存y方向加速度的变量
    * @param accz 储存z方向加速度的变量
-   * @return true(成功获取数据)/false(数据未准备好)
    */
   bool getAcceFromXYZ(long &accx,long &accy,long &accz);
 
@@ -209,10 +211,6 @@ Micro:bit        |      √       |              |             |
 FireBeetle-M0        |      √       |              |             | 
 Raspberry Pi      |      √       |              |             | 
 
-CHIP                | Work Well    | Work Wrong  | Remarks
------------------- | :----------: | :----------| -----
-H3LIS200DL       |      √       |              |             
-LIS331HH      |      √       |              |   
 ## History
 
 - data 2021-2-1

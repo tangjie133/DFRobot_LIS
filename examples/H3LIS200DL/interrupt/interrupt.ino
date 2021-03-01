@@ -1,7 +1,8 @@
 /**！
  * @file interrupt.ino
- * @brief Enable  interrupt events in the sensor, and get
- * @n the interrupt signal through the interrupt pin 1/2
+ * @brief 中断检测
+ * @n 本示例中使能eZHigherThanTh中断事件,当Z方向上面的加速度大于程序所设置的阈值时,
+ * @n 则会在我们设置的中断引脚int1/int2产生中断电平
  * @n 在使用SPI时,片选引脚时可以通过改变宏H3LIS200DL_CS的值修改
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
@@ -48,7 +49,7 @@ void setup(void){
 
   Serial.begin(9600);
     //Chip initialization
-  while(acce.begin()){
+  while(!acce.begin()){
      delay(1000);
      Serial.println("初始化失败，请检查连线与I2C地址设置");
   }
