@@ -15,7 +15,6 @@ DFRobot_LIS::DFRobot_LIS(){}
 
 bool DFRobot_LIS::begin(void){
 
-
   uint8_t identifier = 0; 
   bool ret = false;
   readReg(REG_CARD_ID,&identifier,1);
@@ -101,7 +100,7 @@ bool DFRobot_LIS::getInt2Event(eInterruptEvent_t event)
 }
 
 
-uint8_t DFRobot_LIS::enableSleep(bool enable)
+int8_t DFRobot_LIS::enableSleep(bool enable)
 {
   uint8_t reg = 0;
   uint8_t readRe = 0;
@@ -149,7 +148,7 @@ DFRobot_H3LIS200DL_I2C::DFRobot_H3LIS200DL_I2C(TwoWire * pWire,uint8_t addr)
   _pWire = pWire;
 }
 
-uint8_t DFRobot_H3LIS200DL_I2C::begin(void)
+bool DFRobot_H3LIS200DL_I2C::begin(void)
 {
   _pWire->begin();
   return DFRobot_LIS::begin();
@@ -261,7 +260,7 @@ DFRobot_H3LIS200DL_SPI::DFRobot_H3LIS200DL_SPI(uint8_t cs,SPIClass *pSpi)
   _cs = cs;
 }
 
-uint8_t DFRobot_H3LIS200DL_SPI::begin(void){
+bool DFRobot_H3LIS200DL_SPI::begin(void){
 
   _pSpi->begin();
   pinMode(_cs,OUTPUT);
@@ -384,7 +383,7 @@ DFRobot_LIS331HH_I2C::DFRobot_LIS331HH_I2C(TwoWire * pWire,uint8_t addr)
   _pWire = pWire;
 }
 
-uint8_t DFRobot_LIS331HH_I2C::begin(void)
+bool DFRobot_LIS331HH_I2C::begin(void)
 {
   _pWire->begin();
   return DFRobot_LIS::begin();
@@ -535,7 +534,7 @@ DFRobot_LIS331HH_SPI::DFRobot_LIS331HH_SPI(uint8_t cs,SPIClass *pSpi)
   _cs = cs;
 }
 
-uint8_t DFRobot_LIS331HH_SPI::begin(void){
+bool DFRobot_LIS331HH_SPI::begin(void){
 
   _pSpi->begin();
   pinMode(_cs,OUTPUT);
