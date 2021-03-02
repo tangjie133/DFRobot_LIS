@@ -14,7 +14,6 @@
 
 import sys
 sys.path.append("../../..") # set system path to top
-
 from DFRobot_LIS import *
 import time
 
