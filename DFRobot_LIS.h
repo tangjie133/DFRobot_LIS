@@ -222,8 +222,6 @@ public:
    */
   bool enableSleep(bool enable);
   
-
-
   /**
    * @brief Check whether the interrupt event'event' is generated in interrupt 1
    * @param event Interrupt event
