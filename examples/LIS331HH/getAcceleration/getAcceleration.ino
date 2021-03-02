@@ -1,6 +1,6 @@
 /**！
  * @file getAcceleration.ino
- * @brief 获取x,y,z三个方向的加速度值,三个方向加速度的量程可选择±6g/±12g/±24g
+ * @brief 获取x,y,z三个方向的加速度值,加速度的测量的量程可选择±6g,±12g或±24g
  * @n 在使用SPI时片选引脚可以通过 LIS331HH_CS 的值修改
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
@@ -51,11 +51,11 @@ void setup(void){
   
   /**
     set range:Range(g)
-              eLis331h_6g = 6,/<±6g>/
-              eLis331h_12g = 12,/<±12g>/
-              eLis331h_24g = 24/<±24g>/
+              eLis331hh_6g = 6,/<±6g>/
+              eLis331hh_12g = 12,/<±12g>/
+              eLis331hh_24g = 24/<±24g>/
   */
-  acce.setRange(/*range = */DFRobot_LIS::eLis331h_6g);
+  acce.setRange(/*range = */DFRobot_LIS::eLis331hh_6g);
 
   /**
     Set data measurement rate：
@@ -77,6 +77,7 @@ void setup(void){
 void loop(void){
 
     //Get the acceleration in the three directions of xyz
+    //测量的量程为±6g,±12g或±24g,通过setRange()函数设置
     long ax,ay,az;
     ax = acce.readAccX();//Get the acceleration in the x direction
     ay = acce.readAccY();//Get the acceleration in the y direction

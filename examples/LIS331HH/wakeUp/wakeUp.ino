@@ -2,7 +2,7 @@
  * @file wakeUp.ino
  * @brief 使用睡眠唤醒功能
  * @n 现象：使用此功能需要先让模块处于低功耗模式,此时的测量速率会很慢
- * @n 当有设置好的中断事件产生,模块会进入正常模式,从而测量速率加快
+ * @n 当有设置好的中断事件产生,模块会进入正常模式,从而测量速率加快,达到省电和提供采样率的目的
  * @n 在使用SPI时,片选引脚时可以通过改变宏LIS331HH_CS的值修改
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
@@ -39,9 +39,9 @@ DFRobot_LIS331HH_I2C acce;
 //DFRobot_LIS331HH_SPI acce(/*cs = */LIS331HH_CS);
 
 //中断产生标志
-volatile uint8_t intFlag = 0;
+volatile bool intFlag = false;
 void interEvent(){
-  intFlag = 1;
+  intFlag = true;
   acce.setSleepFlag(false);
 }
 void setup(void){
@@ -58,11 +58,11 @@ void setup(void){
   
   /**
     set range:Range(g)
-              eLis331h_6g = 6,/<±6g>/
-              eLis331h_12g = 12,/<±12g>/
-              eLis331h_24g = 24/<±24g>/
+              eLis331hh_6g = 6,/<±6g>/
+              eLis331hh_12g = 12,/<±12g>/
+              eLis331hh_24g = 24/<±24g>/
   */
-  acce.setRange(/*range = */DFRobot_LIS::eLis331h_6g);
+  acce.setRange(/*range = */DFRobot_LIS::eLis331hh_6g);
   
   /**
     Set data measurement rate：
@@ -135,6 +135,7 @@ void setup(void){
 
 void loop(void){
   //Get the acceleration in the three directions of xyz
+  //测量的量程为±6g,±12g或±24g,通过setRange()函数设置
   //If the chip is awakened, you can see a change in the frequency of data acquisition
   Serial.print("Acceleration x: "); 
   Serial.print(acce.readAccX());
@@ -143,13 +144,12 @@ void loop(void){
   Serial.print(" mg \tz: ");
   Serial.print(acce.readAccZ());
   Serial.println(" mg");
-  if(intFlag == 1){
+  if(intFlag == true){
     /**
      获取传感器是否处于睡眠模式
      true(处于睡眠模式)/false(处于正常模式)
      */
-    Serial.print("sleep state: ");
-    Serial.println(acce.getSleepState()? "true": "false");
+    Serial.println(acce.getSleepState()? "sleep mode": "normal mode");
     intFlag = 0;
   }
   delay(300);

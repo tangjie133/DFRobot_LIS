@@ -2,7 +2,7 @@
  * @file wakeUp.ino
  * @brief 使用睡眠唤醒功能
  * @n 现象：使用此功能需要先让模块处于低功耗模式,此时的测量速率会很慢
- * @n 当有设置好的中断事件产生,模块会进入正常模式,测量速率加快
+ * @n 当有设置好的中断事件产生,模块会进入正常模式,测量速率加快,达到省电和提供采样率的目的
  * @n 在使用SPI时,片选引脚时可以通过改变宏H3LIS200DL_CS的值修改
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
@@ -96,11 +96,11 @@ void setup(void){
       eINT1 = 0,/<int1 >/
       eINT2,/<int2>/
     Interrupt event selection:
-      eXLowThanTh ,/<The acceleration in the x direction is less than the threshold>/
+      eXLowerThanTh ,/<The acceleration in the x direction is less than the threshold>/
       eXHigherThanTh ,/<The acceleration in the x direction is greater than the threshold>/
-      eYLowThanTh,/<The acceleration in the y direction is less than the threshold>/
+      eYLowerThanTh,/<The acceleration in the y direction is less than the threshold>/
       eYHigherThanTh,/<The acceleration in the y direction is greater than the threshold>/
-      eZLowThanTh,/<The acceleration in the z direction is less than the threshold>/
+      eZLowerThanTh,/<The acceleration in the z direction is less than the threshold>/
       eZHigherThanTh,/<The acceleration in the z direction is greater than the threshold>/
    */
   acce.enableInterruptEvent(/*int pin*/DFRobot_LIS::eINT1,/*interrupt event = */DFRobot_LIS::eZHigherThanTh);
@@ -138,7 +138,8 @@ void setup(void){
 
 void loop(void){
   //Get the acceleration in the three directions of xyz
-  Serial.print("Acceleration x: "); //print acceleration
+  //测量的量程为±100g或±200g,通过setRange()函数设置
+  Serial.print("Acceleration x: ");
   Serial.print(acce.readAccX());
   Serial.print(" g \ty: ");
   Serial.print(acce.readAccY());

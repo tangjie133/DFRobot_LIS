@@ -3,7 +3,7 @@
    @file wake_up.py
    @brief 使用睡眠唤醒功能
    @n 现象：使用此功能需要先让模块处于低功耗模式,此时的测量速率会很慢
-   @n 当有设置好的中断事件产生,模块会进入正常模式,测量速率加快
+   @n 当有设置好的中断事件产生,模块会进入正常模式,测量速率加快,达到省电和提供采样率的目的
    @n 在使用SPI时,片选引脚时可以通过改变RASPBERRY_PIN_CS的值修改
    @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
    @licence     The MIT License (MIT)
@@ -31,7 +31,7 @@ def int_pad_callback(status):
 #acce = DFRobot_LIS331HH_SPI(RASPBERRY_PIN_CS)
 
 
-#如果你想要应IIC驱动此模块，打开下面三行的注释，并通过I2C连接好模块和树莓派,可通过板子上面的拨码切换I2C地址
+#如果你想要应IIC驱动此模块，打开下面三行的注释，并通过I2C连接好模块和树莓派,可通过板子上的拨码开关（gravity版本）或SDO引脚（Breakout版本）切换I2C地址
 I2C_BUS         = 0x01            #default use I2C1
 #ADDRESS_0       = 0x18            #I2C address 0
 ADDRESS_1       = 0x19            #I2C address 1
@@ -49,11 +49,11 @@ print('chip id :%x'%acce.get_id())
 
 '''
 set range:Range(g)
-          LIS331H_6G  = 6   #±6G
-          LIS331H_12G = 12  #±12G
-          LIS331H_24G = 24  #±24G
+          LIS331HH_6G  = 6   #±6G
+          LIS331HH_12G = 12  #±12G
+          LIS331HH_24G = 24  #±24G
 '''
-acce.set_range(acce.LIS331H_6G)
+acce.set_range(acce.LIS331HH_6G)
 
 '''
 Set data measurement rate
@@ -84,11 +84,11 @@ Interrupt pin selection
          INT_1 = 0,/<int pad 1 >/
          INT_2,/<int pad 2>/
 Interrupt event selection
-             X_LOWTHAN_TH     = 1<The acceleration in the x direction is less than the threshold>
-             X_HIGHERTHAN_TH  = 2<The acceleration in the x direction is greater than the threshold>
-             Y_LOWTHAN_TH     = 4<The acceleration in the y direction is less than the threshold>
-             Y_HIGHERTHAN_TH  = 8<The acceleration in the y direction is greater than the threshold>
-             Z_LOWTHAN_TH     = 0x10<The acceleration in the z direction is less than the threshold
+             X_LOWERTHAN_TH     = 0x1<The acceleration in the x direction is less than the threshold>
+             X_HIGHERTHAN_TH  = 0x2<The acceleration in the x direction is greater than the threshold>
+             Y_LOWERTHAN_TH     = 0x4<The acceleration in the y direction is less than the threshold>
+             Y_HIGHERTHAN_TH  = 0x8<The acceleration in the y direction is greater than the threshold>
+             Z_LOWERTHAN_TH     = 0x10<The acceleration in the z direction is less than the threshold
              Z_HIGHERTHAN_TH  = 0x20<The acceleration in the z direction is greater than the threshold>
              EVENT_ERROR      = 0 <No event>
 '''
@@ -97,6 +97,7 @@ time.sleep(1)
 
 while True:
     #Get the acceleration in the three directions of xyz
+    #测量的量程为±6g,±12g或±24g,通过set_range()函数设置
     #当有中断产生，能观察到芯片测量的频率明显变快
     x,y,z = acce.read_acce_xyz()
     time.sleep(0.1)

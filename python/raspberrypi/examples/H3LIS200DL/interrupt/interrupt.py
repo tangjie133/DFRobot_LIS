@@ -2,9 +2,10 @@
 """
    @file interrupt.py
    @brief 中断检测
-   @n 本示例中使能eZHigherThanTh中断事件,当Z方向上面的加速度大于程序所设置的阈值时,
-   @n 则会在我们设置的中断引脚int1/int2产生中断电平
-   @n 在使用SPI时,片选引脚时可以通过改变宏RASPBERRY_PIN_CS的值修改
+   @本示例中使能Z_HIGHERTHAN_TH中断事件，即当Z方向的加速度大于程序所设置的阈值时，在我们
+   @ 设置的中断引脚int1/int2上可以检测到中断电平，通过检测中断引脚上的电平变化即可判断是
+   @否发生该中断事件。可设置的中断事件有以下6个： X_LOWERTHAN_TH, X_HIGHERTHAN_TH, 
+   @ Y_LOWERTHAN_TH, Y_HIGHERTHAN_TH, Z_LOWERTHAN_TH,Z_HIGHERTHAN_TH,关于每个中断事件的详细解释请看函数enable_int_event()注释
    @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
    @licence     The MIT License (MIT)
    @author [fengli](li.feng@dfrobot.com)
@@ -13,8 +14,6 @@
    @get from https://www.dfrobot.com
    @https://github.com/DFRobot/DFRobot_LIS
 """
-
-import threading
 
 import sys
 sys.path.append("../../..") # set system path to top
@@ -33,7 +32,7 @@ def int_pad_callback(status):
 #acce = DFRobot_H3LIS200DL_SPI(RASPBERRY_PIN_CS)
 
 
-#如果你想要应IIC驱动此模块，打开下面三行的注释，并通过I2C连接好模块和树莓树派,可通过板子上面的拨码切换I2C地址
+#如果你想要应IIC驱动此模块，打开下面三行的注释，并通过I2C连接好模块和树莓派,可通过板子上的拨码开关（gravity版本）或SDO引脚（Breakout版本）切换I2C地址
 I2C_BUS         = 0x01            #default use I2C1
 #ADDRESS_0       = 0x18            #I2C address 0
 ADDRESS_1       = 0x19            #I2C address 1
@@ -84,11 +83,11 @@ Interrupt pin selection
          INT_1 = 0,/<int pad 1 >/
          INT_2,/<int pad 2>/
 Interrupt event selection
-             X_LOWTHAN_TH     = 1<The acceleration in the x direction is less than the threshold>
-             X_HIGHERTHAN_TH  = 2<The acceleration in the x direction is greater than the threshold>
-             Y_LOWTHAN_TH     = 4<The acceleration in the y direction is less than the threshold>
-             Y_HIGHERTHAN_TH  = 8<The acceleration in the y direction is greater than the threshold>
-             Z_LOWTHAN_TH     = 0x10<The acceleration in the z direction is less than the threshold
+             X_LOWERTHAN_TH     = 0x1<The acceleration in the x direction is less than the threshold>
+             X_HIGHERTHAN_TH  = 0x2<The acceleration in the x direction is greater than the threshold>
+             Y_LOWERTHAN_TH     = 0x4<The acceleration in the y direction is less than the threshold>
+             Y_HIGHERTHAN_TH  = 0x8<The acceleration in the y direction is greater than the threshold>
+             Z_LOWERTHAN_TH     = 0x10<The acceleration in the z direction is less than the threshold
              Z_HIGHERTHAN_TH  = 0x20<The acceleration in the z direction is greater than the threshold>
              EVENT_ERROR      = 0 <No event>
 '''
@@ -110,6 +109,7 @@ while True:
       
       int_pad_Flag = False
     #Get the acceleration in the three directions of xyz
+    #测量的量程为±100g或±200g,通过set_range()函数设置
     x,y,z = acce.read_acce_xyz()
     time.sleep(0.1)
     print("Acceleration [X = %.2f g,Y = %.2f g,Z = %.2f g]"%(x,y,z))

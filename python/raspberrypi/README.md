@@ -63,13 +63,13 @@ python get_acceleration.py
 ```python
   '''
     @brief Initialize the function
-    @return Return 0 indicates a successful initialization, while other values indicates failure and return to error code.
+    @return return True(成功)/False(失败)
   '''
   begin(self)
   
   '''
     @brief get chip id
-    @return returns the 8 bit serial number
+    @return 8 bit serial number
   '''
   get_id(self)
 
@@ -78,9 +78,9 @@ python get_acceleration.py
     @param range Range(g)
                  H3LIS200DL_100G = 100 #±100G
                  H3LIS200DL_200G = 200 #±200G
-                 LIS331H_6G     #±6G
-                 LIS331H_12G    #±12G
-                 LIS331H_24G    #±24G
+                 LIS331HH_6G     #±6G
+                 LIS331HH_12G    #±12G
+                 LIS331HH_24G    #±24G
   '''
   set_range(self,range_r)
 
@@ -118,11 +118,11 @@ python get_acceleration.py
              INT_1 = 0,/<int pad 1 >/
              INT_2,/<int pad 2>/
     @param event Interrupt event selection
-             X_LOWTHAN_TH     = 1<The acceleration in the x direction is less than the threshold>
-             X_HIGHERTHAN_TH  = 2<The acceleration in the x direction is greater than the threshold>
-             Y_LOWTHAN_TH     = 4<The acceleration in the y direction is less than the threshold>
-             Y_HIGHERTHAN_TH  = 8<The acceleration in the y direction is greater than the threshold>
-             Z_LOWTHAN_TH     = 0x10<The acceleration in the z direction is less than the threshold
+             X_LOWERTHAN_TH     = 0x1<The acceleration in the x direction is less than the threshold>
+             X_HIGHERTHAN_TH  = 0x2<The acceleration in the x direction is greater than the threshold>
+             Y_LOWERTHAN_TH     = 0x4<The acceleration in the y direction is less than the threshold>
+             Y_HIGHERTHAN_TH  = 0x8<The acceleration in the y direction is greater than the threshold>
+             Z_LOWERTHAN_TH     = 0x10<The acceleration in the z direction is less than the threshold
              Z_HIGHERTHAN_TH  = 0x20<The acceleration in the z direction is greater than the threshold>
              EVENT_ERROR      = 0 <No event>
   '''
@@ -131,11 +131,11 @@ python get_acceleration.py
   '''
     @brief Check whether the interrupt event'event' is generated in interrupt 1
     @param event Interrupt event
-             X_LOWTHAN_TH     = 1<The acceleration in the x direction is less than the threshold>
-             X_HIGHERTHAN_TH  = 2<The acceleration in the x direction is greater than the threshold>
-             Y_LOWTHAN_TH     = 4<The acceleration in the y direction is less than the threshold>
-             Y_HIGHERTHAN_TH  = 8<The acceleration in the y direction is greater than the threshold>
-             Z_LOWTHAN_TH     = 0x10<The acceleration in the z direction is less than the threshold
+             X_LOWERTHAN_TH     = 0x1<The acceleration in the x direction is less than the threshold>
+             X_HIGHERTHAN_TH  = 0x2<The acceleration in the x direction is greater than the threshold>
+             Y_LOWERTHAN_TH     = 0x4<The acceleration in the y direction is less than the threshold>
+             Y_HIGHERTHAN_TH  = 0x8<The acceleration in the y direction is greater than the threshold>
+             Z_LOWERTHAN_TH     = 0x10<The acceleration in the z direction is less than the threshold
              Z_HIGHERTHAN_TH  = 0x20<The acceleration in the z direction is greater than the threshold>
              EVENT_ERROR      = 0 <No event>
     @return True ：产生了此事件
@@ -146,11 +146,11 @@ python get_acceleration.py
   '''
     @brief Check whether the interrupt event'event' is generated in interrupt 2
     @param event Interrupt event
-             X_LOWTHAN_TH     = 1<The acceleration in the x direction is less than the threshold>
-             X_HIGHERTHAN_TH  = 2<The acceleration in the x direction is greater than the threshold>
-             Y_LOWTHAN_TH     = 4<The acceleration in the y direction is less than the threshold>
-             Y_HIGHERTHAN_TH  = 8<The acceleration in the y direction is greater than the threshold>
-             Z_LOWTHAN_TH     = 0x10<The acceleration in the z direction is less than the threshold
+             X_LOWERTHAN_TH     = 0x1<The acceleration in the x direction is less than the threshold>
+             X_HIGHERTHAN_TH  = 0x2<The acceleration in the x direction is greater than the threshold>
+             Y_LOWERTHAN_TH     = 0x4<The acceleration in the y direction is less than the threshold>
+             Y_HIGHERTHAN_TH  = 0x8<The acceleration in the y direction is greater than the threshold>
+             Z_LOWERTHAN_TH     = 0x10<The acceleration in the z direction is less than the threshold
              Z_HIGHERTHAN_TH  = 0x20<The acceleration in the z direction is greater than the threshold>
              EVENT_ERROR      = 0 <No event>
     @return True ：产生了此事件

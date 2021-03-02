@@ -100,7 +100,7 @@ bool DFRobot_LIS::getInt2Event(eInterruptEvent_t event)
 }
 
 
-int8_t DFRobot_LIS::enableSleep(bool enable)
+bool DFRobot_LIS::enableSleep(bool enable)
 {
   uint8_t reg = 0;
   uint8_t readRe = 0;
@@ -114,9 +114,9 @@ int8_t DFRobot_LIS::enableSleep(bool enable)
   readReg(REG_CTRL_REG5,&readRe,1);
   
   if(reg == readRe)
-    return 0;
+    return true;
   else 
-    return -1;
+    return false;
 }
 void DFRobot_LIS::setHFilterMode(eHighPassFilter_t mode){
 
@@ -198,7 +198,6 @@ long DFRobot_H3LIS200DL_I2C::readAccZ(){
   readReg(REG_STATUS_REG,&reg,1);
   readReg(REG_OUT_Z_L,&sensorData[0],1);
   readReg(REG_OUT_Z_L+1,&sensorData[1],1);
-
   a = ((int8_t)sensorData[1] *_range)/128;
   return a;
 }
@@ -419,18 +418,18 @@ bool DFRobot_LIS331HH_I2C::setRange(eRange_t range){
   readReg(REG_CTRL_REG4,&reg,1);
 
   switch(range){
-   case eLis331h_6g :{
+   case eLis331hh_6g :{
      _range = range;
      reg = reg&(~(3<<4));
      break;
    }
-   case eLis331h_12g :{
+   case eLis331hh_12g :{
     _range = range;
      reg = reg&(~(3<<4));
      reg = reg | (0x01<<4);
      break;
    }
-   case eLis331h_24g : {
+   case eLis331hh_24g : {
      _range = range;
      reg = reg&(~(3<<4));
      reg = reg | (0x03<<4);
@@ -574,18 +573,18 @@ bool DFRobot_LIS331HH_SPI::setRange(eRange_t range){
   readReg(REG_CTRL_REG4,&reg,1);
 
   switch(range){
-   case eLis331h_6g :{
+   case eLis331hh_6g :{
      _range = range;
      reg = reg&(~(3<<4));
      break;
    }
-   case eLis331h_12g :{
+   case eLis331hh_12g :{
     _range = range;
      reg = reg&(~(3<<4));
      reg = reg | (0x01<<4);
      break;
    }
-   case eLis331h_24g : {
+   case eLis331hh_24g : {
      _range = range;
      reg = reg&(~(3<<4));
      reg = reg | (0x03<<4);

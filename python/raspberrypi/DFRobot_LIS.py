@@ -17,9 +17,10 @@ import smbus
 import spidev 
 import numpy as np
 import RPi.GPIO as GPIO
-
-H3LIS200DL                = 0x01  
-LIS331HH                  = 0x02  
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+H3LIS200DL                = 0x32  
+LIS331HH                  = 0x32  
                
 class DFRobot_LIS(object):
   REG_CARD_ID    = 0x0F       #Chip id
@@ -45,7 +46,6 @@ class DFRobot_LIS(object):
   SPI_READ_BIT   = 0X80       # bit 0: RW bit. When 0, the data DI(7:0) is written into the device. When 1, the data DO(7:0) from the device is read.
   ENABLE_FILTER  = 0X10       #使能滤波
   __reset = 0
-  __chip = 0
   
   '''
     Power mode selection, determine the frequency of data collection
@@ -96,11 +96,12 @@ class DFRobot_LIS(object):
   '''
   Interrupt event
   '''
-  X_LOWTHAN_TH     = 0X1  #The acceleration in the x direction is less than the threshold
+  X_LOWERTHAN_TH   = 0X1  #The acceleration in the x direction is less than the threshold
+  X_LOWERTHAN_TH   = 0X1  #The acceleration in the x direction is less than the threshold
   X_HIGHERTHAN_TH  = 0X2  #The acceleration in the x direction is greater than the threshold
-  Y_LOWTHAN_TH     = 0X4  #The acceleration in the y direction is less than the threshold
+  Y_LOWERTHAN_TH   = 0X4  #The acceleration in the y direction is less than the threshold
   Y_HIGHERTHAN_TH  = 0X8  #The acceleration in the y direction is greater than the threshold
-  Z_LOWTHAN_TH     = 0X10  #The acceleration in the z direction is less than the threshold
+  Z_LOWERTHAN_TH   = 0X10  #The acceleration in the z direction is less than the threshold
   Z_HIGHERTHAN_TH  = 0X20  #The acceleration in the z direction is greater than the threshold
   EVENT_ERROR      = 0  # No event
 
@@ -108,9 +109,8 @@ class DFRobot_LIS(object):
   INT_1 = 0 #int1
   INT_2 = 1 #int2
   
-  def __init__(self,chip1):
+  def __init__(self):
     __reset = 1
-    self.__chip = chip1
 
   '''
     @brief Initialize the function
@@ -118,7 +118,7 @@ class DFRobot_LIS(object):
   '''
   def begin(self):
     identifier = self.read_reg(self.REG_CARD_ID)
-    if identifier == 0x32:
+    if identifier == H3LIS200DL or identifier == LIS331HH:
       return True
     else:
       return False
@@ -128,7 +128,6 @@ class DFRobot_LIS(object):
     @return the 8 bit serial number
   '''
   def get_id(self):
-    identifier = 0 
     identifier = self.read_reg(self.REG_CARD_ID)
     return identifier
 
@@ -148,7 +147,6 @@ class DFRobot_LIS(object):
   '''
   def set_acquire_rate(self, rate):    
     reg = self.read_reg(self.REG_CTRL_REG1)
-    #print(reg);
     reg = reg & (~(0x7 << 5))
     reg = reg & (~(0x3 << 3))
     reg = reg | rate
@@ -178,11 +176,11 @@ class DFRobot_LIS(object):
              INT_1 = 0,/<int pad 1 >/
              INT_2,/<int pad 2>/
     @param event Interrupt event selection
-             X_LOWTHAN_TH     = 0X1  #The acceleration in the x direction is less than the threshold
+             X_LOWERTHAN_TH     = 0X1  #The acceleration in the x direction is less than the threshold
              X_HIGHERTHAN_TH  = 0X2  #The acceleration in the x direction is greater than the threshold
-             Y_LOWTHAN_TH     = 0X4  #The acceleration in the y direction is less than the threshold
+             Y_LOWERTHAN_TH     = 0X4  #The acceleration in the y direction is less than the threshold
              Y_HIGHERTHAN_TH  = 0X8  #The acceleration in the y direction is greater than the threshold
-             Z_LOWTHAN_TH     = 0X10  #The acceleration in the z direction is less than the threshold
+             Z_LOWERTHAN_TH     = 0X10  #The acceleration in the z direction is less than the threshold
              Z_HIGHERTHAN_TH  = 0X20  #The acceleration in the z direction is greater than the threshold
              EVENT_ERROR      = 0  # No event
   '''
@@ -205,13 +203,13 @@ class DFRobot_LIS(object):
   '''
     @brief Check whether the interrupt event'event' is generated in interrupt 1
     @param event:Interrupt event
-                 X_LOWTHAN_TH     = 0X1  #The acceleration in the x direction is less than the threshold
-                 X_HIGHERTHAN_TH  = 0X2  #The acceleration in the x direction is greater than the threshold
-                 Y_LOWTHAN_TH     = 0X4  #The acceleration in the y direction is less than the threshold
-                 Y_HIGHERTHAN_TH  = 0X8  #The acceleration in the y direction is greater than the threshold
-                 Z_LOWTHAN_TH     = 0X10  #The acceleration in the z direction is less than the threshold
-                 Z_HIGHERTHAN_TH  = 0X20  #The acceleration in the z direction is greater than the threshold
-                 EVENT_ERROR      = 0  # No event
+             X_LOWERTHAN_TH     = 0X1  #The acceleration in the x direction is less than the threshold
+             X_HIGHERTHAN_TH  = 0X2  #The acceleration in the x direction is greater than the threshold
+             Y_LOWERTHAN_TH     = 0X4  #The acceleration in the y direction is less than the threshold
+             Y_HIGHERTHAN_TH  = 0X8  #The acceleration in the y direction is greater than the threshold
+             Z_LOWERTHAN_TH     = 0X10  #The acceleration in the z direction is less than the threshold
+             Z_HIGHERTHAN_TH  = 0X20  #The acceleration in the z direction is greater than the threshold
+             EVENT_ERROR      = 0  # No event
     @return true 产生了此事件
             false 未产生此事件
   '''
@@ -225,13 +223,13 @@ class DFRobot_LIS(object):
   '''
     @brief Check whether the interrupt event'event' is generated in interrupt 2
     @param event:Interrupt event
-                 X_LOWTHAN_TH     = 0X1  #The acceleration in the x direction is less than the threshold
-                 X_HIGHERTHAN_TH  = 0X2  #The acceleration in the x direction is greater than the threshold
-                 Y_LOWTHAN_TH     = 0X4  #The acceleration in the y direction is less than the threshold
-                 Y_HIGHERTHAN_TH  = 0X8  #The acceleration in the y direction is greater than the threshold
-                 Z_LOWTHAN_TH     = 0X10  #The acceleration in the z direction is less than the threshold
-                 Z_HIGHERTHAN_TH  = 0X20  #The acceleration in the z direction is greater than the threshold
-                 EVENT_ERROR      = 0  # No event
+             X_LOWERTHAN_TH     = 0X1  #The acceleration in the x direction is less than the threshold
+             X_HIGHERTHAN_TH  = 0X2  #The acceleration in the x direction is greater than the threshold
+             Y_LOWERTHAN_TH     = 0X4  #The acceleration in the y direction is less than the threshold
+             Y_HIGHERTHAN_TH  = 0X8  #The acceleration in the y direction is greater than the threshold
+             Z_LOWERTHAN_TH     = 0X10  #The acceleration in the z direction is less than the threshold
+             Z_HIGHERTHAN_TH  = 0X20  #The acceleration in the z direction is greater than the threshold
+             EVENT_ERROR      = 0  # No event
     @return true 产生了此事件
             false 未产生此事件
   '''
@@ -286,14 +284,11 @@ class DFRobot_LIS(object):
     self.write_reg(self.REG_CTRL_REG2,reg)
   
 
-
 class DFRobot_H3LIS200DL_I2C(DFRobot_LIS): 
   def __init__(self ,bus ,addr):
     self.__addr = addr
-    super(DFRobot_H3LIS200DL_I2C, self).__init__(H3LIS200DL)
-    self.i2cbus = smbus.SMBus(bus)
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setwarnings(False)
+    super(DFRobot_H3LIS200DL_I2C, self).__init__()
+    self.i2cbus = smbus.SMBus(bus))
     
   '''
     @brief Set the measurement range
@@ -312,17 +307,15 @@ class DFRobot_H3LIS200DL_I2C(DFRobot_LIS):
 
   '''
     @brief Get the acceleration in the three directions of xyz
-    @return Three-axis acceleration 
+     @return Three-axis acceleration(g) ,测量的量程为±100g或±200g,通过set_range()函数设置
   '''
   def read_acce_xyz(self):
     global _range 
     reg = self.read_reg(self.REG_STATUS_REG)
     data = [0,0,0,0,0,0,0]
-    offset = 0
     x = 0
     y = 0
     z = 0
-    
     if(reg & 0x01) == 1:
       base = self.REG_OUT_X_L
       for i in range(0,6):
@@ -345,7 +338,7 @@ class DFRobot_H3LIS200DL_I2C(DFRobot_LIS):
   '''
     @brief read the data from the register
     @param reg register address
-    @rerun data read data
+    @rerun read data
   '''
   def read_reg(self, reg):
     self.i2cbus.write_byte(self.__addr,reg)
@@ -355,9 +348,7 @@ class DFRobot_H3LIS200DL_I2C(DFRobot_LIS):
 
 class DFRobot_H3LIS200DL_SPI(DFRobot_LIS): 
   def __init__(self ,cs, bus = 0, dev = 0,speed = 100000):
-    super(DFRobot_H3LIS200DL_SPI, self).__init__(H3LIS200DL)
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setwarnings(False)
+    super(DFRobot_H3LIS200DL_SPI, self).__init__()
     self.__cs = cs
     GPIO.setup(self.__cs, GPIO.OUT)
     GPIO.output(self.__cs, GPIO.LOW)
@@ -383,7 +374,7 @@ class DFRobot_H3LIS200DL_SPI(DFRobot_LIS):
 
   '''
     @brief Get the acceleration in the three directions of xyz
-    @return Three-axis acceleration 
+    @return Three-axis acceleration(g),测量的量程为±100g或±200g,通过set_range()函数设置
   '''
   def read_acce_xyz(self):
     global _range 
@@ -417,7 +408,7 @@ class DFRobot_H3LIS200DL_SPI(DFRobot_LIS):
   '''
     @brief read the data from the register
     @param reg register address
-    @return data read data
+    @return read data
   '''
   def read_reg(self, reg):
      GPIO.output(self.__cs, GPIO.LOW)
@@ -430,10 +421,8 @@ class DFRobot_H3LIS200DL_SPI(DFRobot_LIS):
 class DFRobot_LIS331HH_I2C(DFRobot_LIS): 
   def __init__(self ,bus ,addr):
     self.__addr = addr
-    super(DFRobot_LIS331HH_I2C, self).__init__(LIS331HH)
+    super(DFRobot_LIS331HH_I2C, self).__init__()
     self.i2cbus = smbus.SMBus(bus)
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setwarnings(False)
     
   '''
     @brief Set the measurement range
@@ -449,15 +438,15 @@ class DFRobot_LIS331HH_I2C(DFRobot_LIS):
     reg = reg&(~(3<<4))
     if range_r == self.LIS331H_6G:
      reg = reg | (0x0<<4)
-    elif range_r == self.LIS331H_6G:
+    elif range_r == self.LIS331H_12G:
      reg = reg | (0x01<<4)
-    elif range_r == self.LIS331H_6G:
+    elif range_r == self.LIS331H_24G:
      reg = reg | (0x03<<4)
     self.write_reg(self.REG_CTRL_REG4,reg)
 
   '''
     @brief Get the acceleration in the three directions of xyz
-    @return Three-axis acceleration 
+    @return Three-axis acceleration(mg) ,测量的量程为±6g,±12g或±24g,通过set_range()函数设置
   '''
   def read_acce_xyz(self):
     global _range   
@@ -491,7 +480,7 @@ class DFRobot_LIS331HH_I2C(DFRobot_LIS):
   '''
     @brief read the data from the register
     @param reg register address
-    @return data read data
+    @return read data
   '''
   def read_reg(self, reg):
     self.i2cbus.write_byte(self.__addr,reg)
@@ -499,24 +488,10 @@ class DFRobot_LIS331HH_I2C(DFRobot_LIS):
     rslt = self.i2cbus.read_byte(self.__addr)
     #print(rslt)
     return rslt
-  
-  '''
-    @brief  Set External Interrupt
-    @param pin Interrupt pin
-    @param cb Interrupt service function
-    @param mode Interrupt trigger mode
-  
-  def attach_interrupt(self,pin, cb,mode):
-    GPIO.setup(pin, GPIO.IN)
-    if mode != GPIO.RISING and mode != GPIO.FALLING and mode != GPIO.BOTH:
-      return
-    GPIO.add_event_detect(pin, mode, cb)
-    '''
+
 class DFRobot_LIS331HH_SPI(DFRobot_LIS): 
   def __init__(self ,cs, bus = 0, dev = 0,speed = 1000000):
-    super(DFRobot_LIS331HH_SPI, self).__init__(LIS331HH)
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setwarnings(False)
+    super(DFRobot_LIS331HH_SPI, self).__init__()
     self.__cs = cs
     GPIO.setup(self.__cs, GPIO.OUT)
     GPIO.output(self.__cs, GPIO.LOW)
@@ -539,15 +514,15 @@ class DFRobot_LIS331HH_SPI(DFRobot_LIS):
     reg = reg&(~(3<<4))
     if range_r == self.LIS331H_6G:
      reg = reg | (0x0<<4)
-    elif range_r == self.LIS331H_6G:
+    elif range_r == self.LIS331H_12G:
      reg = reg | (0x01<<4)
-    elif range_r == self.LIS331H_6G:
+    elif range_r == self.LIS331H_24G:
      reg = reg | (0x03<<4)
     self.write_reg(self.REG_CTRL_REG4,reg)
 
   '''
     @brief Get the acceleration in the three directions of xyz
-    @return Three-axis acceleration 
+    @return Three-axis acceleration(mg) ,测量的量程为±6g,±12g或±24g,通过set_range()函数设置
   '''
   def read_acce_xyz(self):
     global _range   
@@ -585,7 +560,7 @@ class DFRobot_LIS331HH_SPI(DFRobot_LIS):
   '''
     @brief read the data from the register
     @param reg register address
-    @return data read data
+    @return read data
   '''
   def read_reg(self, reg):
      GPIO.output(self.__cs, GPIO.LOW)

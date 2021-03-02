@@ -1,9 +1,10 @@
 /**！
  * @file interrupt.ino
  * @brief 中断检测
- * @n 本示例中使能eZHigherThanTh中断事件,当Z方向上面的加速度大于程序所设置的阈值时,
- * @n 则会在我们设置的中断引脚int1/int2产生中断电平
- * @n 在使用SPI时,片选引脚可以通过改变宏LIS331HH_CS的值修改
+ * @本示例中使能eZHigherThanTh中断事件，即当Z方向的加速度大于程序所设置的阈值时，在我们
+ * @ 设置的中断引脚int1/int2上可以检测到中断电平，通过检测中断引脚上的电平变化即可判断是
+ * @否发生该中断事件。可设置的中断事件有以下6个： eXHigherThanTh, eXLowerThanTh, 
+ * @ eYHigherThanTh, eYLowerThanTh, eZHigherThanTh,eZLowerThanTh,关于每个中断事件的详细解释请看函数enableInterruptEvent()注释
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
  * @author [fengli](li.feng@dfrobot.com)
@@ -57,11 +58,11 @@ void setup(void){
   
   /**
     set range:Range(g)
-              eLis331h_6g = 6,/<±6g>/
-              eLis331h_12g = 12,/<±12g>/
-              eLis331h_24g = 24/<±24g>/
+              eLis331hh_6g = 6,/<±6g>/
+              eLis331hh_12g = 12,/<±12g>/
+              eLis331hh_24g = 24/<±24g>/
   */
-  acce.setRange(/*range = */DFRobot_LIS::eLis331h_6g);
+  acce.setRange(/*range = */DFRobot_LIS::eLis331hh_6g);
   
   /**
     Set data measurement rate：
@@ -110,7 +111,7 @@ void setup(void){
     Set the threshold of interrupt source 1 interrupt
     threshold:Threshold(g)
    */
-  acce.setInt1Th(/*Threshold = */2);//单位为:g
+  acce.setInt1Th(/*Threshold = */2);
   
   /*!
     Enable interrupt
@@ -118,20 +119,21 @@ void setup(void){
       eINT1 = 0,/<int1 >/
       eINT2,/<int2>/
     Interrupt event selection:
-      eXLowThanTh,/<The acceleration in the x direction is less than the threshold>/
+      eXLowerThanTh ,/<The acceleration in the x direction is less than the threshold>/
       eXHigherThanTh ,/<The acceleration in the x direction is greater than the threshold>/
-      eYLowThanTh,/<The acceleration in the y direction is less than the threshold>/
+      eYLowerThanTh,/<The acceleration in the y direction is less than the threshold>/
       eYHigherThanTh,/<The acceleration in the y direction is greater than the threshold>/
-      eZLowThanTh,/<The acceleration in the z direction is less than the threshold>/
+      eZLowerThanTh,/<The acceleration in the z direction is less than the threshold>/
       eZHigherThanTh,/<The acceleration in the z direction is greater than the threshold>/
    */
-  acce.enableInterruptEvent(/*int pin*/DFRobot_LIS::eINT1,/*interrupt = */DFRobot_LIS::eYHigherThanTh);
+  acce.enableInterruptEvent(/*int pin*/DFRobot_LIS::eINT1,/*interrupt = */DFRobot_LIS::eZHigherThanTh);
   
   delay(1000);
 }
 
 void loop(void){
    //Get the acceleration in the three directions of xyz
+   //测量的量程为±6g,±12g或±24g,通过setRange()函数设置
    Serial.print("Acceleration x: "); 
    Serial.print(acce.readAccX());
    Serial.print(" mg \ty: ");

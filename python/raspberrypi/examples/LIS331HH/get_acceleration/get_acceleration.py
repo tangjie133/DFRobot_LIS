@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 """
   @file get_acceleration.py
-  @brief 获取x,y,z三个方向的加速度值,三个方向加速度的量程可选择±6g/±12g/±24g
+  @brief 获取x,y,z三个方向的加速度值,加速度的测量的量程可选择±6g,±12g或±24g
   @n 在使用SPI时,片选引脚时可以通过改变RASPBERRY_PIN_CS的值修改
   @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
   @licence     The MIT License (MIT)
@@ -23,7 +23,7 @@ import time
 #acce = DFRobot_LIS331HH_SPI(RASPBERRY_PIN_CS)
 
 
-#如果你想要应IIC驱动此模块，打开下面三行的注释，并通过I2C连接好模块和树莓派,可通过板子上面的拨码切换I2C地址
+#如果你想要应IIC驱动此模块，打开下面三行的注释，并通过I2C连接好模块和树莓派,可通过板子上的拨码开关（gravity版本）或SDO引脚（Breakout版本）切换I2C地址
 I2C_BUS         = 0x01            #default use I2C1
 #ADDRESS_0       = 0x18            #I2C address 0
 ADDRESS_1       = 0x19            #I2C address 1
@@ -36,11 +36,11 @@ print('chip id :%x'%acce.get_id())
 
 '''
 set range:Range(g)
-          LIS331H_6G  = 6   #±6G
-          LIS331H_12G = 12  #±12G
-          LIS331H_24G = 24  #±24G
+          LIS331HH_6G  = 6   #±6G
+          LIS331HH_12G = 12  #±12G
+          LIS331HH_24G = 24  #±24G
 '''
-acce.set_range(acce.LIS331H_6G)
+acce.set_range(acce.LIS331HH_6G)
 
 '''
 Set data measurement rate
@@ -60,6 +60,7 @@ time.sleep(0.1)
 
 while True:
     #Get the acceleration in the three directions of xyz
+    #测量的量程为±6g,±12g或±24g,通过set_range()函数设置
     x,y,z = acce.read_acce_xyz()
     time.sleep(1)
     print("Acceleration [X = %.2d mg,Y = %.2d mg,Z = %.2d mg]"%(x,y,z))

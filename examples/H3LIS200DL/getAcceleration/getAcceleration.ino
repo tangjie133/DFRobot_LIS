@@ -1,6 +1,6 @@
 /**！
  * @file getAcceleration.ino
- * @brief 获取x,y,z三个方向的加速度值,三个方向加速度的量程可选择±100g/±200g
+ * @brief 获取x,y,z三个方向的加速度值,三个方向加速度的量程可选择±100g或±200g
  * @n 在使用SPI时,片选引脚时可以通过改变宏H3LIS200DL_CS的值修改
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
@@ -77,6 +77,7 @@ void loop(void){
 
   //Get the acceleration in the three directions of xyz
   long ax,ay,az;
+  //测量的量程为±100g或±200g,通过setRange()函数设置
   ax = acce.readAccX();//Get the acceleration in the x direction
   ay = acce.readAccY();//Get the acceleration in the y direction
   az = acce.readAccZ();//Get the acceleration in the z direction

@@ -7,10 +7,14 @@ H3LIS200DL       |      √       |              |
 LIS331HH      |      √       |              |  
 
 ![正反面svg效果图](https://github.com/cdjq/DFRobot_Sensor/raw/master/resources/images/SEN0245svg1.png)
-
+![正反面svg效果图](https://github.com/cdjq/DFRobot_Sensor/raw/master/resources/images/SEN0245svg2.png)
+![正反面svg效果图](https://github.com/cdjq/DFRobot_Sensor/raw/master/resources/images/SEN0245svg3.png)
+![正反面svg效果图](https://github.com/cdjq/DFRobot_Sensor/raw/master/resources/images/SEN0245svg4.png)
 ## 产品链接（链接到英文商城）
     SKU：产品名称
-
+    SKU：产品名称
+    SKU：产品名称
+    SKU：产品名称
 ## Table of Contents
 
 * [Summary](#summary)
@@ -34,13 +38,13 @@ To use this library, first download the library file, paste it into the \Arduino
   DFRobot_LIS();
   /**
    * @brief Initialize the function
-   * @return Return 0 indicates a successful initialization, while other values indicates failure and return to error code.
+   * @return true(成功)/false(失败)
    */
-  uint8_t begin(void);
+  bool begin(void);
  
   /**
    * @brief Get chip id
-   * @return Returns the 8 bit serial number
+   * @return 8 bit serial number
    */
   uint8_t getID();
   
@@ -50,11 +54,11 @@ To use this library, first download the library file, paste it into the \Arduino
               eINT1 = 0,/<int1 >/
               eINT2,/<int2>/
    * @param event Interrupt event selection
-                   eXLowThanTh ,/<The acceleration in the x direction is less than the threshold>/
+                   eXLowerThanTh ,/<The acceleration in the x direction is less than the threshold>/
                    eXHigherThanTh ,/<The acceleration in the x direction is greater than the threshold>/
-                   eYLowThanTh,/<The acceleration in the y direction is less than the threshold>/
+                   eYLowerThanTh,/<The acceleration in the y direction is less than the threshold>/
                    eYHigherThanTh,/<The acceleration in the y direction is greater than the threshold>/
-                   eZLowThanTh,/<The acceleration in the z direction is less than the threshold>/
+                   eZLowerThanTh,/<The acceleration in the z direction is less than the threshold>/
                    eZHigherThanTh,/<The acceleration in the z direction is greater than the threshold>/
    */
   void enableInterruptEvent(eInterruptSource_t source, eInterruptEvent_t event);
@@ -65,9 +69,9 @@ To use this library, first download the library file, paste it into the \Arduino
                   eH3lis200dl_100g, //±100g
                   eH3lis200dl_200g, //±200g
                   
-                  eLis331h_6g = 6,//±6g
-                  eLis331h_12g = 12 //±12g
-                  eLis331h_24g = 24 //±24g  
+                  eLis331hh_6g = 6,//±6g
+                  eLis331hh_12g = 12 //±12g
+                  eLis331hh_24g = 24 //±24g  
     @return true(设置成功)/false(设置失败)
    */
   bool setRange(eRange_t range);
@@ -127,18 +131,18 @@ To use this library, first download the library file, paste it into the \Arduino
   /**
    * @brief Enable sleep wake function
    * @param enable true(enable)\false(disable)
-   * @return 1 表示使能失败/0 表示使能成功
+   * @return false 表示使能失败/true 表示使能成功
    */
-  uint8_t enableSleep(bool enable);
+  bool enableSleep(bool enable);
   
   /**
    * @brief Check whether the interrupt event'event' is generated in interrupt 1
    * @param event Interrupt event
-                   eXLowThanTh ,/<The acceleration in the x direction is less than the threshold>/
+                   eXLowerThanTh ,/<The acceleration in the x direction is less than the threshold>/
                    eXHigherThanTh ,/<The acceleration in the x direction is greater than the threshold>/
-                   eYLowThanTh,/<The acceleration in the y direction is less than the threshold>/
+                   eYLowerThanTh,/<The acceleration in the y direction is less than the threshold>/
                    eYHigherThanTh,/<The acceleration in the y direction is greater than the threshold>/
-                   eZLowThanTh,/<The acceleration in the z direction is less than the threshold>/
+                   eZLowerThanTh,/<The acceleration in the z direction is less than the threshold>/
                    eZHigherThanTh,/<The acceleration in the z direction is greater than the threshold>/
    * @return true 产生了此事件
              false 未产生此事件
@@ -148,11 +152,11 @@ To use this library, first download the library file, paste it into the \Arduino
   /**
    * @brief Check whether the interrupt event'event' is generated in interrupt 2
    * @param event Interrupt event
-                   eXLowThanTh ,/<The acceleration in the x direction is less than the threshold>/
+                   eXLowerThanTh ,/<The acceleration in the x direction is less than the threshold>/
                    eXHigherThanTh ,/<The acceleration in the x direction is greater than the threshold>/
-                   eYLowThanTh,/<The acceleration in the y direction is less than the threshold>/
+                   eYLowerThanTh,/<The acceleration in the y direction is less than the threshold>/
                    eYHigherThanTh,/<The acceleration in the y direction is greater than the threshold>/
-                   eZLowThanTh,/<The acceleration in the z direction is less than the threshold>/
+                   eZLowerThanTh,/<The acceleration in the z direction is less than the threshold>/
                    eZHigherThanTh,/<The acceleration in the z direction is greater than the threshold>/
    * @return true 产生了此事件
              false 未产生此事件
@@ -161,19 +165,19 @@ To use this library, first download the library file, paste it into the \Arduino
   
   /**
    * @brief Get the acceleration in the x direction
-   * @return acceleration from x (unit:g)
+   * @return acceleration from x 
    */
   long readAccX();
   
   /**
    * @brief Get the acceleration in the y direction
-   * @return acceleration from y(unit:g)
+   * @return acceleration from y
    */
   long readAccY();
   
   /**
    * @brief Get the acceleration in the z direction
-   * @return acceleration from z(unit:g)
+   * @return acceleration from z
    */
   long readAccZ();
   
@@ -182,6 +186,7 @@ To use this library, first download the library file, paste it into the \Arduino
    * @param accx 储存x方向加速度的变量
    * @param accy 储存y方向加速度的变量
    * @param accz 储存z方向加速度的变量
+   * @return true(成功获取数据)/false(数据未准备好)
    */
   bool getAcceFromXYZ(long &accx,long &accy,long &accz);
 

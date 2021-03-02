@@ -84,9 +84,9 @@ typedef enum{
   eH3lis200dl_100g = 100,/**< ±100g>*/
   eH3lis200dl_200g = 200,/**< ±200g>*/
 
-  eLis331h_6g = 6,/**<±6g>*/
-  eLis331h_12g = 12,/**<±12g>*/
-  eLis331h_24g = 24/**<±24g>*/
+  eLis331hh_6g = 6,/**<±6g>*/
+  eLis331hh_12g = 12,/**<±12g>*/
+  eLis331hh_24g = 24/**<±24g>*/
   
 }eRange_t;
 
@@ -116,11 +116,11 @@ typedef enum{
   Interrupt event
 */
 typedef enum{
-  eXLowThanTh = 0x1,    /**<The acceleration in the x direction is less than the threshold>*/
+  eXLowerThanTh = 0x1,    /**<The acceleration in the x direction is less than the threshold>*/
   eXHigherThanTh = 0x2, /**<The acceleration in the x direction is greater than the threshold>*/
-  eYLowThanTh = 0x4,    /**<The acceleration in the y direction is less than the threshold>*/
+  eYLowerThanTh = 0x4,    /**<The acceleration in the y direction is less than the threshold>*/
   eYHigherThanTh = 0x8, /**<The acceleration in the y direction is greater than the threshold>*/
-  eZLowThanTh = 0x10,   /**<The acceleration in the z direction is less than the threshold>*/
+  eZLowerThanTh = 0x10,   /**<The acceleration in the z direction is less than the threshold>*/
   eZHigherThanTh = 0x20,/**<The acceleration in the z direction is greater than the threshold>*/
   eEventError = 0,      /**< No event>*/
 }eInterruptEvent_t;
@@ -137,13 +137,13 @@ public:
   DFRobot_LIS();
   /**
    * @brief Initialize the function
-   * @return return true(成功)/false(失败)
+   * @return true(成功)/false(失败)
    */
   bool begin(void);
  
   /**
    * @brief Get chip id
-   * @return Returns the 8 bit serial number
+   * @return 8 bit serial number
    */
   uint8_t getID();
   
@@ -153,11 +153,11 @@ public:
               eINT1 = 0,/<int1 >/
               eINT2,/<int2>/
    * @param event Interrupt event selection
-                   eXLowThanTh ,/<The acceleration in the x direction is less than the threshold>/
+                   eXLowerThanTh ,/<The acceleration in the x direction is less than the threshold>/
                    eXHigherThanTh ,/<The acceleration in the x direction is greater than the threshold>/
-                   eYLowThanTh,/<The acceleration in the y direction is less than the threshold>/
+                   eYLowerThanTh,/<The acceleration in the y direction is less than the threshold>/
                    eYHigherThanTh,/<The acceleration in the y direction is greater than the threshold>/
-                   eZLowThanTh,/<The acceleration in the z direction is less than the threshold>/
+                   eZLowerThanTh,/<The acceleration in the z direction is less than the threshold>/
                    eZHigherThanTh,/<The acceleration in the z direction is greater than the threshold>/
    */
   void enableInterruptEvent(eInterruptSource_t source, eInterruptEvent_t event);
@@ -217,20 +217,20 @@ public:
   /**
    * @brief Enable sleep wake function
    * @param enable true(enable)\false(disable)
-   * @return -1 表示使能失败/0 表示使能成功
+   * @return false 表示使能失败/true 表示使能成功
    */
-  int8_t enableSleep(bool enable);
+  bool enableSleep(bool enable);
   
 
 
   /**
    * @brief Check whether the interrupt event'event' is generated in interrupt 1
    * @param event Interrupt event
-                   eXLowThanTh ,/<The acceleration in the x direction is less than the threshold>/
+                   eXLowerThanTh ,/<The acceleration in the x direction is less than the threshold>/
                    eXHigherThanTh ,/<The acceleration in the x direction is greater than the threshold>/
-                   eYLowThanTh,/<The acceleration in the y direction is less than the threshold>/
+                   eYLowerThanTh,/<The acceleration in the y direction is less than the threshold>/
                    eYHigherThanTh,/<The acceleration in the y direction is greater than the threshold>/
-                   eZLowThanTh,/<The acceleration in the z direction is less than the threshold>/
+                   eZLowerThanTh,/<The acceleration in the z direction is less than the threshold>/
                    eZHigherThanTh,/<The acceleration in the z direction is greater than the threshold>/
    * @return true 产生了此事件
              false 未产生此事件
@@ -240,11 +240,11 @@ public:
   /**
    * @brief Check whether the interrupt event'event' is generated in interrupt 2
    * @param event Interrupt event
-                   eXLowThanTh ,/<The acceleration in the x direction is less than the threshold>/
+                   eXLowerThanTh ,/<The acceleration in the x direction is less than the threshold>/
                    eXHigherThanTh ,/<The acceleration in the x direction is greater than the threshold>/
-                   eYLowThanTh,/<The acceleration in the y direction is less than the threshold>/
+                   eYLowerThanTh,/<The acceleration in the y direction is less than the threshold>/
                    eYHigherThanTh,/<The acceleration in the y direction is greater than the threshold>/
-                   eZLowThanTh,/<The acceleration in the z direction is less than the threshold>/
+                   eZLowerThanTh,/<The acceleration in the z direction is less than the threshold>/
                    eZHigherThanTh,/<The acceleration in the z direction is greater than the threshold>/
    * @return true 产生了此事件
              false 未产生此事件
@@ -275,6 +275,7 @@ protected:
    * @param reg chip register 
    * @param pBuf  buf for store data to read 
    * @param size  number of data to read
+   * @return 成功读数据的个数
    */
   virtual uint8_t readReg(uint8_t reg,void * pBuf ,size_t size) = 0;
   
@@ -283,6 +284,7 @@ protected:
    * @param reg register
    * @param pBuf  buf for store data to write 
    * @param size  The number of the data in pBuf
+   * @return 成功发送数据的个数
    */
   virtual uint8_t  writeReg(uint8_t reg,const void *pBuf,size_t size)= 0; 
 
@@ -313,19 +315,19 @@ public:
 
   /**
    * @brief Get the acceleration in the x direction
-   * @return acceleration from x (unit:g)
+   * @return acceleration from x (unit:g),测量的量程为±100g或±200g,通过setRange()函数设置
    */
   long readAccX();
   
   /**
    * @brief Get the acceleration in the y direction
-   * @return acceleration from y(unit:g)
+   * @return acceleration from y(unit:g),测量的量程为±100g或±200g,通过setRange()函数设置
    */
   long readAccY();
   
   /**
    * @brief Get the acceleration in the z direction
-   * @return acceleration from z(unit:g)
+   * @return acceleration from z(unit:g),测量的量程为±100g或±200g,通过setRange()函数设置
    */
   long readAccZ();
   
@@ -387,19 +389,19 @@ public:
   
   /**
    * @brief Get the acceleration in the x direction
-   * @return acceleration from x (unit:g)
+   * @return acceleration from x (unit:g),测量的量程为±100g或±200g,通过setRange()函数设置
    */
   long readAccX();
   
   /**
    * @brief Get the acceleration in the y direction
-   * @return acceleration from y(unit:g)
+   * @return acceleration from y(unit:g),测量的量程为±100g或±200g,通过setRange()函数设置
    */
   long readAccY();
   
   /**
    * @brief Get the acceleration in the z direction
-   * @return acceleration from z(unit:g)
+   * @return acceleration from z(unit:g),测量的量程为±100g或±200g,通过setRange()函数设置
    */
   long readAccZ();
   
@@ -452,27 +454,27 @@ public:
   /**
    * @brief Set the measurement range
    * @param range Range(g)
-                  eLis331h_6g = 6,//±6g
-                  eLis331h_12g = 12 //±12g
-                  eLis331h_24g = 24 //±24g  
+                  eLis331hh_6g = 6,//±6g
+                  eLis331hh_12g = 12 //±12g
+                  eLis331hh_24g = 24 //±24g  
     @return true(设置成功)/false(设置失败)
    */
   bool setRange(eRange_t range);
   /**
    * @brief Get the acceleration in the x direction
-   * @return acceleration from x (unit:g)
+   * @return acceleration from x (unit:mg),测量的量程为±6g,±12g或±24g,通过setRange()函数设置
    */
   long readAccX();
   
   /**
    * @brief Get the acceleration in the y direction
-   * @return acceleration from y(unit:g)
+   * @return acceleration from y(unit:mg),测量的量程为±6g,±12g或±24g,通过setRange()函数设置
    */
   long readAccY();
   
   /**
    * @brief Get the acceleration in the z direction
-   * @return acceleration from z(unit:g)
+   * @return acceleration from z(unit:mg),测量的量程为±6g,±12g或±24g,通过setRange()函数设置
    */
   long readAccZ();
   
@@ -528,28 +530,28 @@ public:
   /**
    * @brief Set the measurement range
    * @param range Range(g)
-                  eLis331h_6g = 6,//±6g
-                  eLis331h_12g = 12 //±12g
-                  eLis331h_24g = 24 //±24g  
+                  eLis331hh_6g = 6,//±6g
+                  eLis331hh_12g = 12 //±12g
+                  eLis331hh_24g = 24 //±24g  
     @return true(设置成功)/false(设置失败)
    */
   bool setRange(eRange_t range);
   
   /**
    * @brief Get the acceleration in the x direction
-   * @return acceleration from x (unit:g)
+   * @return acceleration from x (unit:mg),测量的量程为±6g,±12g或±24g,通过setRange()函数设置
    */
   long readAccX();
   
   /**
    * @brief Get the acceleration in the y direction
-   * @return acceleration from y(unit:g)
+   * @return acceleration from y(unit:mg),测量的量程为±6g,±12g或±24g,通过setRange()函数设置
    */
   long readAccY();
   
   /**
    * @brief Get the acceleration in the z direction
-   * @return acceleration from z(unit:g)
+   * @return acceleration from z(unit:mg),测量的量程为±6g,±12g或±24g,通过setRange()函数设置
    */
   long readAccZ();
   
