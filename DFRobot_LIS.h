@@ -58,6 +58,7 @@ public:
   
   #define SPI_READ_BIT     0X80   /* bit 0: RW bit. When 0, the data DI(7:0) is written into the device. When 1, the data DO(7:0) 
 from the device is read.*/
+  
 public:
 
 /**
@@ -413,6 +414,7 @@ public:
    * @return true(成功获取数据)/false(数据未准备好)
    */
   bool getAcceFromXYZ(long &accx,long &accy,long &accz);
+  
 protected:
 
   /**
@@ -438,6 +440,7 @@ private:
 };
 
 class DFRobot_LIS331HH_I2C : public DFRobot_LIS{
+  
 public:
   /*!
    * @brief Constructor 
@@ -512,6 +515,7 @@ private:
 };
 
 class DFRobot_LIS331HH_SPI : public DFRobot_LIS{
+  
 public:
 
   /*!
