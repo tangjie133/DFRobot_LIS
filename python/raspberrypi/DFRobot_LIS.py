@@ -159,7 +159,6 @@ class DFRobot_LIS(object):
     reg = (threshold * 128)/_range
     self.write_reg(self.REG_INT1_THS,reg)
 
-
   '''
     @brief Set interrupt source 2 interrupt generation threshold
     @param threshold Threshold(g)
@@ -249,8 +248,6 @@ class DFRobot_LIS(object):
     self.write_reg(self.REG_CTRL_REG5,reg)
     return 0
 
-  
-  
   '''
     @brief Set data filtering mode
     @param mode:Four modes
