@@ -11,7 +11,6 @@
   @url https://github.com/DFRobot/DFRobot_LIS
 """
 import struct
-import serial
 import time
 import smbus
 import spidev 
