@@ -10,7 +10,6 @@
   @get from https://www.dfrobot.com
   @url https://github.com/DFRobot/DFRobot_LIS
 """
-import struct
 import time
 import smbus
 import spidev 
