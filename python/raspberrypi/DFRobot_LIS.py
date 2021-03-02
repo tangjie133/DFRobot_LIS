@@ -97,7 +97,6 @@ class DFRobot_LIS(object):
   Interrupt event
   '''
   X_LOWERTHAN_TH   = 0X1  #The acceleration in the x direction is less than the threshold
-  X_LOWERTHAN_TH   = 0X1  #The acceleration in the x direction is less than the threshold
   X_HIGHERTHAN_TH  = 0X2  #The acceleration in the x direction is greater than the threshold
   Y_LOWERTHAN_TH   = 0X4  #The acceleration in the y direction is less than the threshold
   Y_HIGHERTHAN_TH  = 0X8  #The acceleration in the y direction is greater than the threshold
