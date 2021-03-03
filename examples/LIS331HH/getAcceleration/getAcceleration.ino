@@ -35,6 +35,7 @@ DFRobot_LIS331HH_I2C acce;
  * @param cs : Chip selection pinChip selection pin
  * @param spi :SPI controller
  */
+//DFRobot_LIS331HH_SPI acce(/*cs = */LIS331HH_CS,&SPI);
 //DFRobot_LIS331HH_SPI acce(/*cs = */LIS331HH_CS);
 
 void setup(void){
@@ -43,7 +44,7 @@ void setup(void){
   //Chip initialization
   while(!acce.begin()){
      delay(1000);
-     Serial.println("初始化失败，请检查连线与I2C地址设置");
+     Serial.println("初始化失败，请检查连线或I2C地址设置");
   }
   //Get chip id
   Serial.print("chip id : ");

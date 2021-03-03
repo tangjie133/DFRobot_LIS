@@ -143,28 +143,27 @@ class DFRobot_LIS(object):
            NORMAL_1000HZ = 0X38
   '''
   def set_acquire_rate(self, rate):    
-    reg = self.read_reg(self.REG_CTRL_REG1)
-    reg = reg & (~(0x7 << 5))
-    reg = reg & (~(0x3 << 3))
-    reg = reg | rate
-    self.write_reg(self.REG_CTRL_REG1,reg)
+    value = self.read_reg(self.REG_CTRL_REG1)
+    value = value & (~(0x7 << 5))
+    value = value & (~(0x3 << 3))
+    value = value | rate
+    self.write_reg(self.REG_CTRL_REG1,value)
 
   '''
     @brief Set the threshold of interrupt source 1 interrupt
     @param threshold Threshold(g)
   '''
   def set_int1_th(self,threshold):
-    reg = (threshold * 128)/_range
-    self.write_reg(self.REG_INT1_THS,reg)
+    value = (threshold * 128)/_range
+    self.write_reg(self.REG_INT1_THS,value)
 
   '''
     @brief Set interrupt source 2 interrupt generation threshold
     @param threshold Threshold(g)
   '''
   def set_int2_th(self,threshold):
-    reg = (threshold * 128)/_range
-    
-    self.write_reg(self.REG_INT2_THS,reg)
+    value = (threshold * 128)/_range
+    self.write_reg(self.REG_INT2_THS,value)
   
   '''
     @brief Enable interrupt
@@ -181,20 +180,20 @@ class DFRobot_LIS(object):
              EVENT_ERROR      = 0  # No event
   '''
   def enable_int_event(self,source,event):
-    reg = 0    
+    value = 0    
     if source == self.INT_1:
-      reg = self.read_reg(self.REG_INT1_CFG)
+      value = self.read_reg(self.REG_INT1_CFG)
     else:
-      reg = self.read_reg(self.REG_INT2_CFG)
+      value = self.read_reg(self.REG_INT2_CFG)
     if self.__reset == 1:
-       reg = 0
+       value = 0
        self.__reset = 0
-    reg = reg | event;
-    #print(reg)
+    value = value | event;
+    #print(value)
     if source == self.INT_1:
-      self.write_reg(self.REG_INT1_CFG,reg)
+      self.write_reg(self.REG_INT1_CFG,value)
     else:
-      self.write_reg(self.REG_INT2_CFG,reg)
+      self.write_reg(self.REG_INT2_CFG,value)
 
   '''
     @brief Check whether the interrupt event'event' is generated in interrupt 1
@@ -210,8 +209,8 @@ class DFRobot_LIS(object):
             false 未产生此事件
   '''
   def get_int1_event(self,event):
-    reg = self.read_reg(self.REG_INT1_SRC)
-    if (reg & event) >= 1:
+    value = self.read_reg(self.REG_INT1_SRC)
+    if (value & event) >= 1:
          return True
     else:
          return False
@@ -230,8 +229,8 @@ class DFRobot_LIS(object):
             false 未产生此事件
   '''
   def get_int2_event(self,event):
-    reg = self.read_reg(self.REG_INT2_SRC)
-    if (reg & event) >= 1:
+    value = self.read_reg(self.REG_INT2_SRC)
+    if (value & event) >= 1:
          return True
     else:
          return False
@@ -240,10 +239,10 @@ class DFRobot_LIS(object):
     @param enable:True(enable)/False(disable)
   '''
   def enable_sleep(self, enable):
-    reg = 0
+    value = 0
     if enable == True:
-      reg = 3
-    self.write_reg(self.REG_CTRL_REG5,reg)
+      value = 3
+    self.write_reg(self.REG_CTRL_REG5,value)
     return 0
 
   '''
@@ -268,14 +267,14 @@ class DFRobot_LIS(object):
     |--------------------------------------------------------------------------------------------------------|
   '''
   def set_filter_mode(self,mode):
-    reg = self.read_reg(self.REG_CTRL_REG2)
+    value = self.read_reg(self.REG_CTRL_REG2)
     if mode == self.SHUTDOWN:
-      reg = reg & (~ENABLE_FILTER)
+      value = value & (~ENABLE_FILTER)
     else:
-      reg = reg | ENABLE_FILTER
-    reg = reg & (~3)
-    reg = reg | mode
-    self.write_reg(self.REG_CTRL_REG2,reg)
+      value = value | ENABLE_FILTER
+    value = value & (~3)
+    value = value | mode
+    self.write_reg(self.REG_CTRL_REG2,value)
   
 
 class DFRobot_H3LIS200DL_I2C(DFRobot_LIS): 
@@ -292,12 +291,12 @@ class DFRobot_H3LIS200DL_I2C(DFRobot_LIS):
   '''
   def set_range(self,range_r):
     global _range 
-    reg = self.read_reg(self.REG_CTRL_REG4)
+    value = self.read_reg(self.REG_CTRL_REG4)
     _range = range_r
     if range_r == self.H3LIS200DL_100G:
-     reg = reg & (~0x10)
+     value = value & (~0x10)
     else:
-     reg = reg | 0x10
+     value = value | 0x10
 
   '''
     @brief Get the acceleration in the three directions of xyz
@@ -305,12 +304,12 @@ class DFRobot_H3LIS200DL_I2C(DFRobot_LIS):
   '''
   def read_acce_xyz(self):
     global _range 
-    reg = self.read_reg(self.REG_STATUS_REG)
+    value = self.read_reg(self.REG_STATUS_REG)
     data = [0,0,0,0,0,0,0]
     x = 0
     y = 0
     z = 0
-    if(reg & 0x01) == 1:
+    if(value & 0x01) == 1:
       base = self.REG_OUT_X_L
       for i in range(0,6):
         data[i] = self.read_reg(base+i)
@@ -359,12 +358,12 @@ class DFRobot_H3LIS200DL_SPI(DFRobot_LIS):
   '''
   def set_range(self,range_r):
     global _range 
-    reg = self.read_reg(self.REG_CTRL_REG4)
+    value = self.read_reg(self.REG_CTRL_REG4)
     _range = range_r
     if range_r == self.H3LIS200DL_100G:
-     reg = reg & (~0x10)
+     value = value & (~0x10)
     else:
-     reg = reg | 0x10
+     value = value | 0x10
 
   '''
     @brief Get the acceleration in the three directions of xyz
@@ -372,12 +371,12 @@ class DFRobot_H3LIS200DL_SPI(DFRobot_LIS):
   '''
   def read_acce_xyz(self):
     global _range 
-    reg = self.read_reg(self.REG_STATUS_REG)
+    value = self.read_reg(self.REG_STATUS_REG)
     data = [0,0,0,0,0,0,0]
     x = 0
     y = 0
     z = 0
-    if(reg & 0x01) == 1:
+    if(value & 0x01) == 1:
       base = self.REG_OUT_X_L
       for i in range(0,6):
         data[i] = self.read_reg(base+i)
@@ -427,16 +426,16 @@ class DFRobot_LIS331HH_I2C(DFRobot_LIS):
   '''
   def set_range(self,range_r):
     global _range   
-    reg = self.read_reg(self.REG_CTRL_REG4)
+    value = self.read_reg(self.REG_CTRL_REG4)
     _range = range_r
-    reg = reg&(~(3<<4))
+    value = value&(~(3<<4))
     if range_r == self.LIS331H_6G:
-     reg = reg | (0x0<<4)
+     value = value | (0x0<<4)
     elif range_r == self.LIS331H_12G:
-     reg = reg | (0x01<<4)
+     value = value | (0x01<<4)
     elif range_r == self.LIS331H_24G:
-     reg = reg | (0x03<<4)
-    self.write_reg(self.REG_CTRL_REG4,reg)
+     value = value | (0x03<<4)
+    self.write_reg(self.REG_CTRL_REG4,value)
 
   '''
     @brief Get the acceleration in the three directions of xyz
@@ -444,12 +443,12 @@ class DFRobot_LIS331HH_I2C(DFRobot_LIS):
   '''
   def read_acce_xyz(self):
     global _range   
-    reg = self.read_reg(self.REG_STATUS_REG)
+    value = self.read_reg(self.REG_STATUS_REG)
     data = [0,0,0,0,0,0,0]
     x = 0
     y = 0
     z = 0
-    if(reg & 0x01) == 1:
+    if(value & 0x01) == 1:
       base = self.REG_OUT_X_L
       for i in range(0,6):
         data[i] = self.read_reg(base+i)
@@ -503,16 +502,16 @@ class DFRobot_LIS331HH_SPI(DFRobot_LIS):
   '''
   def set_range(self,range_r):
     global _range   
-    reg = self.read_reg(self.REG_CTRL_REG4)
+    value = self.read_reg(self.REG_CTRL_REG4)
     _range = range_r
-    reg = reg&(~(3<<4))
+    value = value&(~(3<<4))
     if range_r == self.LIS331H_6G:
-     reg = reg | (0x0<<4)
+     value = value | (0x0<<4)
     elif range_r == self.LIS331H_12G:
-     reg = reg | (0x01<<4)
+     value = value | (0x01<<4)
     elif range_r == self.LIS331H_24G:
-     reg = reg | (0x03<<4)
-    self.write_reg(self.REG_CTRL_REG4,reg)
+     value = value | (0x03<<4)
+    self.write_reg(self.REG_CTRL_REG4,value)
 
   '''
     @brief Get the acceleration in the three directions of xyz
@@ -520,13 +519,13 @@ class DFRobot_LIS331HH_SPI(DFRobot_LIS):
   '''
   def read_acce_xyz(self):
     global _range   
-    reg = self.read_reg(self.REG_STATUS_REG)
+    value = self.read_reg(self.REG_STATUS_REG)
     data = [0,0,0,0,0,0,0]
     x = 0
     y = 0
     z = 0
     #print(_range)
-    if(reg & 0x01) == 1:
+    if(value & 0x01) == 1:
       base = self.REG_OUT_X_L
       for i in range(0,6):
         data[i] = self.read_reg(base+i)

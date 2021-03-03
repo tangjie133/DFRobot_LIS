@@ -1,10 +1,11 @@
 /**！
  * @file interrupt.ino
  * @brief 中断检测
- * @本示例中使能eZHigherThanTh中断事件，即当Z方向的加速度大于程序所设置的阈值时，在我们
- * @ 设置的中断引脚int1/int2上可以检测到中断电平，通过检测中断引脚上的电平变化即可判断是
- * @否发生该中断事件。可设置的中断事件有以下6个： eXHigherThanTh, eXLowerThanTh, 
- * @ eYHigherThanTh, eYLowerThanTh, eZHigherThanTh,eZLowerThanTh,关于每个中断事件的详细解释请看函数enableInterruptEvent()注释
+ * @n本示例中使能eZHigherThanTh中断事件，即当Z方向的加速度大于程序所设置的阈值时，在我们
+ * @n设置的中断引脚int1/int2上可以检测到中断电平，通过检测中断引脚上的电平变化即可判断是
+ * @n否发生该中断事件。可设置的中断事件有以下6个： eXHigherThanTh, eXLowerThanTh, 
+ * @n eYHigherThanTh, eYLowerThanTh, eZHigherThanTh,eZLowerThanTh,关于每个中断事件的详细
+ * @n解释请看函数enableInterruptEvent()注释
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
  * @author [fengli](li.feng@dfrobot.com)
@@ -37,6 +38,7 @@ DFRobot_LIS331HH_I2C acce;
  * @param cs Chip selection pinChip selection pin
  * @param spi SPI controller
  */
+//DFRobot_LIS331HH_SPI acce(/*cs = */LIS331HH_CS,&SPI);
 //DFRobot_LIS331HH_SPI acce(/*cs = */LIS331HH_CS);
 
 volatile uint8_t intFlag = 0;
@@ -51,7 +53,7 @@ void setup(void){
   //Chip initialization
   while(!acce.begin()){
      delay(1000);
-     Serial.println("初始化失败，请检查连线与I2C地址设置");
+     Serial.println("初始化失败，请检查连线或I2C地址设置");
   }
   Serial.print("chip id : ");
   Serial.println(acce.getID(),HEX);

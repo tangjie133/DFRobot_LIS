@@ -187,6 +187,7 @@ public:
                  eCutOffMode3,
                  eCutOffMode4,
                  eShutDown,  无过滤
+     eg：在50HZ的频率下,选择eCutOffMode1,滤波后的频率为 1 HZ
    *|---------------------------High-pass filter cut-off frequency configuration-----------------------------|
    *|--------------------------------------------------------------------------------------------------------|
    *|                |    ft [Hz]      |        ft [Hz]       |       ft [Hz]        |        ft [Hz]        |
@@ -258,16 +259,15 @@ public:
   
   /**
    * @brief 设置睡眠状态的标志
-   * @param into true(将现在的模式标记为睡眠模式)
+   * @param flag true(将现在的模式标记为睡眠模式)
                  false(将现在的模式标记为正常模式)
    */
-  void setSleepFlag(bool into);
+  void setSleepFlag(bool flag);
 protected:
 
-  uint8_t _interface = 0;
-  uint8_t reset = 0;
+  uint8_t _reset = 0;
   uint8_t _range = 100;
-  bool state = true;
+  bool _state = true;
   
   /**
    * @brief read data from sensor chip register
@@ -316,19 +316,19 @@ public:
    * @brief Get the acceleration in the x direction
    * @return acceleration from x (unit:g),测量的量程为±100g或±200g,通过setRange()函数设置
    */
-  long readAccX();
+  int32_t readAccX();
   
   /**
    * @brief Get the acceleration in the y direction
    * @return acceleration from y(unit:g),测量的量程为±100g或±200g,通过setRange()函数设置
    */
-  long readAccY();
+  int32_t readAccY();
   
   /**
    * @brief Get the acceleration in the z direction
    * @return acceleration from z(unit:g),测量的量程为±100g或±200g,通过setRange()函数设置
    */
-  long readAccZ();
+  int32_t readAccZ();
   
   /**
    * @brief Get the acceleration in the three directions of xyz
@@ -337,7 +337,7 @@ public:
    * @param accz 储存z方向加速度的变量
    * @return true(成功获取数据)/false(数据未准备好)
    */
-  bool getAcceFromXYZ(long &accx,long &accy,long &accz);
+  bool getAcceFromXYZ(int32_t &accx,int32_t &accy,int32_t &accz);
 protected:
 
   /**
@@ -390,19 +390,19 @@ public:
    * @brief Get the acceleration in the x direction
    * @return acceleration from x (unit:g),测量的量程为±100g或±200g,通过setRange()函数设置
    */
-  long readAccX();
+  int32_t readAccX();
   
   /**
    * @brief Get the acceleration in the y direction
    * @return acceleration from y(unit:g),测量的量程为±100g或±200g,通过setRange()函数设置
    */
-  long readAccY();
+  int32_t readAccY();
   
   /**
    * @brief Get the acceleration in the z direction
    * @return acceleration from z(unit:g),测量的量程为±100g或±200g,通过setRange()函数设置
    */
-  long readAccZ();
+  int32_t readAccZ();
   
   /**
    * @brief Get the acceleration in the three directions of xyz
@@ -411,7 +411,7 @@ public:
    * @param accz 储存z方向加速度的变量
    * @return true(成功获取数据)/false(数据未准备好)
    */
-  bool getAcceFromXYZ(long &accx,long &accy,long &accz);
+  bool getAcceFromXYZ(int32_t &accx,int32_t &accy,int32_t &accz);
   
 protected:
 
@@ -465,19 +465,19 @@ public:
    * @brief Get the acceleration in the x direction
    * @return acceleration from x (unit:mg),测量的量程为±6g,±12g或±24g,通过setRange()函数设置
    */
-  long readAccX();
+  int32_t readAccX();
   
   /**
    * @brief Get the acceleration in the y direction
    * @return acceleration from y(unit:mg),测量的量程为±6g,±12g或±24g,通过setRange()函数设置
    */
-  long readAccY();
+  int32_t readAccY();
   
   /**
    * @brief Get the acceleration in the z direction
    * @return acceleration from z(unit:mg),测量的量程为±6g,±12g或±24g,通过setRange()函数设置
    */
-  long readAccZ();
+  int32_t readAccZ();
   
   /**
    * @brief Get the acceleration in the three directions of xyz
@@ -486,7 +486,7 @@ public:
    * @param accz 储存z方向加速度的变量
    * @return true(成功获取数据)/false(数据未准备好)
    */
-  bool getAcceFromXYZ(long &accx,long &accy,long &accz);
+  bool getAcceFromXYZ(int32_t &accx,int32_t &accy,int32_t &accz);
   
 protected:
 
@@ -543,19 +543,19 @@ public:
    * @brief Get the acceleration in the x direction
    * @return acceleration from x (unit:mg),测量的量程为±6g,±12g或±24g,通过setRange()函数设置
    */
-  long readAccX();
+  int32_t readAccX();
   
   /**
    * @brief Get the acceleration in the y direction
    * @return acceleration from y(unit:mg),测量的量程为±6g,±12g或±24g,通过setRange()函数设置
    */
-  long readAccY();
+  int32_t readAccY();
   
   /**
    * @brief Get the acceleration in the z direction
    * @return acceleration from z(unit:mg),测量的量程为±6g,±12g或±24g,通过setRange()函数设置
    */
-  long readAccZ();
+  int32_t readAccZ();
   
   /**
    * @brief Get the acceleration in the three directions of xyz
@@ -564,7 +564,7 @@ public:
    * @param accz 储存z方向加速度的变量
    * @return true(成功获取数据)/false(数据未准备好)
    */
-  bool getAcceFromXYZ(long &accx,long &accy,long &accz);
+  bool getAcceFromXYZ(int32_t &accx,int32_t &accy,int32_t &accz);
 protected:
 
   /**

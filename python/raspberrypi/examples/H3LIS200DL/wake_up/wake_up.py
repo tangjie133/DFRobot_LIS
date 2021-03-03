@@ -26,8 +26,8 @@ import time
 
 #如果你想要应IIC驱动此模块，打开下面三行的注释，并通过I2C连接好模块和树莓派,可通过板子上的拨码开关（gravity版本）或SDO引脚（Breakout版本）切换I2C地址
 I2C_BUS         = 0x01            #default use I2C1
-#ADDRESS_0       = 0x18            #I2C address 0
-ADDRESS_1       = 0x19            #I2C address 1
+#ADDRESS_0       = 0x18            #传感器地址0
+ADDRESS_1       = 0x19            #传感器地址1
 acce = DFRobot_H3LIS200DL_I2C(I2C_BUS ,ADDRESS_1)
 
 #Chip initialization
@@ -87,5 +87,5 @@ while True:
     #测量的量程为±100g或±200g,通过set_range()函数设置
     #当有中断产生，能观察到芯片测量的频率明显变快
     x,y,z = acce.read_acce_xyz()
-    time.sleep(0.1)
     print("Acceleration [X = %.2f g,Y = %.2f g,Z = %.2f g]"%(x,y,z))
+    time.sleep(0.1)

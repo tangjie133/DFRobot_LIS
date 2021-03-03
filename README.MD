@@ -6,7 +6,7 @@ CHIP                | Work Well    | Work Wrong  | Remarks
 H3LIS200DL       |      √       |              |             
 LIS331HH      |      √       |              |  
 
-![正反面svg效果图](https://github.com/cdjq/DFRobot_LIS/resources/images/SEN0245svg1.png)
+![正反面svg效果图](https://github.com/cdjq/DFRobot_LIS/raw/master/resources/images/SEN0245svg1.png)
 ![正反面svg效果图](https://github.com/cdjq/DFRobot_LIS/raw/master/resources/images/SEN0245svg2.png)
 ![正反面svg效果图](https://github.com/cdjq/DFRobot_LIS/raw/master/resources/images/SEN0245svg3.png)
 ![正反面svg效果图](https://github.com/cdjq/DFRobot_LIS/raw/master/resources/images/SEN0245svg4.png)
@@ -100,6 +100,7 @@ To use this library, first download the library file, paste it into the \Arduino
                  eCutOffMode3,
                  eCutOffMode4,
                  eShutDown,  无过滤
+     eg：在50HZ的频率下,选择eCutOffMode1,滤波后的频率为 1 HZ
    *|---------------------------High-pass filter cut-off frequency configuration-----------------------------|
    *|--------------------------------------------------------------------------------------------------------|
    *|                |    ft [Hz]      |        ft [Hz]       |       ft [Hz]        |        ft [Hz]        |

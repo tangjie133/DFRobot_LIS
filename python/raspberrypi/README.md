@@ -50,8 +50,7 @@ Provide an RaspberryPi library to get Three-axis acceleration by reading data fr
 
 ## Installation
 
-To use this library, first download the library to Raspberry Pi, then open the routines folder. To execute one routine, demox.py, type python demox.py on the command line. for example, you need to type:
-
+下载DFRobot_LIS文件到树莓派文件目录下,然后运行下面两行命令行，使用此传感器:
 ```
 cd DFRobot_LIS/python/raspberry/examples/LIS331HH/get_acceleration
 python get_acceleration.py
@@ -171,6 +170,7 @@ python get_acceleration.py
                 CUTOFF_MODE2 = 1
                 CUTOFF_MODE3 = 2
                 CUTOFF_MODE4 = 3
+     eg：在50HZ的频率下,选择eCutOffMode1,滤波后的频率为 1 HZ
                             High-pass filter cut-off frequency configuration
     |--------------------------------------------------------------------------------------------------------|
     |                |    ft [Hz]      |        ft [Hz]       |       ft [Hz]        |        ft [Hz]        |
