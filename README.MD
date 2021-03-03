@@ -168,19 +168,19 @@ To use this library, first download the library file, paste it into the \Arduino
    * @brief Get the acceleration in the x direction
    * @return acceleration from x 
    */
-  long readAccX();
+  int32_t readAccX();
   
   /**
    * @brief Get the acceleration in the y direction
    * @return acceleration from y
    */
-  long readAccY();
+  int32_t readAccY();
   
   /**
    * @brief Get the acceleration in the z direction
    * @return acceleration from z
    */
-  long readAccZ();
+  int32_t readAccZ();
   
   /**
    * @brief Get the acceleration in the three directions of xyz
@@ -189,7 +189,7 @@ To use this library, first download the library file, paste it into the \Arduino
    * @param accz 储存z方向加速度的变量
    * @return true(成功获取数据)/false(数据未准备好)
    */
-  bool getAcceFromXYZ(long &accx,long &accy,long &accz);
+  bool getAcceFromXYZ(int32_t &accx,int32_t &accy,int32_t &accz);
 
   /**
    * @brief 获取传感器是否处于睡眠模式
