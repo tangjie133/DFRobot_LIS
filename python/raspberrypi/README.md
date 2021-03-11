@@ -84,13 +84,13 @@ python get_acceleration.py
     @brief Initialize the function
     @return return True(成功)/False(失败)
   '''
-  begin(self)
+  def begin(self)
   
   '''
     @brief get chip id
     @return 8 bit serial number
   '''
-  get_id(self)
+  def get_id(self)
 
   '''
     @brief Set the measurement range
@@ -101,7 +101,7 @@ python get_acceleration.py
                  LIS331HH_12G    #±12G
                  LIS331HH_24G    #±24G
   '''
-  set_range(self,range_r)
+  def set_range(self,range_r)
 
   '''
     @brief Set data measurement rate
@@ -117,19 +117,19 @@ python get_acceleration.py
                  NORMAL_400HZ 
                  NORMAL_1000HZ 
   '''
-  set_acquire_rate(self, rate)
+  def set_acquire_rate(self, rate)
 
   '''
     @brief Set the threshold of interrupt source 1 interrupt
     @param threshold Threshold(g)
   '''
-  set_int1_th(self,threshold)
+  def set_int1_th(self,threshold)
 
   '''
     @brief Set interrupt source 2 interrupt generation threshold
     @param threshold Threshold(g)
   '''
-  set_int2_th(self,threshold)
+  def set_int2_th(self,threshold)
   
   '''
     @brief Enable interrupt
@@ -145,7 +145,7 @@ python get_acceleration.py
              Z_HIGHERTHAN_TH  = 0x20<The acceleration in the z direction is greater than the threshold>
              EVENT_ERROR      = 0 <No event>
   '''
-  enable_int_event(self,source,event)
+  def enable_int_event(self,source,event)
 
   '''
     @brief Check whether the interrupt event'event' is generated in interrupt 1
@@ -160,7 +160,7 @@ python get_acceleration.py
     @return True ：产生了此事件
             False：未产生此事件
   '''
-  get_int1_event(self,event)
+  def get_int1_event(self,event)
          
   '''
     @brief Check whether the interrupt event'event' is generated in interrupt 2
@@ -175,13 +175,13 @@ python get_acceleration.py
     @return True ：产生了此事件
             False：未产生此事件
   '''
-  get_int2_event(self,source)
+  def get_int2_event(self,source)
 
   '''
     @brief Enable sleep wake function
     @param enable True(enable)/False(disable)
   '''
-  enable_sleep(self, enable)
+  def enable_sleep(self, enable)
   
   '''
     @brief Set data filtering mode
@@ -205,13 +205,13 @@ python get_acceleration.py
     |  CUTOFF_MODE4  |    0.125        |         0.25         |            1         |             2.5       |
     |--------------------------------------------------------------------------------------------------------|
   '''
-  set_filter_mode(self,mode)
+  def set_filter_mode(self,mode)
 
   '''
     @brief Get the acceleration in the three directions of xyz
     @return Three-axis acceleration 
   '''
-  read_acce_xyz(self)
+  def read_acce_xyz(self)
 
 ```
 
