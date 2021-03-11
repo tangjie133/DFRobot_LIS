@@ -216,7 +216,7 @@ function for H3LIS200DL and LIS331HH
 
 ```
 
-## Methods
+## Methods2
 function for LIS2DW12 and IIS2DLPC
 ```python
   '''
