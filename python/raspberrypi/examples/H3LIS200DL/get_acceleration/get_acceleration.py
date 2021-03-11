@@ -22,7 +22,8 @@ import time
 #RASPBERRY_PIN_CS =  27              #Chip selection pin when SPI is selected
 #acce = DFRobot_H3LIS200DL_SPI(RASPBERRY_PIN_CS)
 
-#如果你想要应IIC驱动此模块，打开下面三行的注释，并通过I2C连接好模块和树莓派,可通过板子上的拨码开关（gravity版本）或SDO引脚（Breakout版本）切换I2C地址
+#如果你想要应IIC驱动此模块，打开下面三行的注释，并通过I2C连接好模块和树莓派
+#可通过板子上的拨码开关（gravity版本）或SDO引脚（Breakout版本）切换I2C地址
 I2C_BUS         = 0x01            #default use I2C1
 #ADDRESS_0       = 0x18            #传感器地址0
 ADDRESS_1       = 0x19            #传感器地址1
