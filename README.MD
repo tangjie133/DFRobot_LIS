@@ -29,6 +29,7 @@ IIS2DLPC      |      √       |              |
 
 * [Summary](#summary)
 * [Installation](#installation)
+* [Methods(H3LIS200DL and LIS331HH)](#Methods(H3LIS200DL and LIS331HH))
 * [Methods](#methods)
 * [Compatibility](#compatibility)
 * [History](#history)
