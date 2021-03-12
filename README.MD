@@ -29,7 +29,7 @@ IIS2DLPC      |      √       |              |
 
 * [Summary](#summary)
 * [Installation](#installation)
-* [Methods1](#Methods1)
+* [Method_H3LIS331HH/LIS331HH](#Method_H3LIS331HH/LIS331HH)
 * [Methods2](#methods2)
 * [Compatibility](#compatibility)
 * [History](#history)
@@ -43,7 +43,7 @@ Provide an Arduino library to get Three-axis acceleration by reading data from L
 
 To use this library, first download the library file, paste it into the \Arduino\libraries directory, then open the examples folder and run the demo in the folder.
 
-## Methods1 
+## Method_H3LIS331HH/LIS331HH 
 function for H3LIS200DL and LIS331HH
 ```C++
   DFRobot_LIS();
