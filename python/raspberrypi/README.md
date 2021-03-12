@@ -59,8 +59,8 @@ Provide an RaspberryPi library to get Three-axis acceleration by reading data fr
 
 * [Summary](#summary)
 * [Installation](#installation)
-* [Methods1](#methods1)
-* [Methods2](#methods2)
+* [Method_H3LIS331HH_LIS331HH](#Method_H3LIS331HH_LIS331HH)
+* [Method_LIS2DW12_IIS2DLPC](#Method_LIS2DW12_IIS2DLPC)
 * [Compatibility](#compatibility)
 * [History](#history)
 * [Credits](#credits)
@@ -78,8 +78,7 @@ python get_acceleration.py
 ```
 
 
-## Methods1
-function for H3LIS200DL and LIS331HH
+## Method_H3LIS331HH_LIS331HH
 ```python
   '''
     @brief Initialize the function
@@ -216,8 +215,7 @@ function for H3LIS200DL and LIS331HH
 
 ```
 
-## Methods2
-function for LIS2DW12 and IIS2DLPC
+## Method_LIS2DW12_IIS2DLPC
 ```python
   '''
      @brief Initialize the function
