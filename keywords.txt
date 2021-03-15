@@ -167,7 +167,7 @@ eRateDiv_10	LITERAL1
 eRateDiv_20	LITERAL1
 
 eRate_0hz	LITERAL1
-eRate_1hz6_lp_only	LITERAL1
+eRate_1hz6_lp	LITERAL1
 eRate_12hz5	LITERAL1
 eRate_25hz	LITERAL1
 eRate_50hz	LITERAL1
