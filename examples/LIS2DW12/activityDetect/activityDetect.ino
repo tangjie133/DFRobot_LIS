@@ -159,7 +159,6 @@ void loop(void){
    //Motion detected
    if(acce.actDetected()){
      Serial.println("Activity Detected!");
-     acce.continRefresh(true);
      Serial.print("x: ");
      Serial.print(acce.readAccX());
      Serial.print(" mg \t y: ");
