@@ -66,9 +66,9 @@ class DFRobot_LIS(object):
   H3LIS200DL_100G = 100 #±100G
   H3LIS200DL_200G = 200 #±200G
 
-  LIS331H_6G      = 6   #±6G
-  LIS331H_12G     = 12  #±12G
-  LIS331H_24G     = 24  #±24G
+  LIS331HH_6G      = 6   #±6G
+  LIS331HH_12G     = 12  #±12G
+  LIS331HH_24G     = 24  #±24G
 
   '''
   #                           High-pass filter cut-off frequency configuration
@@ -281,7 +281,7 @@ class DFRobot_H3LIS200DL_I2C(DFRobot_LIS):
   def __init__(self ,bus ,addr):
     self.__addr = addr
     super(DFRobot_H3LIS200DL_I2C, self).__init__()
-    self.i2cbus = smbus.SMBus(bus))
+    self.i2cbus = smbus.SMBus(bus)
     
   '''
     @brief Set the measurement range
@@ -420,20 +420,20 @@ class DFRobot_LIS331HH_I2C(DFRobot_LIS):
   '''
     @brief Set the measurement range
     @param range:Range(g)
-                 LIS331H_6G  = 6  #±6G
-                 LIS331H_12G = 12 #±12G
-                 LIS331H_24G = 24 #±24G
+                 LIS331HH_6G  = 6  #±6G
+                 LIS331HH_12G = 12 #±12G
+                 LIS331HH_24G = 24 #±24G
   '''
   def set_range(self,range_r):
     global _range   
     value = self.read_reg(self.REG_CTRL_REG4)
     _range = range_r
     value = value&(~(3<<4))
-    if range_r == self.LIS331H_6G:
+    if range_r == self.LIS331HH_6G:
      value = value | (0x0<<4)
-    elif range_r == self.LIS331H_12G:
+    elif range_r == self.LIS331HH_12G:
      value = value | (0x01<<4)
-    elif range_r == self.LIS331H_24G:
+    elif range_r == self.LIS331HH_24G:
      value = value | (0x03<<4)
     self.write_reg(self.REG_CTRL_REG4,value)
 
@@ -496,20 +496,20 @@ class DFRobot_LIS331HH_SPI(DFRobot_LIS):
   '''
     @brief Set the measurement range
     @param range:Range(g)
-                 LIS331H_6G  = 6  #±6G
-                 LIS331H_12G = 12 #±12G
-                 LIS331H_24G = 24 #±24G
+                 LIS331HH_6G  = 6  #±6G
+                 LIS331HH_12G = 12 #±12G
+                 LIS331HH_24G = 24 #±24G
   '''
   def set_range(self,range_r):
     global _range   
     value = self.read_reg(self.REG_CTRL_REG4)
     _range = range_r
     value = value&(~(3<<4))
-    if range_r == self.LIS331H_6G:
+    if range_r == self.LIS331HH_6G:
      value = value | (0x0<<4)
-    elif range_r == self.LIS331H_12G:
+    elif range_r == self.LIS331HH_12G:
      value = value | (0x01<<4)
-    elif range_r == self.LIS331H_24G:
+    elif range_r == self.LIS331HH_24G:
      value = value | (0x03<<4)
     self.write_reg(self.REG_CTRL_REG4,value)
 

@@ -23,14 +23,14 @@ sys.path.append("../../..") # set system path to top
 from DFRobot_LIS import *
 import time
 
-INT1 = 26                            #Interrupt pin(BCM编码)
+INT1 = 26                            #Interrupt pin(BCM编码),使用BCM编码方式,编码号为26,对应引脚GPIO25
 int_pad_Flag = False                 #intPad flag
 def int_pad_callback(status):
   global int_pad_Flag
   int_pad_Flag = True
 
 #如果你想要用SPI驱动此模块，打开下面两行的注释,并通过SPI连接好模块和树莓派
-#RASPBERRY_PIN_CS =  27              #Chip selection pin when SPI is selected
+#RASPBERRY_PIN_CS =  27              #Chip selection pin when SPI is selected,使用BCM编码方式,编码号为27,对应引脚GPIO2
 #acce = DFRobot_LIS331HH_SPI(RASPBERRY_PIN_CS)
 
 

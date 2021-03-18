@@ -19,7 +19,7 @@ from DFRobot_LIS import *
 import time
 
 #如果你想要用SPI驱动此模块，打开下面两行的注释,并通过SPI连接好模块和树莓派
-#RASPBERRY_PIN_CS =  27              #Chip selection pin when SPI is selected
+#RASPBERRY_PIN_CS =  27              #Chip selection pin when SPI is selected,使用BCM编码方式,编码号为27,对应引脚GPIO2
 #acce = DFRobot_H3LIS200DL_SPI(RASPBERRY_PIN_CS)
 
 #如果你想要应IIC驱动此模块，打开下面三行的注释，并通过I2C连接好模块和树莓派
