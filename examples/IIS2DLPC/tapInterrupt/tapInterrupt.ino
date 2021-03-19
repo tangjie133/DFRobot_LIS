@@ -205,7 +205,7 @@ void loop(void){
      }else if(dir == DFRobot_LIS2DW12::eDirZDown){
        Serial.println("tap is detected in the negative direction of Z");
      }
-     
+     delay(500);
      intFlag = 0;
    
   }

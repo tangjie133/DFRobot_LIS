@@ -159,7 +159,7 @@ void setup(void){
     |   time         |dur*(1s/25)= dur*40ms|  dur*(1s/100)= dur*10ms  |  dur*(1s/400)= dur*2.5ms |  dur*(1s/800)= dur*1.25ms |
     |------------------------------------------------------------------------------------------------------------------------|
   */
-  acce.setTapDur(/*dur=*/3);
+  acce.setTapDur(/*dur=*/6);
   
   /**！
     Set tap detection mode:
@@ -205,7 +205,7 @@ void loop(void){
      }else if(dir == DFRobot_LIS2DW12::eDirZDown){
        Serial.println("tap is detected in the negative direction of Z");
      }
-     
+     delay(500)
      intFlag = 0;
    
   }

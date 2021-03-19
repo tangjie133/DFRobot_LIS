@@ -107,7 +107,7 @@ acce.set_tap_threshold_on_z(0.5)
    |   time         |dur*(1s/25)= dur*40ms|  dur*(1s/100)= dur*10ms  |  dur*(1s/400)= dur*2.5ms |  dur*(1s/800)= dur*1.25ms |
    |------------------------------------------------------------------------------------------------------------------------|
 '''
-acce.set_tap_dur(dur = 3)
+acce.set_tap_dur(dur = 6)
 
 '''
   Set the tap detection mode:
@@ -153,6 +153,6 @@ while True:
       elif direction == acce.DIR_Z_DOWN:
         print("tap is detected in the negative direction of Z")
       tap = False
-      
+      time.sleep(0.5)
 
         

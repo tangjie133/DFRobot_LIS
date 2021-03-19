@@ -80,7 +80,7 @@ acce.set_wakeup_dur(dur = 6)
 
 #Set wakeup threshold,当加速度的变化大于此值时,会触发eWakeUp事件,unit:mg
 #数值是在量程之内
-acce.set_wakeup_threshold(2)
+acce.set_wakeup_threshold(0.05)
 
 '''
    Set power mode:
