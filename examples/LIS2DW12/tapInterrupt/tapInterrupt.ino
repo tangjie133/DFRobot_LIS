@@ -2,6 +2,8 @@
  * @file tapInterrupt.ino
  * @brief tap interrupt detection,点击模块，或者点击模块附件的桌面都可以触发int1的中断电平
  * @n 在使用SPI时,片选引脚 可以通过改变宏LIS2DW12_CS的值修改
+ * @n 本示例需要将模块的int2/int1引脚连接到主板的中断引脚上,默认UNO(2), Mega2560(2), Leonardo(3),
+ * @n                microbit(P0),FireBeetle-ESP8266(D6),FireBeetle-ESP32((D6),FireBeetle-M0(6)        
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
  * @author [fengli](li.feng@dfrobot.com)
@@ -20,7 +22,7 @@
  * @param pWire I2c controller
  * @param addr  I2C address(0x18/0x19)
  */
-//DFRobot_LIS2DW12_I2C acce(&Wire,0x19);
+//DFRobot_LIS2DW12_I2C acce(&Wire,0x18);
 DFRobot_LIS2DW12_I2C acce;
 
 
@@ -56,8 +58,12 @@ void setup(void){
   Serial.println(acce.getID(),HEX);
   //Chip soft reset
   acce.softReset();
-  #if defined(ESP32) || defined(ESP8266)||defined(ARDUINO_SAM_ZERO)
+  #if defined(ESP32) || defined(ESP8266)
+  //默认使用D6引脚作为中断引脚,也可以选择其它不冲突的引脚作为外部中断引脚
   attachInterrupt(digitalPinToInterrupt(D6)/*Query the interrupt number of the D6 pin*/,interEvent,CHANGE);
+  #elif defined(ARDUINO_SAM_ZERO)
+  //默认使用5引脚作为中断引脚,也可以选择其它不冲突的引脚作为外部中断引脚
+  attachInterrupt(digitalPinToInterrupt(5)/*Query the interrupt number of the 5 pin*/,interEvent,CHANGE);
   #else
   /*    The Correspondence Table of AVR Series Arduino Interrupt Pins And Terminal Numbers
    * ---------------------------------------------------------------------------------------

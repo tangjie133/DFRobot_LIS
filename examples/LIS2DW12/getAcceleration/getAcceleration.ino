@@ -23,7 +23,7 @@
  * @param pWire I2c controller
  * @param addr  I2C address(0x18/0x19)
  */
-//DFRobot_LIS2DW12_I2C acce(&Wire,0x19);
+//DFRobot_LIS2DW12_I2C acce(&Wire,0x18);
 DFRobot_LIS2DW12_I2C acce;
 
 

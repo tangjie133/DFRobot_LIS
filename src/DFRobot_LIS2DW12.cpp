@@ -204,7 +204,7 @@ void DFRobot_LIS2DW12::setInt1Event(eInt1Event_t event){
   writeReg(REG_CTRL_REG7,&value3,1);
 
   if(event == eFreeFall){
-    lockInterrupt(true);
+    //lockInterrupt(true);
    
   }
 }

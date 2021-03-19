@@ -23,7 +23,7 @@
  * @param pWire I2c controller
  * @param addr  I2C address(0x18/0x19)
  */
-//FRobot_IIS2DLPC_I2C acce(&Wire,0x19);
+//FRobot_IIS2DLPC_I2C acce(&Wire,0x18);
 DFRobot_IIS2DLPC_I2C acce;
 
 //当你使用SPI通信时,使用下面这段程序,使用DFRobot_IIS2DLPC_SPI构造对象

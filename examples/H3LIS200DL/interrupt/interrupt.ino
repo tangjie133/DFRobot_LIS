@@ -1,12 +1,13 @@
 /**！
  * @file interrupt.ino
  * @brief 中断检测
- * @brief 中断检测
  * @n本示例中使能eZHigherThanTh中断事件，即当Z方向的加速度大于程序所设置的阈值时，在我们
  * @n设置的中断引脚int1/int2上可以检测到中断电平，通过检测中断引脚上的电平变化即可判断是
  * @n否发生该中断事件。可设置的中断事件有以下6个： eXHigherThanTh, eXLowerThanTh, 
  * @n eYHigherThanTh, eYLowerThanTh, eZHigherThanTh,eZLowerThanTh,关于每个中断事件的详细
- * @n解释请看函数enableInterruptEvent()注释
+ * @n 解释请看函数enableInterruptEvent()注释
+ * @n 本示例需要将模块的int2/int1引脚连接到主板的中断引脚上,默认UNO(2), Mega2560(2), Leonardo(3),
+ * @n                microbit(P0),FireBeetle-ESP8266(D6),FireBeetle-ESP32((D6),FireBeetle-M0(6)        
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
  * @author [fengli](li.feng@dfrobot.com)
@@ -23,7 +24,7 @@
  * @param pWire I2c controller
  * @param addr  I2C address(0x18/0x19)
  */
-//DFRobot_H3LIS200DL_I2C acce(&Wire,0x19);
+//DFRobot_H3LIS200DL_I2C acce(&Wire,0x18);
 DFRobot_H3LIS200DL_I2C acce;
 
 //当你使用SPI通信时,使用下面这段程序,使用DFRobot_H3LIS200DL_SPI构造对象
@@ -82,8 +83,13 @@ void setup(void){
       eNormal_1000HZ,
   */
   acce.setAcquireRate(/*Rate = */DFRobot_LIS::eNormal_50HZ);
-  #if defined(ESP32) || defined(ESP8266)||defined(ARDUINO_SAM_ZERO)
+  
+  #if defined(ESP32) || defined(ESP8266)
+  //默认使用D6引脚作为中断引脚,也可以选择其它不冲突的引脚作为外部中断引脚
   attachInterrupt(digitalPinToInterrupt(D6)/*Query the interrupt number of the D6 pin*/,interEvent,CHANGE);
+  #elif defined(ARDUINO_SAM_ZERO)
+  //默认使用5引脚作为中断引脚,也可以选择其它不冲突的引脚作为外部中断引脚
+  attachInterrupt(digitalPinToInterrupt(5)/*Query the interrupt number of the 5 pin*/,interEvent,CHANGE);
   #else
   /*    The Correspondence Table of AVR Series Arduino Interrupt Pins And Terminal Numbers
    * ---------------------------------------------------------------------------------------

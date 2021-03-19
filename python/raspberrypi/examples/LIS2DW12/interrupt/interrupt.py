@@ -122,8 +122,9 @@ time.sleep(0.1)
 while True:
   if(int_pad_Flag == True):
     #Free fall event is detected
+    time.sleep(0.1)
     free_fall = acce.free_fall_detected()
     if free_fall == True:
       print("free fall detected")
-      time.sleep(0.3)
+      time.sleep(0.2)
     int_pad_Flag = False
