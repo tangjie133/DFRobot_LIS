@@ -29,7 +29,7 @@ DFRobot_H3LIS200DL_I2C acce;
 #elif defined(__AVR__) || defined(ARDUINO_SAM_ZERO)
 #define H3LIS200DL_CS 3
 #elif (defined NRF5)
-#define H3LIS200DL_CS P3
+#define H3LIS200DL_CS 2  //开发板上对应丝印为P2的引脚
 #endif
 /*!
  * @brief Constructor 

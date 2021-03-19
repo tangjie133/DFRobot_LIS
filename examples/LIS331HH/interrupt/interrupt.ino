@@ -31,7 +31,7 @@ DFRobot_LIS331HH_I2C acce;
 #elif defined(__AVR__) || defined(ARDUINO_SAM_ZERO)
 #define LIS331HH_CS 3
 #elif (defined NRF5)
-#define LIS331HH_CS P3
+#define LIS331HH_CS 2  //开发板上对应丝印为P2的引脚
 #endif
 /*!
  * @brief Constructor 

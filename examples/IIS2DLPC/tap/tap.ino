@@ -30,7 +30,7 @@ DFRobot_IIS2DLPC_I2C acce;
 #elif defined(__AVR__) || defined(ARDUINO_SAM_ZERO)
 #define IIS2DLPC_CS 3
 #elif (defined NRF5)
-#define IIS2DLPC_CS P3
+#define IIS2DLPC_CS 2   //开发板上对应丝印为P2的引脚
 #endif
 /*!
  * @brief Constructor 

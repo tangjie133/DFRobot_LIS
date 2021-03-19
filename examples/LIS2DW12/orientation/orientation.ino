@@ -34,7 +34,7 @@ DFRobot_LIS2DW12_I2C acce;
 #elif defined(__AVR__) || defined(ARDUINO_SAM_ZERO)
 #define LIS2DW12_CS 3
 #elif (defined NRF5)
-#define LIS2DW12_CS P3
+#define LIS2DW12_CS 2  //开发板上对应丝印为P2的引脚
 #endif
 /*!
  * @brief Constructor 
