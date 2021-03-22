@@ -132,7 +132,7 @@ void loop(void){
    if(acce.oriChangeDetected()){
      
      //Serial.print("6D Or. switched to ");
-     DFRobot_LIS2DW12::eOrient_t orient = acce.getOriention();
+     DFRobot_LIS2DW12::eOrient_t orient = acce.getOrientation();
      if(orient == DFRobot_LIS2DW12::eXDown){
       Serial.println("X is down now");
      }

@@ -490,7 +490,7 @@ To use this library, first download the library file, paste it into the \Arduino
                 eZDown  /<Z is now down>/
                 eZUp    /<Z is now up>/
    */
-  eOrient_t getOriention();
+  eOrient_t getOrientation();
   
   /**
    * @brief 点击检测,能检测是发生的双击,还是单击
