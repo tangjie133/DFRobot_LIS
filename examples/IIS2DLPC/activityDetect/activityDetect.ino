@@ -1,10 +1,13 @@
 /**！
  * @file activityDetect.ino
- * @brief Motion detection,可以检测到模块是否在移动
- * @n 使用此功能,需先进入低功耗模式,然后调用setActMode(),使芯片进入睡眠模式,此种状态下测量速率为12.5hz
- * @n 当检测到某个方向的加速度变化大于阈值时测量速率会提升到设置的正常速率，阈值大小通过setWakeUpThreshold()函数设置
- * @n 但如果停止运动即三个方向加速度的变化小于阈值芯片会在一段时间后进入进入睡模式,这个持续的时间由setWakeUpDur()函数设置
- * @n 在使用SPI时,片选引脚 可以通过改变宏IIS2DLPC_CS的值修改
+ * @brief Motion detection, can detect whether the module is moving.
+ * @n It’s necessary to go into low power mode before using this function. Then call setActMode() to make the chip in sleep mode.
+ * @n In this state, the measurement rate is 12.5hz.
+ * @n When the acceleration change in a certain direction is detected to exceed the threshold, the measurement rate will be increased to 
+ * @n the set normal rate. The threshold can be set by the setWakeUpThreshold() function.
+ * @n But if the move stops, that is, the change in acceleration in the three directions is less than the threshold, the chip will be in sleep
+ * @n mode after a period of time, which can be set by the setWakeUpDur() function.
+ * @n When using SPI, chip select pin can be modified by changing the value of macro IIS2DLPC_CS
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
  * @author [fengli](li.feng@dfrobot.com)
@@ -17,7 +20,7 @@
 
 #include <DFRobot_LIS2DW12.h>
 
-//当你使用I2C通信时,使用下面这段程序,使用DFRobot_IIS2DLPC_I2C构造对象
+//When using I2C communication, use the following program to construct an object by DFRobot_IIS2DLPC_I2C.
 /*!
  * @brief Constructor 
  * @param pWire I2c controller
@@ -26,13 +29,13 @@
 //FRobot_IIS2DLPC_I2C acce(&Wire,0x18);
 DFRobot_IIS2DLPC_I2C acce;
 
-//当你使用SPI通信时,使用下面这段程序,使用DFRobot_IIS2DLPC_SPI构造对象
+//When using SPI communication, use the following program to construct an object by DFRobot_IIS2DLPC_SPI.
 #if defined(ESP32) || defined(ESP8266)
 #define IIS2DLPC_CS  D3
 #elif defined(__AVR__) || defined(ARDUINO_SAM_ZERO)
 #define IIS2DLPC_CS 3
 #elif (defined NRF5)
-#define IIS2DLPC_CS 2  //开发板上对应丝印为P2的引脚
+#define IIS2DLPC_CS 2  //The corresponding silkscreen on the development board is the pin of P2.
 #endif
 /*!
  * @brief Constructor 
@@ -46,7 +49,7 @@ void setup(void){
 
   Serial.begin(9600);
   while(!acce.begin()){
-     Serial.println("通信失败，请检查连线是否准确,使用I2C通信时检查地址是否设置准确");
+     Serial.println("Communication failed, please check the connection and I2C address settings");
      delay(1000);
   }
   Serial.print("chip id : ");
