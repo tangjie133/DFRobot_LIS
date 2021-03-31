@@ -1,9 +1,10 @@
 /**！
  * @file wakeUp.ino
- * @brief 使用睡眠唤醒功能
- * @n 现象：使用此功能需要先让模块处于低功耗模式,此时的测量速率会很慢
- * @n 当有设置好的中断事件产生,模块会进入正常模式,测量速率加快,达到省电和提供采样率的目的
- * @n 在使用SPI时,片选引脚时可以通过改变宏H3LIS200DL_CS的值修改
+ * @brief Use wake-up function
+ * @n Phenomenon: To use this function, you need to put the module in low power consumption mode first, and the measurement rate will be very slow 
+ * @n at this time.When a interrupt event set up before is generated,the module will be in the normal mode that the measurement rate will be 
+ * @n accelerated to save power and provide sampling rate. 
+ * @n When using SPI, chip select pin can be modified by changing the value of macro H3LIS200DL_CS.
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
  * @author [fengli](li.feng@dfrobot.com)
@@ -14,7 +15,7 @@
  */
 
 #include <DFRobot_LIS.h>
-//当你使用I2C通信时,使用下面这段程序,使用DFRobot_H3LIS200DL_I2C构造对象
+//When using I2C communication, use the following program to construct an object by DFRobot_H3LIS200DL_I2C
 /*!
  * @brief Constructor 
  * @param pWire I2c controller
@@ -23,13 +24,13 @@
 //DFRobot_H3LIS200DL_I2C acce(&Wire,0x18);
 DFRobot_H3LIS200DL_I2C acce;
 
-//当你使用SPI通信时,使用下面这段程序,使用DFRobot_H3LIS200DL_SPI构造对象
+//When using SPI communication, use the following program to construct an object by DFRobot_H3LIS200DL_SPI
 #if defined(ESP32) || defined(ESP8266)
 #define H3LIS200DL_CS  D3
 #elif defined(__AVR__) || defined(ARDUINO_SAM_ZERO)
 #define H3LIS200DL_CS 3
 #elif (defined NRF5)
-#define H3LIS200DL_CS 2  //开发板上对应丝印为P2的引脚
+#define H3LIS200DL_CS 2  //The corresponding silkscreen on the development board is the pin of P2
 #endif
 /*!
  * @brief Constructor 
@@ -38,7 +39,7 @@ DFRobot_H3LIS200DL_I2C acce;
  */
 //DFRobot_H3LIS200DL_SPI acce(/*cs = */H3LIS200DL_CS);
 
-//中断产生标志
+//Interrupt generation flag
 volatile bool intFlag = false;
 
 void interEvent(){
@@ -51,7 +52,7 @@ void setup(void){
   //Chip initialization
   while(!acce.begin()){
      delay(1000);
-     Serial.println("初始化失败，请检查连线与I2C地址设置");
+     Serial.println("Initialization failed, please check the connection and I2C address settings");
   }
   //Get chip id
   Serial.print("chip id : ");
