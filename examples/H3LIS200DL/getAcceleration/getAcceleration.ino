@@ -1,6 +1,6 @@
 /**！
  * @file getAcceleration.ino
- * @brief Get the acceleration in x, y, z directions, whose range can be ±100g or ±200g
+ * @brief Get the acceleration in x, y, z directions, whose ranges can be ±100g or ±200g
  * @n 在使用SPI时,片选引脚时可以通过改变宏H3LIS200DL_CS的值修改
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
