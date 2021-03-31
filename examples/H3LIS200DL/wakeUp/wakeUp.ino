@@ -1,9 +1,9 @@
 /**！
  * @file wakeUp.ino
  * @brief Use wake-up function
- * @n Phenomenon: To use this function, you need to put the module in low power consumption mode first, and the measurement rate will be very slow 
- * @n at this time.When a interrupt event set up before is generated,the module will be in the normal mode that the measurement rate will be 
- * @n accelerated to save power and provide sampling rate. 
+ * @n Phenomenon: To use this function, you need to put the module in low power consumption mode first, and the measurement rate will be 
+ * @n very slow at this time.When a interrupt event set up before is generated,the module will be in the normal mode that the measurement rate 
+ * @n will be accelerated to save power and provide sampling rate. 
  * @n When using SPI, chip select pin can be modified by changing the value of macro H3LIS200DL_CS.
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
@@ -139,7 +139,7 @@ void setup(void){
 
 void loop(void){
   //Get the acceleration in the three directions of xyz
-  //测量的量程为±100g或±200g,通过setRange()函数设置
+  //The mearsurement range is ±100g or ±200g set by setRange() function.
   Serial.print("Acceleration x: ");
   Serial.print(acce.readAccX());
   Serial.print(" g \ty: ");
