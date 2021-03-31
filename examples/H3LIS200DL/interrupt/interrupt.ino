@@ -1,13 +1,13 @@
 /**！
  * @file interrupt.ino
- * @brief 中断检测
- * @n本示例中使能eZHigherThanTh中断事件，即当Z方向的加速度大于程序所设置的阈值时，在我们
- * @n设置的中断引脚int1/int2上可以检测到中断电平，通过检测中断引脚上的电平变化即可判断是
- * @n否发生该中断事件。可设置的中断事件有以下6个： eXHigherThanTh, eXLowerThanTh, 
- * @n eYHigherThanTh, eYLowerThanTh, eZHigherThanTh,eZLowerThanTh,关于每个中断事件的详细
- * @n 解释请看函数enableInterruptEvent()注释
- * @n 本示例需要将模块的int2/int1引脚连接到主板的中断引脚上,默认UNO(2), Mega2560(2), Leonardo(3),
- * @n                microbit(P0),FireBeetle-ESP8266(D6),FireBeetle-ESP32((D6),FireBeetle-M0(6)        
+ * @brief Interrupt detection
+ * @nIn this example, the enable eZHigherThanTh interrupt event，which means when the acceleration in the Z direction is bigger than the threshold
+ * @nset by the program, the interrupt level can be detected on the interrupt pin int1/int2 we set,and the level variation on the interrupt pin
+ * @ncan be used to determine whether the interrupt occurs.The following are the 6 settable interrupt events： eXHigherThanTh, eXLowerThanTh, 
+ * @n eYHigherThanTh, eYLowerThanTh, eZHigherThanTh,eZLowerThanTh. For a detailed explanation of each interrupt event,
+ * @n please see the annotation of the enableInterruptEvent() function.
+ * @n This example needs to connect the int2/int1 pin of the module to the interrupt pin of the motherboard. Default UNO(2), Mega2560(2), 
+ * @n       Leonardo(3), microbit(P0),FireBeetle-ESP8266(D6),FireBeetle-ESP32((D6),FireBeetle-M0(6)        
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
  * @author [fengli](li.feng@dfrobot.com)
@@ -18,7 +18,7 @@
  */
 #include <DFRobot_LIS.h>
 
-//当你使用I2C通信时,使用下面这段程序,使用DFRobot_H3LIS200DL_I2C构造对象
+//When using I2C communication, use the following program to construct an object by DFRobot_H3LIS200DL_I2C
 /*!
  * @brief Constructor 
  * @param pWire I2c controller
@@ -27,13 +27,13 @@
 //DFRobot_H3LIS200DL_I2C acce(&Wire,0x18);
 DFRobot_H3LIS200DL_I2C acce;
 
-//当你使用SPI通信时,使用下面这段程序,使用DFRobot_H3LIS200DL_SPI构造对象
+//When using SPI communication, use the following program to construct an object by DFRobot_H3LIS200DL_SPI
 #if defined(ESP32) || defined(ESP8266)
 #define H3LIS200DL_CS  D3
 #elif defined(__AVR__) || defined(ARDUINO_SAM_ZERO)
 #define H3LIS200DL_CS 3
 #elif (defined NRF5)
-#define H3LIS200DL_CS 2  //开发板上对应丝印为P2的引脚
+#define H3LIS200DL_CS 2  //The corresponding silkscreen on the development board is the pin of P2
 #endif
 /*!
  * @brief Constructor 
@@ -42,7 +42,7 @@ DFRobot_H3LIS200DL_I2C acce;
  */
 //DFRobot_H3LIS200DL_SPI acce(/*cs = */H3LIS200DL_CS);
 
-//中断产生标志
+//Interrupt generation flag
 volatile bool intFlag = false;
 
 void interEvent(){
@@ -55,7 +55,7 @@ void setup(void){
     //Chip initialization
   while(!acce.begin()){
      delay(1000);
-     Serial.println("初始化失败，请检查连线与I2C地址设置");
+     Serial.println("Initialization failed, please check the connection and I2C address settings");
   }
   //Get chip id
   Serial.print("chip id : ");
@@ -85,10 +85,10 @@ void setup(void){
   acce.setAcquireRate(/*Rate = */DFRobot_LIS::eNormal_50HZ);
   
   #if defined(ESP32) || defined(ESP8266)
-  //默认使用D6引脚作为中断引脚,也可以选择其它不冲突的引脚作为外部中断引脚
+  //The D6 pin is used as the interrupt pin by default, and other non-conflicting pins can also be selected as the external interrupt pin.
   attachInterrupt(digitalPinToInterrupt(D6)/*Query the interrupt number of the D6 pin*/,interEvent,CHANGE);
   #elif defined(ARDUINO_SAM_ZERO)
-  //默认使用5引脚作为中断引脚,也可以选择其它不冲突的引脚作为外部中断引脚
+  //The 5 pin is used as the interrupt pin by default, and other non-conflicting pins can also be selected as the external interrupt pin.
   attachInterrupt(digitalPinToInterrupt(5)/*Query the interrupt number of the 5 pin*/,interEvent,CHANGE);
   #else
   /*    The Correspondence Table of AVR Series Arduino Interrupt Pins And Terminal Numbers
@@ -143,7 +143,7 @@ void setup(void){
 
 void loop(void){
     //Get the acceleration in the three directions of xyz
-    //测量的量程为±100g或±200g,通过setRange()函数设置
+    //The mearsurement range is ±100g or ±200g set by setRange() function.
     Serial.print("Acceleration x: "); 
     Serial.print(acce.readAccX());
     Serial.print(" g \ty: ");
