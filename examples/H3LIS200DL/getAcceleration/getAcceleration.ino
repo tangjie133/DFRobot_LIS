@@ -1,7 +1,7 @@
 /**！
  * @file getAcceleration.ino
- * @brief Get the acceleration in x, y, z directions, whose ranges can be ±100g or ±200g
- * @n 在使用SPI时,片选引脚时可以通过改变宏H3LIS200DL_CS的值修改
+ * @brief Get the acceleration in the three directions of xyz, whose ranges can be ±100g or ±200g
+ * @n When using SPI, chip select pin can be modified by changing the value of macro H3LIS200DL_CS
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
  * @author [fengli](li.feng@dfrobot.com)
@@ -13,7 +13,7 @@
 
 #include <DFRobot_LIS.h>
 
-//当你使用I2C通信时,使用下面这段程序,使用DFRobot_H3LIS200DL_I2C构造对象
+//When using I2C communication, use the following program to construct an object by DFRobot_H3LIS200DL_I2C
 /*!
  * @brief Constructor 
  * @param pWire I2c controller
@@ -22,13 +22,13 @@
 //DFRobot_H3LIS200DL_I2C acce(&Wire,0x18);
 DFRobot_H3LIS200DL_I2C acce;
 
-//当你使用SPI通信时,使用下面这段程序,使用DFRobot_H3LIS200DL_SPI构造对象
+//When using SPI communication, use the following program to construct an object by DFRobot_H3LIS200DL_SPI
 #if defined(ESP32) || defined(ESP8266)
 #define H3LIS200DL_CS  D3
 #elif defined(__AVR__) || defined(ARDUINO_SAM_ZERO)
 #define H3LIS200DL_CS 3
 #elif (defined NRF5)
-#define H3LIS200DL_CS 2  //开发板上对应丝印为P2的引脚
+#define H3LIS200DL_CS 2  //The corresponding silkscreen on the development board is the pin of P2
 #endif
 /*!
  * @brief Constructor 
@@ -42,7 +42,7 @@ void setup(void){
   Serial.begin(9600);
   //Chip initialization
   while(!acce.begin()){
-     Serial.println("初始化失败，请检查连线与I2C地址设置");
+     Serial.println("Initialization failed, please check the connection and I2C address settings");
      delay(1000);
   }
   //Get chip id
@@ -77,11 +77,11 @@ void loop(void){
 
   //Get the acceleration in the three directions of xyz
   long ax,ay,az;
-  //测量的量程为±100g或±200g,通过setRange()函数设置
+  //The measurement range can be ±100g or ±200g set by the setRange() function
   ax = acce.readAccX();//Get the acceleration in the x direction
   ay = acce.readAccY();//Get the acceleration in the y direction
   az = acce.readAccZ();//Get the acceleration in the z direction
-  //acce.getAcceFromXYZ(/*accx = */ax,/*accy = */ay,/*accz = */az);//第二种获取三方向加速度的方法
+  //acce.getAcceFromXYZ(/*accx = */ax,/*accy = */ay,/*accz = */az);//The second method to obtain acceleration in three directions
   Serial.print("Acceleration x: "); //print acceleration
   Serial.print(ax);
   Serial.print(" g\t  y: ");
