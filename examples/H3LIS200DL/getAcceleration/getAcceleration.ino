@@ -82,7 +82,7 @@ void loop(void){
   ay = acce.readAccY();//Get the acceleration in the y direction
   az = acce.readAccZ();//Get the acceleration in the z direction
   //acce.getAcceFromXYZ(/*accx = */ax,/*accy = */ay,/*accz = */az);//The second method to obtain acceleration in three directions
-  Serial.print("Acceleration x: "); //print acceleration
+  Serial.print("Acceleration x: "); //Print acceleration
   Serial.print(ax);
   Serial.print(" g\t  y: ");
   Serial.print(ay);
