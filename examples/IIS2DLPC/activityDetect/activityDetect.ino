@@ -83,11 +83,11 @@ void setup(void){
   acce.setFilterBandwidth(DFRobot_LIS2DW12::eRateDiv_4);
   
   /**
-      唤醒持续时间,在setActMode()函数使用eDetectAct的检测模式时,芯片在被唤醒后,会持续一段时
-    间以正常速率采集数据,然后便会继续休眠,以12.5hz的频率采集数据
+      Amid wake-up duration, when the setActMode() function uses the detection mode of eDetectAct, it will be a period of time to collect data
+    at a normal rate after the chip is awakened. Then the chip will continue to hibernate, collecting data at a frequency of 12.5hz.
     dur (0 ~ 3)
     time = dur * (1/Rate)(unit:s)
-    |                                  参数与时间之间的线性关系的示例                                                          |
+    |                                  An example of a linear relationship between an argument and time                                                          |
     |------------------------------------------------------------------------------------------------------------------------|
     |                |                     |                          |                          |                           |
     |  Data rate     |       25 Hz         |         100 Hz           |          400 Hz          |         = 800 Hz          |
@@ -97,8 +97,8 @@ void setup(void){
    */
   acce.setWakeUpDur(/*dur = */2);
   
-  //Set wakeup threshold,当加速度的变化大于此值时,会触发eWakeUp事件,unit:mg
-  //数值是在量程之内
+  //Set wakeup threshold, When the acceleration variation exceeds this value, the eWakeUp event will be triggered,unit:mg
+  //The value is within the range.
   acce.setWakeUpThreshold(/*threshold = */0.2);
   
   /**！
@@ -127,8 +127,9 @@ void setup(void){
   /**！
     Set the mode of motion detection:
     eNoDetection       /<No detection>/
-    eDetectAct         /<设置此模式,芯片的速率会降为12.5hz,并且在eWakeUp事件产生后,变为正常测量频率>/
-    eDetectStatMotion  /<此模式,仅能检测芯片是否处于睡眠模式,而不改变测量频率和电源模式,一直以正常测量频率测量数据>/
+    eDetectAct         /<If set this mode, the rate of the chip will drop to 12.5hz and turn normal after the eWakeUp event is generated.>/
+    eDetectStatMotion  /<This mode can only detect if the chip is in sleep mode without changing the measurement frequency and power mode,
+  * @n continuously measuring the data at normal frequency.>/
   */
   acce.setActMode(DFRobot_LIS2DW12::eDetectAct);
   
@@ -144,17 +145,17 @@ void setup(void){
   
   /**！
     Set the sensor data collection rate:
-               eRate_0hz           /<测量关闭>/
-               eRate_1hz6          /<1.6hz,仅在低功耗模式下使用>/
+               eRate_0hz           /<Measurement off>/
+               eRate_1hz6          /<1.6hz, use only in low-power mode>/
                eRate_12hz5         /<12.5hz>/
                eRate_25hz          
                eRate_50hz          
                eRate_100hz         
                eRate_200hz         
-               eRate_400hz       /<仅在High-Performance mode下使用>/
-               eRate_800hz       /<仅在High-Performance mode下使用>/
-               eRate_1k6hz       /<仅在High-Performance mode下使用>/
-               eSetSwTrig        /<软件触发单次测量>/
+               eRate_400hz       /<Use only under High-Performance mode>/
+               eRate_800hz       /<Use only under High-Performance mode>/
+               eRate_1k6hz       /<Use only under High-Performance mode>/
+               eSetSwTrig        /<The software is triggered a single measurement>/
   */
   acce.setDataRate(DFRobot_LIS2DW12::eRate_200hz);
   delay(100);
