@@ -155,7 +155,7 @@ void setup(void){
                eRate_400hz       /<Use only under High-Performance mode>/
                eRate_800hz       /<Use only under High-Performance mode>/
                eRate_1k6hz       /<Use only under High-Performance mode>/
-               eSetSwTrig        /<The software is triggered a single measurement>/
+               eSetSwTrig        /<The software triggers a single measurement>/
   */
   acce.setDataRate(DFRobot_LIS2DW12::eRate_200hz);
   delay(100);
