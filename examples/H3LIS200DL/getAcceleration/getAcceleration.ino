@@ -70,6 +70,7 @@ void setup(void){
       eNormal_1000HZ,
   */
   acce.setAcquireRate(/*Rate = */DFRobot_LIS::eNormal_50HZ);
+  Serial.print("Acceleration:\n");
   delay(1000);
 }
 
@@ -82,7 +83,8 @@ void loop(void){
   ay = acce.readAccY();//Get the acceleration in the y direction
   az = acce.readAccZ();//Get the acceleration in the z direction
   //acce.getAcceFromXYZ(/*accx = */ax,/*accy = */ay,/*accz = */az);//The second method to obtain acceleration in three directions
-  Serial.print("Acceleration x: "); //Print acceleration
+  //Print acceleration
+  Serial.print("x: ");
   Serial.print(ax);
   Serial.print(" g\t  y: ");
   Serial.print(ay);
