@@ -1,7 +1,8 @@
 /**！
  * @file getAcceleration.ino
- * @brief Get the acceleration in x, y, z directions,测量的量程为±2g,±4g,±8g或±16g,通过setRange()函数设置
- * @n 本示例默认地选用连续测量模式测量数据，加速度数据会根据测量速率不停地测量，
+ * @brief Get the acceleration in x, y, z directions, whose mearement ranges are ±2g,±4g,±8g or ±16g set by the setRange() function
+ * @n In this example, the continuous measurement mode is selected by default -- the acceleration data will be measured continuously
+ * @n according to the measuring rate.
  * @n 还可使用单次按需求转换模式  1.需要在setPowerMode()函数中选用适合的转换模式
  * @n                             2.然后在setDataRate()函数填入eSetSwTrig参数
  * @n                             3.使用demandData()函数请求测量一次数据
@@ -59,17 +60,17 @@ void setup(void){
   
   /**！
     Set the sensor data collection rate:
-               eRate_0hz           /<测量关闭>/
-               eRate_1hz6          /<1.6hz,仅在低功耗模式下使用>/
+               eRate_0hz           /<Measurement off>/
+               eRate_1hz6          /<1.6hz, use only under low-power mode>/
                eRate_12hz5         /<12.5hz>/
                eRate_25hz          
                eRate_50hz          
                eRate_100hz         
                eRate_200hz         
-               eRate_400hz       /<仅在High-Performance mode下使用>/
-               eRate_800hz       /<仅在High-Performance mode下使用>/
-               eRate_1k6hz       /<仅在High-Performance mode下使用>/
-               eSetSwTrig        /<软件触发单次测量>/
+               eRate_400hz       /<Use only under High-Performance mode>/
+               eRate_800hz       /<Use only under High-Performance mode>/
+               eRate_1k6hz       /<Use only under High-Performance mode>/
+               eSetSwTrig        /<The software triggers a single measurement>/
   */
   acce.setDataRate(DFRobot_LIS2DW12::eRate_50hz);
   
