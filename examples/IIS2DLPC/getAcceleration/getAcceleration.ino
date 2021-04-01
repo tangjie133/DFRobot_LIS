@@ -3,10 +3,10 @@
  * @brief Get the acceleration in x, y, z directions, whose mearement ranges are ±2g,±4g,±8g or ±16g set by the setRange() function
  * @n In this example, the continuous measurement mode is selected by default -- the acceleration data will be measured continuously
  * @n according to the measuring rate.
- * @n 还可使用单次按需求转换模式  1.需要在setPowerMode()函数中选用适合的转换模式
- * @n                             2.然后在setDataRate()函数填入eSetSwTrig参数
- * @n                             3.使用demandData()函数请求测量一次数据
- * @n 在使用SPI时,片选引脚 可以通过改变宏IIS2DLPC_CS的值修改
+ * @n You can also use the single on-demand conversion mode 1. You need to select a suitable conversion mode in the setPowerMode() function
+ * @n                             2.Then fill in the setDataRate() function with the eSetSwTrig parameter.
+ * @n                             3.Request a measurement by the demandData() function。
+ * @n When using SPI, chip select pin can be modified by changing the value of macro IIS2DLPC_CS
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
  * @author [fengli](li.feng@dfrobot.com)
@@ -18,7 +18,7 @@
 
 #include <DFRobot_LIS2DW12.h>
 
-//当你使用I2C通信时,使用下面这段程序,使用DFRobot_IIS2DLPC_I2C构造对象
+//When using I2C communication, use the following program to construct an object by DFRobot_IIS2DLPC_I2C
 /*!
  * @brief Constructor 
  * @param pWire I2c controller
@@ -28,13 +28,13 @@
 DFRobot_IIS2DLPC_I2C acce;
 
 
-//当你使用SPI通信时,使用下面这段程序,使用DFRobot_IIS2DLPC_SPI构造对象
+//When using SPI communication, use the following program to construct an object by DFRobot_IIS2DLPC_SPI
 #if defined(ESP32) || defined(ESP8266)
 #define IIS2DLPC_CS  D3
 #elif defined(__AVR__) || defined(ARDUINO_SAM_ZERO)
 #define IIS2DLPC_CS 3
 #elif (defined NRF5)
-#define IIS2DLPC_CS 2  //开发板上对应丝印为P2的引脚
+#define IIS2DLPC_CS 2  //The corresponding silkscreen on the development board is the pin of P2
 #endif
 /*!
  * @brief Constructor 
@@ -48,7 +48,7 @@ void setup(void){
 
   Serial.begin(9600);
   while(!acce.begin()){
-     Serial.println("通信失败，请检查连线是否准确,使用I2C通信时检查地址是否设置准确");
+     Serial.println("Communication failed, check if the connection is accurate, if the address is set correctly when using I2C communication.");
      delay(1000);
   }
   Serial.print("chip id : ");
@@ -127,9 +127,9 @@ void setup(void){
 }
 
 void loop(void){
-    //在单次按需求转化模式下,请求测量一次数据
+    //Request a measurement under the single on-demand conversion mode
     //acce.demandData();
-    //测量的量程为±2g,±4g,±8g或±16g,通过setRange()函数设置
+    //The mearsurement range can be ±2g, ±4g, ±8g or ±16g set by the setRange() function.
     Serial.print("Acceleration x: ");
     //Read the acceleration in the x direction
     Serial.print(acce.readAccX());
