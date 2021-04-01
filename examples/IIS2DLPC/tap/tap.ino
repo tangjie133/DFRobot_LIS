@@ -1,8 +1,8 @@
 /**！
  * @file tap.ino
- * @brief Single tap and double tap detection,点击模块，或者点击模块附件的桌面都可以触发点击事件
- * @n 可以通过setTapMode()函数选择只检测单击，或单击和双击同时检测
- * @n 在使用SPI时,片选引脚 可以通过改变宏IIS2DLPC_CS的值修改
+ * @brief Single tap and double tap detection, tap the module or the desktop of module accessories to trigger the tap event
+ * @n You can select to only detect single tap or to detect both single tap and double tap by the setTapMode() function
+ * @n When using SPI, chip select pin can be modified by changing the value of macro IIS2DLPC_CS
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
  * @author [fengli](li.feng@dfrobot.com)
@@ -14,7 +14,7 @@
 
 #include <DFRobot_LIS2DW12.h>
 
-//当你使用I2C通信时,使用下面这段程序,使用DFRobot_IIS2DLPC_I2C构造对象
+//When using I2C communication, use the following program to construct an object by DFRobot_IIS2DLPC_I2C
 /*!
  * @brief Constructor 
  * @param pWire I2c controller
@@ -24,13 +24,13 @@
 DFRobot_IIS2DLPC_I2C acce;
 
 
-//当你使用SPI通信时,使用下面这段程序,使用DFRobot_IIS2DLPC_SPI构造对象
+//When using SPI communication, use the following program to construct an object by DFRobot_IIS2DLPC_SPI
 #if defined(ESP32) || defined(ESP8266)
 #define IIS2DLPC_CS  D3
 #elif defined(__AVR__) || defined(ARDUINO_SAM_ZERO)
 #define IIS2DLPC_CS 3
 #elif (defined NRF5)
-#define IIS2DLPC_CS 2   //开发板上对应丝印为P2的引脚
+#define IIS2DLPC_CS 2   //The corresponding silkscreen on the development board is the pin of P2
 #endif
 /*!
  * @brief Constructor 
@@ -43,7 +43,7 @@ DFRobot_IIS2DLPC_I2C acce;
 void setup(void){
   Serial.begin(9600);
   while(!acce.begin()){
-     Serial.println("通信失败，请检查连线是否准确,使用I2C通信时检查地址是否设置准确");
+     Serial.println("Communication failed, check if the connection is accurate, if the address is set correctly when using I2C communication.");
      delay(1000);
   }
   Serial.print("chip id : ");
@@ -85,17 +85,17 @@ void setup(void){
 
   /**！
     Set the sensor data collection rate:
-               eRate_0hz           /<测量关闭>/
-               eRate_1hz6          /<1.6hz,仅在低功耗模式下使用>/
+               eRate_0hz           /<Measurement off>/
+               eRate_1hz6          /<1.6hz, use only under low-power mode>/
                eRate_12hz5         /<12.5hz>/
                eRate_25hz          
                eRate_50hz          
                eRate_100hz         
                eRate_200hz         
-               eRate_400hz       /<仅在High-Performance mode下使用>/
-               eRate_800hz       /<仅在High-Performance mode下使用>/
-               eRate_1k6hz       /<仅在High-Performance mode下使用>/
-               eSetSwTrig        /<软件触发单次测量>/
+               eRate_400hz       /<Use only under High-Performance mode>/
+               eRate_800hz       /<Use only under High-Performance mode>/
+               eRate_1k6hz       /<Use only under High-Performance mode>/
+               eSetSwTrig        /<The software triggers a single measurement>/
   */
   acce.setDataRate(DFRobot_LIS2DW12::eRate_800hz);
   
@@ -115,10 +115,10 @@ void setup(void){
   
   
   /*
-    设置检测双击时，两次点击的间隔时间
+    Set the interval time between two taps when detecting double tap
     dur duration(0 ~ 15)
     time = dur * (1/ODR)(unit:s)
-    |                                  参数与时间之间的线性关系的示例                                                          |
+    |                                  An example of the linear relationship between an argument and time                                                          |
     |------------------------------------------------------------------------------------------------------------------------|
     |                |                     |                          |                          |                           |
     |  Data rate     |       25 Hz         |         100 Hz           |          400 Hz          |         = 800 Hz          |
@@ -151,7 +151,7 @@ void setup(void){
 void loop(void){
   //tap detected
   DFRobot_LIS2DW12:: eTap_t tapEvent = acce.tapDetect();
-  //点击的源头检测
+  //Tap source detection
   DFRobot_LIS2DW12::eTapDir_t dir = acce.getTapDirection();
   uint8_t tap = 0;
   if(tapEvent  == DFRobot_LIS2DW12::eSTap){
