@@ -122,7 +122,7 @@ void setup(void){
        eSingleLowPwrLowNoise1_12bit   /<Single data conversion on demand mode,Low-Power Mode 1(12-bit resolution),Low-noise enabled>/
   */
   acce.setPowerMode(DFRobot_LIS2DW12::eContLowPwrLowNoise2_14bit);
-  
+  Serial.print("Acceleration:\n");
   delay(100);
 }
 
@@ -130,7 +130,7 @@ void loop(void){
     //Request a measurement under single data conversion on demand mode
     //acce.demandData();
     //The mearsurement range can be ±2g, ±4g, ±8g or ±16g set by the setRange() function.
-    Serial.print("Acceleration x: ");
+    Serial.print("x: ");
     //Read the acceleration in the x direction
     Serial.print(acce.readAccX());
     Serial.print(" mg \t  y:");
