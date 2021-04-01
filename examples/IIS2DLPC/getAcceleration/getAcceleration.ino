@@ -3,7 +3,7 @@
  * @brief Get the acceleration in x, y, z directions, whose mearement ranges are ±2g,±4g,±8g or ±16g set by the setRange() function
  * @n In this example, the continuous measurement mode is selected by default -- the acceleration data will be measured continuously
  * @n according to the measuring rate.
- * @n You can also use the single on-demand conversion mode 1. You need to select a suitable conversion mode in the setPowerMode() function
+ * @n You can also use single data conversion on demand mode 1. You need to select a suitable conversion mode in the setPowerMode() function
  * @n                             2.Then fill in the setDataRate() function with the eSetSwTrig parameter.
  * @n                             3.Request a measurement by the demandData() function。
  * @n When using SPI, chip select pin can be modified by changing the value of macro IIS2DLPC_CS
@@ -127,7 +127,7 @@ void setup(void){
 }
 
 void loop(void){
-    //Request a measurement under the single on-demand conversion mode
+    //Request a measurement under single data conversion on demand mode
     //acce.demandData();
     //The mearsurement range can be ±2g, ±4g, ±8g or ±16g set by the setRange() function.
     Serial.print("Acceleration x: ");
