@@ -1,13 +1,13 @@
 /**！
  * @file orientation.ino
- * @brief 检测模块的朝向,传感器能检测到以下六种事件
- * @n Z轴正向朝上
- * @n Z轴正向朝下
- * @n Y轴正向朝上
- * @n Y轴正向朝下
- * @n X轴正向朝上
- * @n X轴正向朝下
- * @n 在使用SPI时,片选引脚 可以通过改变宏IIS2DLPC_CS的值修改
+ * @brief When detecting the orientation of the module, the sensor can detect the following six events.
+ * @n Z-axis is facing up
+ * @n Z-axis is facing down
+ * @n Y-axis is facing up
+ * @n Y-axis is facing down
+ * @n X-axis is facing up
+ * @n X-axis is facing down
+ * @n When using SPI, chip select pin can be modified by changing the value of macro IIS2DLPC_CS
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
  * @author [fengli](li.feng@dfrobot.com)
@@ -20,7 +20,7 @@
 
 #include <DFRobot_LIS2DW12.h>
 
-//当你使用I2C通信时,使用下面这段程序,使用DFRobot_IIS2DLPC_I2C构造对象
+//When using I2C communication, use the following program to construct an object by DFRobot_IIS2DLPC_I2C
 /*!
  * @brief Constructor 
  * @param pWire I2c controller
@@ -30,13 +30,13 @@
 DFRobot_IIS2DLPC_I2C acce;
 
 
-//当你使用SPI通信时,使用下面这段程序,使用DFRobot_IIS2DLPC_SPI构造对象
+//When using SPI communication, use the following program to construct an object by DFRobot_IIS2DLPC_SPI
 #if defined(ESP32) || defined(ESP8266)
 #define IIS2DLPC_CS  D3
 #elif defined(__AVR__) || defined(ARDUINO_SAM_ZERO)
 #define IIS2DLPC_CS 3
 #elif (defined NRF5)
-#define IIS2DLPC_CS 2   //开发板上对应丝印为P2的引脚
+#define IIS2DLPC_CS 2   //The corresponding silkscreen on the development board is the pin of P2
 #endif
 /*!
  * @brief Constructor 
@@ -50,7 +50,7 @@ void setup(void){
 
   Serial.begin(9600);
   while(!acce.begin()){
-     Serial.println("通信失败，请检查连线是否准确,使用I2C通信时检查地址是否设置准确");
+     Serial.println("Communication failed, check if the connection is accurate, if the address is set correctly when using I2C communication.");
      delay(1000);
   }
   Serial.print("chip id : ");
@@ -92,17 +92,17 @@ void setup(void){
   
   /**！
     Set the sensor data collection rate:
-               eRate_0hz           /<测量关闭>/
-               eRate_1hz6          /<1.6hz,仅在低功耗模式下使用>/
+               eRate_0hz           /<Measurement off>/
+               eRate_1hz6          /<1.6hz,use only under low-power mode>/
                eRate_12hz5         /<12.5hz>/
                eRate_25hz          
                eRate_50hz          
                eRate_100hz         
                eRate_200hz         
-               eRate_400hz       /<仅在High-Performance mode下使用>/
-               eRate_800hz       /<仅在High-Performance mode下使用>/
-               eRate_1k6hz       /<仅在High-Performance mode下使用>/
-               eSetSwTrig        /<软件触发单次测量>/
+               eRate_400hz       /<Use only under High-Performance mode>/
+               eRate_800hz       /<Use only under High-Performance mode>/
+               eRate_1k6hz       /<Use only under High-Performance mode>/
+               eSetSwTrig        /<The software triggers a single measurement>/
   */
   acce.setDataRate(DFRobot_LIS2DW12::eRate_200hz);
   
