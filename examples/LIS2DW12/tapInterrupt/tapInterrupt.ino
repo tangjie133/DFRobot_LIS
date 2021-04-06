@@ -1,9 +1,9 @@
 /**！
  * @file tapInterrupt.ino
- * @brief tap interrupt detection,点击模块，或者点击模块附件的桌面都可以触发int1的中断电平
- * @n 在使用SPI时,片选引脚 可以通过改变宏LIS2DW12_CS的值修改
- * @n 本示例需要将模块的int2/int1引脚连接到主板的中断引脚上,默认UNO(2), Mega2560(2), Leonardo(3),
- * @n                microbit(P0),FireBeetle-ESP8266(D6),FireBeetle-ESP32((D6),FireBeetle-M0(6)        
+ * @brief tap interrupt detection, tap the module or the desktop of module accessories can trigger the interrupt level of in1.
+ * @n When using SPI, chip select pin can be modified by changing the value of macro LIS2DW12_CS
+ * @n In this example, the int2/int1 pin on the module needs to be connected to the interrupt pin on the motherboard, the defaults are UNO(2),
+ * @n                   Mega2560(2), Leonardo(3), microbit(P0),FireBeetle-ESP8266(D6),FireBeetle-ESP32((D6),FireBeetle-M0(6)        
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
  * @author [fengli](li.feng@dfrobot.com)
@@ -16,7 +16,7 @@
 
 #include <DFRobot_LIS2DW12.h>
 
-//当你使用I2C通信时,使用下面这段程序,使用DFRobot_LIS2DW12_I2C构造对象
+//When using I2C communication, use the following program to construct an object by DFRobot_LIS2DW12_I2C
 /*!
  * @brief Constructor 
  * @param pWire I2c controller
@@ -26,13 +26,13 @@
 DFRobot_LIS2DW12_I2C acce;
 
 
-//当你使用SPI通信时,使用下面这段程序,使用DFRobot_LIS2DW12_SPI构造对象
+//When using SPI communication, use the following program to construct an object by DFRobot_LIS2DW12_SPI
 #if defined(ESP32) || defined(ESP8266)
 #define LIS2DW12_CS  D3
 #elif defined(__AVR__) || defined(ARDUINO_SAM_ZERO)
 #define LIS2DW12_CS 3
 #elif (defined NRF5)
-#define LIS2DW12_CS 2  //开发板上对应丝印为P2的引脚
+#define LIS2DW12_CS 2  //The corresponding silkscreen on the development board is the pin of P2
 #endif
 /*!
  * @brief Constructor 
@@ -51,7 +51,7 @@ void setup(void){
 
   Serial.begin(9600);
   while(!acce.begin()){
-     Serial.println("通信失败，请检查连线是否准确,使用I2C通信时检查地址是否设置准确");
+     Serial.println("Communication failed, check if the connection is accurate, if the address is set correctly when using I2C communication");
      delay(1000);
   }
   Serial.print("chip id : ");
@@ -59,10 +59,10 @@ void setup(void){
   //Chip soft reset
   acce.softReset();
   #if defined(ESP32) || defined(ESP8266)
-  //默认使用D6引脚作为中断引脚,也可以选择其它不冲突的引脚作为外部中断引脚
+  //The D6 pin is used as the interrupt pin by default, and other non-conflicting pins can also be selected as the external interrupt pin
   attachInterrupt(digitalPinToInterrupt(D6)/*Query the interrupt number of the D6 pin*/,interEvent,CHANGE);
   #elif defined(ARDUINO_SAM_ZERO)
-  //默认使用5引脚作为中断引脚,也可以选择其它不冲突的引脚作为外部中断引脚
+  //The 5 pin is used as the interrupt pin by default, and other non-conflicting pins can also be selected as the external interrupt pin
   attachInterrupt(digitalPinToInterrupt(5)/*Query the interrupt number of the 5 pin*/,interEvent,CHANGE);
   #else
   /*    The Correspondence Table of AVR Series Arduino Interrupt Pins And Terminal Numbers
@@ -125,17 +125,17 @@ void setup(void){
 
   /**！
     Set the sensor data collection rate:
-               eRate_0hz           /<测量关闭>/
-               eRate_1hz6          /<1.6hz,仅在低功耗模式下使用>/
+               eRate_0hz           /<Measurement off>/
+               eRate_1hz6          /<1.6hz, Measurement off>/
                eRate_12hz5         /<12.5hz>/
                eRate_25hz          
                eRate_50hz          
                eRate_100hz         
                eRate_200hz         
-               eRate_400hz       /<仅在High-Performance mode下使用>/
-               eRate_800hz       /<仅在High-Performance mode下使用>/
-               eRate_1k6hz       /<仅在High-Performance mode下使用>/
-               eSetSwTrig        /<软件触发单次测量>/
+               eRate_400hz       /<Use only under High-Performance mode>/
+               eRate_800hz       /<Use only under High-Performance mode>/
+               eRate_1k6hz       /<Use only under High-Performance mode>/
+               eSetSwTrig        /<The software triggers a single measurement>/
   */
   acce.setDataRate(DFRobot_LIS2DW12::eRate_800hz);
   
@@ -154,10 +154,10 @@ void setup(void){
   acce.setTapThresholdOnZ(/*Threshold = */0.5);
   
   /*
-    设置检测双击时，两次点击的间隔时间
+    Set the interval time between two taps when detecting double tap 
     dur duration(0 ~ 15)
     time = dur * (1/ODR)(unit:s)
-    |                                  参数与时间之间的线性关系的示例                                                          |
+    |                                An example of a linear relationship between an argument and time                                                |
     |------------------------------------------------------------------------------------------------------------------------|
     |                |                     |                          |                          |                           |
     |  Data rate     |       25 Hz         |         100 Hz           |          400 Hz          |         = 800 Hz          |
@@ -190,7 +190,7 @@ void loop(void){
   if(intFlag == 1){
    //tap detected
      DFRobot_LIS2DW12:: eTap_t tapEvent = acce.tapDetect();
-    //点击的源头检测
+    //Tap source detection
      DFRobot_LIS2DW12::eTapDir_t dir = acce.getTapDirection();
      if(tapEvent  == DFRobot_LIS2DW12::eSTap){
          Serial.print("single tap Detected :");
