@@ -14,7 +14,7 @@
  * @version  V1.0
  * @date  2021-01-16
  * @get from https://www.dfrobot.com
- * @https://github.com/DFRobot/DFRobot_LIS2DW12
+ * @https://github.com/DFRobot/DFRobot_LIS
  */
 #include <DFRobot_LIS2DW12.h>
 
@@ -43,6 +43,8 @@ DFRobot_LIS2DW12_I2C acce;
  */
 //DFRobot_LIS2DW12_SPI acce(/*cs = */LIS2DW12_CS,&SPI);
 //DFRobot_LIS2DW12_SPI acce(/*cs = */LIS2DW12_CS);
+
+int lastOrientation = 0; //No event happened
 
 void setup(void){
 
@@ -127,29 +129,29 @@ void setup(void){
 }
 
 void loop(void){
-
-   //check Changes detected in six directions
-   if(acce.oriChangeDetected()){
-     
-     //Serial.print("6D Or. switched to ");
-     DFRobot_LIS2DW12::eOrient_t orient = acce.getOrientation();
-     if(orient == DFRobot_LIS2DW12::eXDown){
-      Serial.println("X is down now");
-     }
-     if(orient == DFRobot_LIS2DW12::eXUp){
-      Serial.println("X is up now");
-     }
-     if(orient == DFRobot_LIS2DW12::eYDown){
-      Serial.println("Y is down now");
-     }
-     if(orient == DFRobot_LIS2DW12::eYUp){
-      Serial.println("Y is up now");
-     }
-     if(orient == DFRobot_LIS2DW12::eZDown){
-      Serial.println("Z is down now");
-     }
-     if(orient == DFRobot_LIS2DW12::eZUp){
-      Serial.println("Z is up now");
-     }
-   }
+    //check Changes detected in six directions
+    if(acce.oriChangeDetected()){
+        DFRobot_LIS2DW12::eOrient_t orientation = acce.getOrientation();
+        if(lastOrientation != orientation){
+            if(orientation == DFRobot_LIS2DW12::eXDown){
+             Serial.println("X is down now");
+            }
+            if(orientation == DFRobot_LIS2DW12::eXUp){
+             Serial.println("X is up now");
+            }
+            if(orientation == DFRobot_LIS2DW12::eYDown){
+             Serial.println("Y is down now");
+            }
+            if(orientation == DFRobot_LIS2DW12::eYUp){
+             Serial.println("Y is up now");
+            }
+            if(orientation == DFRobot_LIS2DW12::eZDown){
+             Serial.println("Z is down now");
+            }
+            if(orientation == DFRobot_LIS2DW12::eZUp){
+             Serial.println("Z is up now");
+            }
+            lastOrientation = orientation;
+        }
+    }
 }

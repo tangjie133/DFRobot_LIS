@@ -13,7 +13,7 @@
  * @version  V1.0
  * @date  2021-01-16
  * @get from https://www.dfrobot.com
- * @https://github.com/DFRobot/DFRobot_LIS2DW12
+ * @https://github.com/DFRobot/DFRobot_LIS
  */
 
 #include <DFRobot_LIS2DW12.h>

@@ -14,7 +14,7 @@
  * @version  V1.0
  * @date  2021-01-16
  * @get from https://www.dfrobot.com
- * @https://github.com/DFRobot/DFRobot_LIS2DW12
+ * @https://github.com/DFRobot/DFRobot_LIS
  */
 
 #include <DFRobot_LIS2DW12.h>
@@ -161,17 +161,16 @@ void setup(void){
 }
 
 void loop(void){
-   //Motion detected
-   if(acce.actDetected()){
-     Serial.println("Activity Detected!");
-     Serial.print("x: ");
-     Serial.print(acce.readAccX());
-     Serial.print(" mg \t y: ");
-     Serial.print(acce.readAccY());
-     Serial.print(" mg \t z: ");
-     Serial.print(acce.readAccZ());
-     Serial.println(" mg");
-     delay(100);
-   }
-  
+    //Motion detected
+    if(acce.actDetected()){
+        Serial.println("Activity Detected!");
+        Serial.print("x: ");
+        Serial.print(acce.readAccX());
+        Serial.print(" mg \t y: ");
+        Serial.print(acce.readAccY());
+        Serial.print(" mg \t z: ");
+        Serial.print(acce.readAccZ());
+        Serial.println(" mg");
+        delay(100);
+    }
 }

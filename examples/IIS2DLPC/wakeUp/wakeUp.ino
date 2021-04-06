@@ -2,9 +2,9 @@
  * @file wakeUp.ino
  * @brief When the acceleration change in x, y or z direction is detected to exceed the set threshold, the chip will generate a wake-up event.
  * @n By accessing the chip register, you can know it is in which direction that the movement has woken up the chip.
- * @n In this example, it is necessary to set the wake-up duration by setWakeUpThreshold().
+ * @n In this example, it is necessary to set the wake-up duration by setWakeUpDur().
  * @n When woken up, the chip will last for a while before it turns to be in the sleep state.
- * @n And to set the threshold by setWakeUpDur(). When the acceleration change exceeds this value, the eWakeUp event will be triggered.
+ * @n And to set the threshold by setWakeUpThreshold(). When the acceleration change exceeds this value, the eWakeUp event will be triggered.
  * @n When using SPI, chip select pin can be modified by changing the value of macro IIS2DLPC_CS.
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
@@ -151,11 +151,11 @@ void loop(void){
 
    //Wake-up event detected
    if(acce.actDetected()){
-     Serial.println("wake-up event happened in");
+     Serial.print("wake-up event happened in ");
      //Wake-up motion direction detection.
      DFRobot_LIS2DW12::eWakeUpDir_t dir  = acce.getWakeUpDir();
      if(dir == DFRobot_LIS2DW12::eDirX){
-       Serial.println("x  direction");
+       Serial.println("x direction");
      }
      if(dir == DFRobot_LIS2DW12::eDirY){
        Serial.println("y direction");
