@@ -1,10 +1,10 @@
 /**！
  * @file freeFallInterrupt.ino
- * @brief Interrupt detection of free fall,当有自由落体事件产生会在int1产生中断信号
- * @n 检测到有自由落体运动产生，会在串口打印显示
- * @n 在使用SPI时片选引脚可以通过 LIS2DW12_CS 的值修改
- * @n 本示例需要将模块的int2/int1引脚连接到主板的中断引脚上,默认UNO(2), Mega2560(2), Leonardo(3),
- * @n                microbit(P0),FireBeetle-ESP8266(D6),FireBeetle-ESP32((D6),FireBeetle-M0(6)        
+ * @brief Interrupt detection of free fall, an interrupt signal will be generated in int1 once a free fall event occurs.
+ * @n When a free-fall motion is detected, it will be printed on the serial port.
+ * @n When using SPI, chip select pin can be modified by changing the value of LIS2DW12_CS
+ * @n In this example, the int2/int1 pin on the module needs to be connected to the interrupt pin on the motherboard, the defaults are UNO(2), 
+ * @n                                 Mega2560(2), Leonardo(3), microbit(P0),FireBeetle-ESP8266(D6),FireBeetle-ESP32((D6),FireBeetle-M0(6)
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
  * @author [fengli](li.feng@dfrobot.com)
@@ -15,7 +15,7 @@
  */
 #include <DFRobot_LIS2DW12.h>
 
-//当你使用I2C通信时,使用下面这段程序,使用DFRobot_LIS2DW12_I2C构造对象
+//When using I2C communication, use the following program to construct an object by DFRobot_LIS2DW12_I2C
 /*!
  * @brief Constructor 
  * @param pWire I2c controller
@@ -24,7 +24,7 @@
 //DFRobot_LIS2DW12_I2C acce(&Wire,0x18);
 DFRobot_LIS2DW12_I2C acce;
 
-//当你使用SPI通信时,使用下面这段程序,使用DFRobot_LIS2DW12_SPI构造对象
+//When using SPI communication, use the following program to construct an object by DFRobot_LIS2DW12_SPI
 #if defined(ESP32) || defined(ESP8266)
 #define LIS2DW12_CS  D3
 #elif defined(__AVR__) || defined(ARDUINO_SAM_ZERO)
@@ -49,17 +49,17 @@ void setup(void){
 
   Serial.begin(9600);
   while(!acce.begin()){
-     Serial.println("通信失败，请检查连线是否准确,使用I2C通信时检查地址是否设置准确");
+     Serial.println("Communication failed, check if the connection is accurate, if the address is set correctly when using I2C communication");
      delay(1000);
   }
   Serial.print("chip id : ");
   Serial.println(acce.getID(),HEX);
   
   #if defined(ESP32) || defined(ESP8266)
-  //默认使用D6引脚作为中断引脚,也可以选择其它不冲突的引脚作为外部中断引脚
+  //The D6 pin is used as the interrupt pin by default, and other non-conflicting pins can also be selected as the external interrupt pin.
   attachInterrupt(digitalPinToInterrupt(D6)/*Query the interrupt number of the D6 pin*/,interEvent,CHANGE);
   #elif defined(ARDUINO_SAM_ZERO)
-  //默认使用5引脚作为中断引脚,也可以选择其它不冲突的引脚作为外部中断引脚
+  //The 5 pin is used as the interrupt pin by default, and other non-conflicting pins can also be selected as the external interrupt pin.
   attachInterrupt(digitalPinToInterrupt(5)/*Query the interrupt number of the 5 pin*/,interEvent,CHANGE);
   #else
   /*    The Correspondence Table of AVR Series Arduino Interrupt Pins And Terminal Numbers
@@ -118,17 +118,17 @@ void setup(void){
   
   /**！
     Set the sensor data collection rate:
-               eRate_0hz           /<测量关闭>/
-               eRate_1hz6          /<1.6hz,仅在低功耗模式下使用>/
+               eRate_0hz           /<Measurement off>/
+               eRate_1hz6          /<1.6hz, use only under low-power mode>/
                eRate_12hz5         /<12.5hz>/
                eRate_25hz          
                eRate_50hz          
                eRate_100hz         
                eRate_200hz         
-               eRate_400hz       /<仅在High-Performance mode下使用>/
-               eRate_800hz       /<仅在High-Performance mode下使用>/
-               eRate_1k6hz       /<仅在High-Performance mode下使用>/
-               eSetSwTrig        /<软件触发单次测量>/
+               eRate_400hz       /<Use only under High-Performance mode>/
+               eRate_800hz       /<Use only under High-Performance mode>/
+               eRate_1k6hz       /<Use only under High-Performance mode>/
+               eSetSwTrig        /<The software triggers a single measurement.>/
   */
   acce.setDataRate(DFRobot_LIS2DW12::eRate_100hz);
   
@@ -143,10 +143,10 @@ void setup(void){
   
   //The duration of free fall (0~31), the larger the value, the longer the free fall time is needed to be detected
   /**
-   * 设置自由落体时间(或可以称作自由落体样本个数，只有产生足够多的自由落体样本，才会产生自由落体事件)
-    dur范围(0 ~ 31)
+   * Set the free fall time (Or the number of free-fall samples. The free-fall events will not occurs unless the samples are enough.)
+    dur range(0 ~ 31)
     time = dur * (1/Rate)(unit:s)
-    |                                  参数与时间之间的线性关系的示例                                                          |
+    |                                 An example of a linear relationship between an argument and time                                                        |
     |------------------------------------------------------------------------------------------------------------------------|
     |                |                     |                          |                          |                           |
     |  Data rate     |       25 Hz         |         100 Hz           |          400 Hz          |         = 800 Hz          |
