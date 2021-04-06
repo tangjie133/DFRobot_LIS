@@ -152,7 +152,7 @@ void loop(void){
    //Wake-up event detected
    if(acce.actDetected()){
      Serial.println("wake-up event happened in");
-     //唤醒的运动方向检测
+     //Wake-up motion direction detection.
      DFRobot_LIS2DW12::eWakeUpDir_t dir  = acce.getWakeUpDir();
      if(dir == DFRobot_LIS2DW12::eDirX){
        Serial.println("x  direction");
