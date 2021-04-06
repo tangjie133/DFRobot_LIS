@@ -1,11 +1,12 @@
 /**！
  * @file wakeUp.ino
- * @brief 使用睡眠唤醒功能
- * @n 现象：使用此功能需要先让模块处于低功耗模式,此时的测量速率会很慢
- * @n 当有设置好的中断事件产生,模块会进入正常模式,从而测量速率加快,达到省电和提供采样率的目的
- * @n 在使用SPI时,片选引脚时可以通过改变宏LIS331HH_CS的值修改
- * @n 本示例需要将模块的int2/int1引脚连接到主板的中断引脚上,默认UNO(2), Mega2560(2), Leonardo(3),
- * @n                microbit(P0),FireBeetle-ESP8266(D6),FireBeetle-ESP32((D6),FireBeetle-M0(6)        
+ * @brief Use wake-up function
+ * @n Phenomenon: It’s necessary to set the model in low-power mode before using this function. Then the measurement rate will be very slow.
+ * @n When a interrupt event set up before is generated, the module will be in the normal mode that the measurement rate will be accelerated 
+ * @n to save power and provide sampling rate
+ * @n When using SPI, chip select pin can be modified by changing the value of macro LIS331HH_CS
+ * @n In this example, the int2/int1 pin on the module needs to be connected to the interrupt pin on the motherboard, the defaults are UNO(2),
+ * @n               Mega2560(2), Leonardo(3), microbit(P0),FireBeetle-ESP8266(D6),FireBeetle-ESP32((D6),FireBeetle-M0(6)        
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
  * @author [fengli](li.feng@dfrobot.com)
@@ -16,7 +17,7 @@
  */
 
 #include <DFRobot_LIS.h>
-//当你使用I2C通信时,使用下面这段程序,使用DFRobot_LIS331HH_I2C构造对象
+//When using I2C communication, use the following program to construct an object by DFRobot_LIS331HH_I2C
 /*!
  * @brief Constructor 
  * @param pWire I2c controller
@@ -25,13 +26,13 @@
 //DFRobot_LIS331HH_I2C acce(&Wire,0x18);
 DFRobot_LIS331HH_I2C acce;
 
-//当你使用SPI通信时,使用下面这段程序,使用DFRobot_LIS331HH_SPI构造对象
+//When using SPI communication, use the following program to construct an object by DFRobot_LIS331HH_SPI
 #if defined(ESP32) || defined(ESP8266)
 #define LIS331HH_CS  D3
 #elif defined(__AVR__) || defined(ARDUINO_SAM_ZERO)
 #define LIS331HH_CS 3
 #elif (defined NRF5)
-#define LIS331HH_CS 2  //开发板上对应丝印为P2的引脚
+#define LIS331HH_CS 2  //The corresponding silkscreen on the development board is the pin of P2
 #endif
 /*!
  * @brief Constructor 
@@ -41,7 +42,7 @@ DFRobot_LIS331HH_I2C acce;
 //DFRobot_LIS331HH_SPI acce(/*cs = */LIS331HH_CS,&SPI);
 //DFRobot_LIS331HH_SPI acce(/*cs = */LIS331HH_CS);
 
-//中断产生标志
+//Interrupt generation flag
 volatile bool intFlag = false;
 void interEvent(){
   intFlag = true;
@@ -53,7 +54,7 @@ void setup(void){
   //Chip initialization
   while(!acce.begin()){
      delay(1000);
-     Serial.println("初始化失败，请检查连线或I2C地址设置");
+     Serial.println("Initialization failed, please check the connection or I2C address settings");
   }
     //Get chip id
   Serial.print("chip id : ");
@@ -107,10 +108,10 @@ void setup(void){
   acce.enableInterruptEvent(/*int pin*/DFRobot_LIS::eINT1,
                              /*interrupt = */DFRobot_LIS::eXHigherThanTh);
   #if defined(ESP32) || defined(ESP8266)
-  //默认使用D6引脚作为中断引脚,也可以选择其它不冲突的引脚作为外部中断引脚
+  //The D6 pin is used as the interrupt pin by default, and other non-conflicting pins can also be selected as the external interrupt pin.
   attachInterrupt(digitalPinToInterrupt(D6)/*Query the interrupt number of the D6 pin*/,interEvent,CHANGE);
   #elif defined(ARDUINO_SAM_ZERO)
-  //默认使用5引脚作为中断引脚,也可以选择其它不冲突的引脚作为外部中断引脚
+  //The 5 pin is used as the interrupt pin by default, and other non-conflicting pins can also be selected as the external interrupt pin.
   attachInterrupt(digitalPinToInterrupt(5)/*Query the interrupt number of the 5 pin*/,interEvent,CHANGE);
   #else
   /*    The Correspondence Table of AVR Series Arduino Interrupt Pins And Terminal Numbers
@@ -142,7 +143,7 @@ void setup(void){
 
 void loop(void){
   //Get the acceleration in the three directions of xyz
-  //测量的量程为±6g,±12g或±24g,通过setRange()函数设置
+  //The mearsurement range is ±6g, ±12g or ±24g set by the setRange() function
   //If the chip is awakened, you can see a change in the frequency of data acquisition
   Serial.print("Acceleration x: "); 
   Serial.print(acce.readAccX());
@@ -153,8 +154,8 @@ void loop(void){
   Serial.println(" mg");
   if(intFlag == true){
     /**
-     获取传感器是否处于睡眠模式
-     true(处于睡眠模式)/false(处于正常模式)
+     Get whether the sensor is in sleep mode
+     true(In sleep mode)/false(In normal mode)
      */
     Serial.println(acce.getSleepState()? "sleep mode": "normal mode");
     intFlag = 0;
