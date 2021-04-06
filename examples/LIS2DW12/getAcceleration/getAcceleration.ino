@@ -1,11 +1,12 @@
 /**！
  * @file getAcceleration.ino
- * @brief Get the acceleration in x, y, z directions,测量的量程为±2g,±4g,±8g或±16g,通过setRange()函数设置
- * @n 本示例默认地选用连续测量模式测量数据，加速度数据会根据测量速率不停地测量，
- * @n 还可使用单次按需求转换模式  1.需要在setPowerMode()函数中选用适合的转换模式
- * @n                             2.然后在setDataRate()函数填入eSetSwTrig参数
- * @n                             3.使用demandData()函数请求测量一次数据
- * @n 在使用SPI时片选引脚可以通过 LIS2DW12_CS 的值修改
+ * @brief Get the acceleration in x, y, z directions, the mearsurement range is ±2g,±4g,±8g or ±16g set by the setRange() function
+ * @n In this example, the continuous measurement mode is selected by default -- the acceleration data will be measured continuously 
+ * @n according to the measuring rate.
+ * @n You can also use the single data conversion on demand mode 1. You need to select a suitable conversion mode in the setPowerMode() function.
+ * @n                             2. Fill in the setDataRate() function with the eSetSwTrig parameter.
+ * @n                             3. Request a measurement by the demandData() function.
+ * @n When using SPI, chip select pin can be modified by changing the value of LIS2DW12_CS
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
  * @author [fengli](li.feng@dfrobot.com)
@@ -17,7 +18,7 @@
 
 
 #include <DFRobot_LIS2DW12.h>
-//当你使用I2C通信时,使用下面这段程序,使用DFRobot_LIS2DW12_I2C构造对象
+//When using I2C communication, use the following program to construct an object by DFRobot_LIS2DW12_I2C
 /*!
  * @brief Constructor 
  * @param pWire I2c controller
@@ -27,13 +28,13 @@
 DFRobot_LIS2DW12_I2C acce;
 
 
-//当你使用SPI通信时,使用下面这段程序,使用DFRobot_LIS2DW12_SPI构造对象
+//When using SPI communication, use the following program to construct an object by DFRobot_LIS2DW12_SPI
 #if defined(ESP32) || defined(ESP8266)
 #define LIS2DW12_CS  D3
 #elif defined(__AVR__) || defined(ARDUINO_SAM_ZERO)
 #define LIS2DW12_CS 3
 #elif (defined NRF5)
-#define LIS2DW12_CS 2  //开发板上对应丝印为P2的引脚
+#define LIS2DW12_CS 2  //The corresponding silkscreen on the development board is the pin of P2
 #endif
 /*!
  * @brief Constructor 
@@ -47,7 +48,7 @@ void setup(void){
 
   Serial.begin(9600);
   while(!acce.begin()){
-     Serial.println("通信失败，请检查连线是否准确,使用I2C通信时检查地址是否设置准确");
+     Serial.println("Communication failed, check if the connection is accurate, if the address is set correctly when using I2C communication.");
      delay(1000);
   }
   Serial.print("chip id : ");
@@ -60,17 +61,17 @@ void setup(void){
   
   /**！
     Set the sensor data collection rate:
-               eRate_0hz           /<测量关闭>/
-               eRate_1hz6          /<1.6hz,仅在低功耗模式下使用>/
+               eRate_0hz           /<Measurement off>/
+               eRate_1hz6          /<1.6hz, use only under low-power mode>/
                eRate_12hz5         /<12.5hz>/
                eRate_25hz          
                eRate_50hz          
                eRate_100hz         
                eRate_200hz         
-               eRate_400hz       /<仅在High-Performance mode下使用>/
-               eRate_800hz       /<仅在High-Performance mode下使用>/
-               eRate_1k6hz       /<仅在High-Performance mode下使用>/
-               eSetSwTrig        /<软件触发单次测量>/
+               eRate_400hz       /<Use only under High-Performance mode>/
+               eRate_800hz       /<Use only under High-Performance mode>/
+               eRate_1k6hz       /<Use only under High-Performance mode>/
+               eSetSwTrig        /<The software triggers a single measurement.>/
   */
   acce.setDataRate(DFRobot_LIS2DW12::eRate_50hz);
   
@@ -127,9 +128,9 @@ void setup(void){
 }
 
 void loop(void){
-    //在单次按需求转化模式下,请求测量一次数据
+    //Request a measurement under the single data conversion on demand mode.
     //acce.demandData();
-    //测量的量程为±2g,±4g,±8g或±16g,通过setRange()函数设置
+    //The mearsurement range is ±2g,±4g,±8g or ±16g set by the setRange() function.
     Serial.print("x: ");
     //Read the acceleration in the x direction
     Serial.print(acce.readAccX());
