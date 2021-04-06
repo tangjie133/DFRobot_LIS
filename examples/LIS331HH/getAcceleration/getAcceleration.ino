@@ -1,7 +1,7 @@
 /**！
  * @file getAcceleration.ino
- * @brief 获取x,y,z三个方向的加速度值,加速度的测量的量程可选择±6g,±12g或±24g
- * @n 在使用SPI时片选引脚可以通过 LIS331HH_CS 的值修改
+ * @brief Get the acceleration in x, y, z directions, the measurement range is ±6g,±12g or ±24g
+ * @n When using SPI, chip select pin can be modified by changing the value of LIS331HH_CS
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
  * @author [fengli](li.feng@dfrobot.com)
@@ -13,7 +13,7 @@
 
 #include <DFRobot_LIS.h>
 
-//当你使用I2C通信时,使用下面这段程序,使用DFRobot_LIS331HH_I2C构造对象
+//When using I2C communication, use the following program to construct an object by DFRobot_LIS331HH_I2C
 /*!
  * @brief Constructor 
  * @param pWire I2c controller
@@ -22,13 +22,13 @@
 //DFRobot_LIS331HH_I2C acce(&Wire,0x18);
 DFRobot_LIS331HH_I2C acce;
 
-//当你使用SPI通信时,使用下面这段程序,使用DFRobot_LIS331HH_SPI构造对象
+//When using SPI communication, use the following program to construct an object by DFRobot_LIS331HH_SPI
 #if defined(ESP32) || defined(ESP8266)
 #define LIS331HH_CS  D3
 #elif defined(__AVR__) || defined(ARDUINO_SAM_ZERO)
 #define LIS331HH_CS 3
 #elif (defined NRF5)
-#define LIS331HH_CS 2  //开发板上对应丝印为P2的引脚
+#define LIS331HH_CS 2  //The corresponding silkscreen on the development board is the pin of P2
 #endif
 /*!
  * @brief Constructor 
@@ -44,7 +44,7 @@ void setup(void){
   //Chip initialization
   while(!acce.begin()){
      delay(1000);
-     Serial.println("初始化失败，请检查连线或I2C地址设置");
+     Serial.println("Initialization failed, please check the connection and I2C address settings");
   }
   //Get chip id
   Serial.print("chip id : ");
@@ -79,7 +79,7 @@ void setup(void){
 void loop(void){
 
     //Get the acceleration in the three directions of xyz
-    //测量的量程为±6g,±12g或±24g,通过setRange()函数设置
+    //The mearsurement range is ±6g, ±12g or ±24g set by the setRange() function
     long ax,ay,az;
     ax = acce.readAccX();//Get the acceleration in the x direction
     ay = acce.readAccY();//Get the acceleration in the y direction
