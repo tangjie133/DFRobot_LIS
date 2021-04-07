@@ -1,9 +1,9 @@
 # -*- coding:utf-8 -*-
 """
    @file tap.py
-   @brief Single tap and double tap detection,点击模块，或者点击模块附件的桌面都可以触发点击事件
-   @n 可以通过set_tap_mode()函数选择只检测单击，或单击和双击同时检测
-   @n 在使用SPI时,片选引脚时可以通过改变RASPBERRY_PIN_CS的值修改
+   @brief Single tap and double tap detection. Tap the module or the desktop of module accessories can trigger the tap event.
+   @n You can select to detect only single tap or to detect both single tap and double tap by the setTapMode() function
+   @n When using SPI, chip select pin can be modified by changing the value of RASPBERRY_PIN_CS
    @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
    @licence     The MIT License (MIT)
    @author [fengli](li.feng@dfrobot.com)
@@ -18,15 +18,15 @@ sys.path.append("../../..") # set system path to top
 from DFRobot_LIS2DW12 import *
 import time
 
-#如果你想要用SPI驱动此模块，打开下面两行的注释,并通过SPI连接好模块和树莓派
-#RASPBERRY_PIN_CS =  27              #Chip selection pin when SPI is selected,使用BCM编码方式,编码号为27,对应引脚GPIO2
+#If you want to use SPI to drive this module, open the following two-line comments, and connect the module with Raspberry Pi via it
+#RASPBERRY_PIN_CS =  27              #Chip selection pin when SPI is selected, use BCM coding method, the number is 27, corresponding to pin GPIO2
 #acce = DFRobot_IIS2DLPC_SPI(RASPBERRY_PIN_CS)
 
-#如果你想要应IIC驱动此模块，打开下面三行的注释，并通过I2C连接好模块和树莓派
-#可通过板子上的拨码开关（gravity版本）或SDO引脚（Breakout版本）切换I2C地址
+#If you want to use I2C to drive this module, open the following three-line comments, and connect the module with Raspberry Pi via it
+#The I2C address can be switched through the DIP switch (gravity version) or SDO pin (Breakout version) on the board
 I2C_BUS         = 0x01             #default use I2C1
-#ADDRESS_0       = 0x18             #传感器地址0
-ADDRESS_1       = 0x19             #传感器地址1
+#ADDRESS_0       = 0x18             #sensor address 0
+ADDRESS_1       = 0x19             #sensor address 1
 acce = DFRobot_IIS2DLPC_I2C(I2C_BUS ,ADDRESS_1)
 
 #Chip initialization
@@ -68,17 +68,17 @@ acce.set_power_mode(acce.CONT_LOWPWRLOWNOISE1_12BIT)
 
 '''
     Set the sensor data collection rate:
-        RATE_OFF            #测量关闭
-        RATE_1HZ6           #1.6hz,仅在低功耗模式下使用
+        RATE_OFF            #Measurement off
+        RATE_1HZ6           #1.6hz, use only under low-power mode
         RATE_12HZ5          #12.5hz
         RATE_25HZ           
         RATE_50HZ           
         RATE_100HZ          
         RATE_200HZ          
-        RATE_400HZ          #仅在High-Performance mode下使用
-        RATE_800HZ          #仅在High-Performance mode下使用
-        RATE_1600HZ         #仅在High-Performance mode下使用
-        SETSWTRIG           #软件触发单次测量
+        RATE_400HZ          #Use only under High-Performance mode
+        RATE_800HZ          #Use only under High-Performance mode
+        RATE_1600HZ         #Use only under High-Performance mode
+        SETSWTRIG           #The software triggers a single measurement
 '''
 acce.set_data_rate(acce.RATE_800HZ)
 
@@ -95,10 +95,10 @@ acce.set_tap_threshold_on_y(0.5)
 #The threshold setting in the Z direction is similar to the sensitivity of detection, the larger the value, the less sensitive (0~31)
 acce.set_tap_threshold_on_z(0.5)
 '''
-   双击的两次点击之间的间隔时间：
+   The interval time between two taps of double tap ：
    dur duration(0 ~ 15)
    time = dur * (1/rate)(unit:s)
-   |                                    参数与时间之间的线性关系的示例                                                        |
+   |                                  An example of a linear relationship between an argument and time                                                 |
    |------------------------------------------------------------------------------------------------------------------------|
    |                |                     |                          |                          |                           |
    |  Data rate     |       25 Hz         |         100 Hz           |          400 Hz          |         = 800 Hz          |
@@ -110,8 +110,8 @@ acce.set_tap_dur(dur = 6)
 
 '''
   Set the tap detection mode:
-      ONLY_SINGLE   //检测单击
-      BOTH_SINGLE_DOUBLE //检测单击和双击
+      ONLY_SINGLE   //Detect single tap
+      BOTH_SINGLE_DOUBLE //Detect single tap and double tap
 '''
 acce.set_tap_mode(acce.BOTH_SINGLE_DOUBLE)
 
@@ -128,9 +128,9 @@ time.sleep(0.1)
 
 while True:
     tap = False
-    #点击检测
+    #Tap detection
     event = acce.tap_detect()
-    #点击的源头检测
+    #Tap source detection
     direction = acce.get_tap_direction()
     if event == acce.S_TAP:
       print ("Tap Detected :")
