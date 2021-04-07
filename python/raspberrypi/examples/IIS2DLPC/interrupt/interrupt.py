@@ -1,9 +1,9 @@
 # -*- coding:utf-8 -*-
 """
    @file interrupt.py
-   @brief  Interrupt detection of free fall,当有自由落体事件产生会在int1产生中断信号
-   @n 检测到有自由落体运动产生，会在终端打印显示
-   @n 在使用SPI时,片选引脚时可以通过改变RASPBERRY_PIN_CS的值修改
+   @brief  Interrupt detection of free fall, an interrupt signal will be generated in int1 once a free fall event occurs.
+   @n When a free-fall motion is detected, it will be printed on the serial port.
+   @n When using SPI, chip select pin can be modified by changing the value of RASPBERRY_PIN_CS
    @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
    @licence     The MIT License (MIT)
    @author [fengli](li.feng@dfrobot.com)
@@ -18,21 +18,21 @@ sys.path.append("../../..") # set system path to top
 from DFRobot_LIS2DW12 import *
 import time
 
-INT1 = 26                           #Interrupt pin,使用BCM编码方式,编码号为26,对应引脚GPIO25
+INT1 = 26                           #Interrupt pin, use BCM coding method, the code number is 26, corresponding to pin GPIO25
 int_pad_Flag = False                 #intPad flag
 def int_pad_callback(status):
   global int_pad_Flag
   int_pad_Flag = True
 
-#如果你想要用SPI驱动此模块，打开下面两行的注释,并通过SPI连接好模块和树莓派
-#RASPBERRY_PIN_CS =  27              #Chip selection pin when SPI is selected,使用BCM编码方式,编码号为27,对应引脚GPIO2
+#If you want to use SPI to drive this module, open the following two-line comments, and connect the module with Raspberry Pi via it
+#RASPBERRY_PIN_CS =  27              #Chip selection pin when SPI is selected, use BCM coding method, the number is 27, corresponding to pin GPIO2
 #acce = DFRobot_IIS2DLPC_SPI(RASPBERRY_PIN_CS)
 
-#如果你想要应IIC驱动此模块，打开下面三行的注释，并通过I2C连接好模块和树莓派
-#可通过板子上的拨码开关（gravity版本）或SDO引脚（Breakout版本）切换I2C地址
+#If you want to use I2C to drive this module, open the following three-line comments, and connect the module with Raspberry Pi via it
+#The I2C address can be switched through the DIP switch (gravity version) or SDO pin (Breakout version) on the board
 I2C_BUS         = 0x01             #default use I2C1
-#ADDRESS_0       = 0x18             #传感器地址0
-ADDRESS_1       = 0x19             #传感器地址1
+#ADDRESS_0       = 0x18             #sensor address 0
+ADDRESS_1       = 0x19             #sensor address 1
 acce = DFRobot_IIS2DLPC_I2C(I2C_BUS ,ADDRESS_1)
 
 # set int_Pad to input
@@ -73,17 +73,17 @@ acce.contin_refresh(True)
 acce.set_power_mode(acce.CONT_LOWPWR4_14BIT);
 '''
     Set the sensor data collection rate:
-        RATE_OFF            #测量关闭
-        RATE_1HZ6           #1.6hz,仅在低功耗模式下使用
+        RATE_OFF            #Measurement off
+        RATE_1HZ6           #1.6hz, use only under low-power mode
         RATE_12HZ5          #12.5hz
         RATE_25HZ           
         RATE_50HZ           
         RATE_100HZ          
         RATE_200HZ          
-        RATE_400HZ          #仅在High-Performance mode下使用
-        RATE_800HZ          #仅在High-Performance mode下使用
-        RATE_1600HZ         #仅在High-Performance mode下使用
-        SETSWTRIG           #软件触发单次测量
+        RATE_400HZ          #Use only under High-Performance mode
+        RATE_800HZ          #Use only under High-Performance mode
+        RATE_1600HZ         #Use only under High-Performance mode
+        SETSWTRIG           #The software triggers a single measurement
 '''
 acce.set_data_rate(acce.RATE_100HZ);
 '''
@@ -95,10 +95,10 @@ acce.set_data_rate(acce.RATE_100HZ);
 '''
 acce.set_range(acce.RANGE_2G)
 '''
-  设置自由落体时间,也可以称作自由落体样本个数，只有产生足够多的自由落体样本，才会产生自由落体事件:
+  Set the free fall time (Or the number of free-fall samples. The free-fall events will not occur unless the samples are enough.)
      dur duration(0 ~ 31)
      time = dur * (1/rate)(unit:s)
-     |                                    参数与时间之间的线性关系的示例                                                        |
+     |                                    An example of a linear relationship between an argument and time                                                 |
      |------------------------------------------------------------------------------------------------------------------------|
      |                |                     |                          |                          |                           |
      |  Data rate     |       25 Hz         |         100 Hz           |          400 Hz          |         = 800 Hz          |
