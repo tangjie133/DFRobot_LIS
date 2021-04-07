@@ -143,7 +143,7 @@ void setup(void){
   
   //The duration of free fall (0~31), the larger the value, the longer the free fall time is needed to be detected
   /**
-   * Set the free fall time (Or the number of free-fall samples. The free-fall events will not occurs unless the samples are enough.)
+   * Set the free fall time (Or the number of free-fall samples. The free-fall events will not occur unless the samples are enough.)
     dur range(0 ~ 31)
     time = dur * (1/Rate)(unit:s)
     |                                 An example of a linear relationship between an argument and time                                                        |
