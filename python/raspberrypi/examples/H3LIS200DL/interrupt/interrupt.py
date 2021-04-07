@@ -1,13 +1,13 @@
 # -*- coding:utf-8 -*-
 """
    @file interrupt.py
-   @brief 中断检测
-   @n本示例中使能eZHigherThanTh中断事件，即当Z方向的加速度大于程序所设置的阈值时，在我们
-   @n设置的中断引脚int1/int2上可以检测到中断电平，通过检测中断引脚上的电平变化即可判断是
-   @n否发生该中断事件。可设置的中断事件有以下6个： eXHigherThanTh, eXLowerThanTh, 
-   @n eYHigherThanTh, eYLowerThanTh, eZHigherThanTh,eZLowerThanTh,关于每个中断事件的详细
-   @n解释请看函数enableInterruptEvent()注释
-   @n 在使用SPI时,片选引脚时可以通过改变宏RASPBERRY_PIN_CS的值修改
+   @brief Interrupt detection
+   @n In this example, the enable eZHigherThanTh interrupt event, which means when the acceleration in the Z direction is bigger than the threshold
+   @n set by the program, the interrupt level can be detected on the interrupt pin int1/int2 we set, and the level variation on the interrupt pin
+   @n can be used to determine whether the interrupt occurs. The following are the six settable interrupt events:   
+   @n eXHigherThanTh, eXLowerThanTh, eYHigherThanTh, eYLowerThanTh, eZHigherThanTh,eZLowerThanTh.
+   @n For a detailed explanation of each interrupt event, please look up the comments of function enableInterruptEvent()
+   @n When using SPI, chip select pin can be modified by changing the value of macro RASPBERRY_PIN_CS
    @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
    @licence     The MIT License (MIT)
    @author [fengli](li.feng@dfrobot.com)
@@ -23,21 +23,22 @@ sys.path.append("../../..") # set system path to top
 from DFRobot_LIS import *
 import time
 
-INT1 = 26                           #Interrupt pin,使用BCM编码方式,编码号为26,对应引脚GPIO25
+INT1 = 26                           #Interrupt pin, use BCM coding method, the code number is 26, corresponding to pin GPIO25
 int_pad_Flag = False                 #intPad flag
 def int_pad_callback(status):
   global int_pad_Flag
   int_pad_Flag = True
 
-#如果你想要用SPI驱动此模块，打开下面两行的注释,并通过SPI连接好模块和树莓派
-#RASPBERRY_PIN_CS =  27              #Chip selection pin when SPI is selected,使用BCM编码方式,编码号为27,对应引脚GPIO2
+#If you want to use SPI to drive this module, open the following comments, and connect the module with Raspberry Pi via it
+#RASPBERRY_PIN_CS =  27              #Chip selection pin when SPI is selected, use BCM coding method, the number is 27, corresponding to pin GPIO2
 #acce = DFRobot_H3LIS200DL_SPI(RASPBERRY_PIN_CS)
 
 
-#如果你想要应IIC驱动此模块，打开下面三行的注释，并通过I2C连接好模块和树莓派,可通过板子上的拨码开关（gravity版本）或SDO引脚（Breakout版本）切换I2C地址
+#If you want to use I2C to drive this module, open the following comments, and connect the module with Raspberry Pi via it
+* @n  The I2C address can be switched through the DIP switch (gravity version) or SDO pin (Breakout version) on the board
 I2C_BUS         = 0x01            #default use I2C1
-#ADDRESS_0       = 0x18            #传感器地址0
-ADDRESS_1       = 0x19            #传感器地址1
+#ADDRESS_0       = 0x18            #sensor address 0
+ADDRESS_1       = 0x19            #sensor address 1
 acce = DFRobot_H3LIS200DL_I2C(I2C_BUS ,ADDRESS_1)
 
 # set int_Pad to input
@@ -75,7 +76,7 @@ acce.set_acquire_rate(acce.NORMAL_50HZ)
 
 '''
 Set the threshold of interrupt source 1 interrupt
-threshold Threshold(g),范围是设置好的的测量量程
+threshold Threshold(g), the range is the set measurement range.
 '''
 acce.set_int1_th(5);
 
@@ -111,7 +112,7 @@ while True:
      
      int_pad_Flag = False
    #Get the acceleration in the three directions of xyz
-   #测量的量程为±100g或±200g,通过set_range()函数设置
+   #The measurement range can be ±100g or ±200g set by the set_range() function
    x,y,z = acce.read_acce_xyz()
    print("Acceleration [X = %.2f g,Y = %.2f g,Z = %.2f g]"%(x,y,z))
    time.sleep(0.1)
