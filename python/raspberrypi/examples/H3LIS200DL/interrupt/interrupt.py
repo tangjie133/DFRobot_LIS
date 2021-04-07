@@ -35,7 +35,7 @@ def int_pad_callback(status):
 
 
 #If you want to use I2C to drive this module, open the following comments, and connect the module with Raspberry Pi via it
-* @n  The I2C address can be switched through the DIP switch (gravity version) or SDO pin (Breakout version) on the board
+#The I2C address can be switched through the DIP switch (gravity version) or SDO pin (Breakout version) on the board
 I2C_BUS         = 0x01            #default use I2C1
 #ADDRESS_0       = 0x18            #sensor address 0
 ADDRESS_1       = 0x19            #sensor address 1
