@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
 """
   @file get_acceleration.py
-  @brief 获取x,y,z三个方向的加速度值,加速度的测量的量程可选择±6g,±12g或±24g
-  @n 在使用SPI时,片选引脚时可以通过改变RASPBERRY_PIN_CS的值修改
+  @brief Get the acceleration in x, y, z directions, its measurement range can be ±6g, ±12g or ±24g 
+  @n When using SPI, chip select pin can be modified by changing the value of RASPBERRY_PIN_CS
   @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
   @licence     The MIT License (MIT)
   @author [fengli](li.feng@dfrobot.com)
@@ -18,15 +18,15 @@ sys.path.append("../../..") # set system path to top
 from DFRobot_LIS import *
 import time
 
-#如果你想要用SPI驱动此模块，打开下面两行的注释,并通过SPI连接好模块和树莓派
-#RASPBERRY_PIN_CS =  27              #Chip selection pin when SPI is selected,使用BCM编码方式,编码号为27,对应引脚GPIO2
+#If you want to use SPI to drive this module, open the following comments, and connect the module with Raspberry Pi via it
+#RASPBERRY_PIN_CS =  27              #Chip selection pin when SPI is selected, use BCM coding method, the number is 27, corresponding to pin GPIO2
 #acce = DFRobot_H3LIS200DL_SPI(RASPBERRY_PIN_CS)
 
-#如果你想要应IIC驱动此模块，打开下面三行的注释，并通过I2C连接好模块和树莓派
-#可通过板子上的拨码开关（gravity版本）或SDO引脚（Breakout版本）切换I2C地址
+#If you want to use I2C to drive this module, open the following comments, and connect the module with Raspberry Pi via it
+#The I2C address can be switched through the DIP switch (gravity version) or SDO pin (Breakout version) on the board
 I2C_BUS         = 0x01            #default use I2C1
-#ADDRESS_0       = 0x18            #传感器地址0
-ADDRESS_1       = 0x19            #传感器地址1
+#ADDRESS_0       = 0x18            #Sensor address 0
+ADDRESS_1       = 0x19            #Sensor address 1
 acce = DFRobot_H3LIS200DL_I2C(I2C_BUS ,ADDRESS_1)
 
 #Chip initialization
@@ -59,7 +59,7 @@ time.sleep(0.1)
 
 while True:
     #Get the acceleration in the three directions of xyz
-    #测量的量程为±100g或±200g,通过set_range()函数设置
+    #The measurement range can be ±100g or ±200g set by the set_range() function
     x,y,z = acce.read_acce_xyz()
     print("Acceleration [X = %.2d g,Y = %.2d g,Z = %.2d g]"%(x,y,z))
     time.sleep(1)
