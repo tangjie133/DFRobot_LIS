@@ -1,10 +1,11 @@
 # -*- coding:utf-8 -*-
 """
    @file wake_up.py
-   @brief 使用睡眠唤醒功能
-   @n 现象：使用此功能需要先让模块处于低功耗模式,此时的测量速率会很慢
-   @n 当有设置好的中断事件产生,模块会进入正常模式,测量速率加快,达到省电和提供采样率的目的
-   @n 在使用SPI时,片选引脚时可以通过改变宏RASPBERRY_PIN_CS的值修改
+   @brief Use wake-up function
+   @n Phenomenon: It’s necessary to set the model in low-power mode before using this function.The measurement rate will be very slow.
+   @n When a interrupt event set up before is generated, the module will be in the normal mode that  the measurement rate will be accelerated
+   @n to save power and provide sampling rate.
+   @n When using SPI, chip select pin can be modified by changing the value of macro RASPBERRY_PIN_CS
    @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
    @licence     The MIT License (MIT)
    @author [fengli](li.feng@dfrobot.com)
@@ -20,14 +21,15 @@ sys.path.append("../../..") # set system path to top
 from DFRobot_LIS import *
 import time
 
-#如果你想要用SPI驱动此模块，打开下面两行的注释,并通过SPI连接好模块和树莓派
-#RASPBERRY_PIN_CS =  27              #Chip selection pin when SPI is selected,使用BCM编码方式,编码号为27,对应引脚GPIO2
+#If you want to use SPI to drive this module, open the following two-line comments, and connect the module with Raspberry Pi via it
+#RASPBERRY_PIN_CS =  27              #Chip selection pin when SPI is selected, use BCM coding method, the number is 27, corresponding to pin GPIO2
 #acce = DFRobot_H3LIS200DL_SPI(RASPBERRY_PIN_CS)
 
-#如果你想要应IIC驱动此模块，打开下面三行的注释，并通过I2C连接好模块和树莓派,可通过板子上的拨码开关（gravity版本）或SDO引脚（Breakout版本）切换I2C地址
+#If you want to use I2C to drive this module, open the following three-line comments, and connect the module with Raspberry Pi via it
+#The I2C address can be switched through the DIP switch (gravity version) or SDO pin (Breakout version) on the board
 I2C_BUS         = 0x01            #default use I2C1
-#ADDRESS_0       = 0x18            #传感器地址0
-ADDRESS_1       = 0x19            #传感器地址1
+#ADDRESS_0       = 0x18            #sensor address 0
+ADDRESS_1       = 0x19            #sensor address 1 
 acce = DFRobot_H3LIS200DL_I2C(I2C_BUS ,ADDRESS_1)
 
 #Chip initialization
@@ -58,7 +60,7 @@ Set data measurement rate
 acce.set_acquire_rate(acce.NORMAL_50HZ)
 '''
    Set the threshold of interrupt source 1 interrupt
-   threshold Threshold(g),范围是设置好的的测量量程
+   threshold Threshold(g), the range is the set measurement range
 '''
 acce.set_int1_th(5)
 
@@ -84,8 +86,8 @@ time.sleep(1)
 
 while True:
     #Get the acceleration in the three directions of xyz
-    #测量的量程为±100g或±200g,通过set_range()函数设置
-    #当有中断产生，能观察到芯片测量的频率明显变快
+    #The measurement range can be ±100g or ±200g set by the set_range() function
+    #When an interrupt is generated, it can be observed that the frequency of measurement is significantly faster
     x,y,z = acce.read_acce_xyz()
     print("Acceleration [X = %.2f g,Y = %.2f g,Z = %.2f g]"%(x,y,z))
     time.sleep(0.1)
