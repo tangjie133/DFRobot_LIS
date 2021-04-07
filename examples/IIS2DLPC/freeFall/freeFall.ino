@@ -101,7 +101,7 @@ void setup(void){
   acce.setRange(DFRobot_LIS2DW12::e2_g);
   
   /**
-   * Set the free fall time (Or the number of free-fall samples. The free-fall events will not occurs unless the samples are enough.) 
+   * Set the free fall time (Or the number of free-fall samples. The free-fall events will not occur unless the samples are enough.) 
     dur (0 ~ 31)
     time = dur * (1/Rate)(unit:s)
     |                          An example of a linear relationship between an argument and time                                                     |
