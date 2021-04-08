@@ -1,11 +1,11 @@
 /**！
  * @file interrupt.ino
  * @brief Interrupt detection
- * @n In this example, the enable eZHigherThanTh interrupt event，which means when the acceleration in the Z direction is bigger than the
- * @n thresholdset by the program, the interrupt level can be detected on the interrupt pin int1/int2 we set,and the level variation on the
- * @n interrupt pin can be used to determine whether the interrupt occurs.The following are the 6 settable interrupt events： eXHigherThanTh,
- * @n eXLowerThanTh, eYHigherThanTh, eYLowerThanTh, eZHigherThanTh,eZLowerThanTh. For a detailed explanation of each interrupt event,
- * @n please see the annotation of the enableInterruptEvent() function.
+ * @n In this example, the enable eZHigherThanTh interrupt event means when the acceleration in the Z direction is above the
+ * @n thresholdset by the program, the interrupt level can be detected on the interrupt pin int1/int2 we set, and the level variation on the
+ * @n interrupt pin can be used to determine whether the interrupt occurs. The following are the 6 settable interrupt events： eXHigherThanTh,
+ * @n eXLowerThanTh, eYHigherThanTh, eYLowerThanTh, eZHigherThanTh, eZLowerThanTh. For a detailed explanation of each of them,
+ * @n please look up the comments of the enableInterruptEvent() function.
  * @n This example needs to connect the int2/int1 pin of the module to the interrupt pin of the motherboard. Default UNO(2), Mega2560(2), 
  * @n       Leonardo(3), microbit(P0),FireBeetle-ESP8266(D6),FireBeetle-ESP32((D6),FireBeetle-M0(6)        
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
@@ -121,7 +121,7 @@ void setup(void){
     Set the threshold of interrupt source 1 interrupt
     threshold:Threshold(g)
    */
-  acce.setInt1Th(/*Threshold = */6);//单位为:g
+  acce.setInt1Th(/*Threshold = */6);//Unit: g
 
   /*!
     Enable interrupt
