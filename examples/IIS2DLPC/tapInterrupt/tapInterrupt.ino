@@ -1,6 +1,6 @@
 /**！
  * @file tapInterrupt.ino
- * @brief tap interrupt detection, tap the module or the desktop of module accessories can trigger the interrupt level of in1.
+ * @brief tap interrupt detection, tapping both the module and the desktop of module accessories can trigger the interrupt level of in1.
  * @n When using SPI communication, use the following program to construct an object by DFRobot_IIS2DLPC_SPI
  * @n In this example, the int2/int1 pin on the module needs to be connected to the interrupt pin on the motherboard, the defaults are UNO(2),
  * @n          Mega2560(2), Leonardo(3), microbit(P0),FireBeetle-ESP8266(D6),FireBeetle-ESP32((D6),FireBeetle-M0(6)        
@@ -193,7 +193,7 @@ void loop(void){
     //Tap source detection
      DFRobot_LIS2DW12::eTapDir_t dir = acce.getTapDirection();
      if(tapEvent  == DFRobot_LIS2DW12::eSTap){
-         Serial.print("single tap Detected :");
+         Serial.print("Single tap Detected :");
      }
      if(tapEvent  == DFRobot_LIS2DW12::eDTap){  
          Serial.print("Double Tap Detected :");
