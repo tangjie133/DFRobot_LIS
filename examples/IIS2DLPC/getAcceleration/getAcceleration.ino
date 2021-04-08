@@ -1,6 +1,6 @@
 /**！
  * @file getAcceleration.ino
- * @brief Get the acceleration in x, y, z directions, whose mearement ranges are ±2g,±4g,±8g or ±16g set by the setRange() function
+ * @brief Get the acceleration in x, y, z directions, the measurement range can be ±2g,±4g,±8g or ±16g set by the setRange() function
  * @n In this example, the continuous measurement mode is selected by default -- the acceleration data will be measured continuously
  * @n according to the measuring rate.
  * @n You can also use single data conversion on demand mode 1. You need to select a suitable conversion mode in the setPowerMode() function
