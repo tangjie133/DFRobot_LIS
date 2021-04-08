@@ -1,7 +1,7 @@
 /**！
  * @file freeFall.ino
- * @brief Sensor module free fall detection,set the free fall duration with the setFrDur() function to adjust the sensitivity of the detection.
- * @n The shorter the free fall duration, the easier it is to detect the free fall event.
+ * @brief Sensor module free fall detection,set the free fall time with the setFrDur() function to adjust the sensitivity of the detection.
+ * @n The shorter the free fall time, the easier it is to detect the event.
  * @n When using SPI, chip select pin can be modified by changing the value of macro IIS2DLPC_CS.
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
@@ -101,7 +101,7 @@ void setup(void){
   acce.setRange(DFRobot_LIS2DW12::e2_g);
   
   /**
-   * Set the free fall duration (Or the number of free-fall samples. The free-fall events will not occur unless the samples are enough.) 
+   * Set the free fall time (Or the number of free-fall samples. The free-fall events will not occur unless the samples are enough.) 
     dur (0 ~ 31)
     time = dur * (1/Rate)(unit:s)
     |                          An example of a linear relationship between an argument and time                                                     |
