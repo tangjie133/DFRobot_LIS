@@ -83,7 +83,7 @@ void setup(void){
   acce.setFilterBandwidth(DFRobot_LIS2DW12::eRateDiv_4);
   
   /**
-      Amid wake-up duration, when the setActMode() function uses the detection mode of eDetectAct, it will be a period of time to collect data
+      Wake-up duration, when the setActMode() function uses the detection mode of eDetectAct, it will be a period of time to collect data
     at a normal rate after the chip is awakened. Then the chip will continue to hibernate, collecting data at a frequency of 12.5hz.
     dur (0 ~ 3)
     time = dur * (1/Rate)(unit:s)
@@ -97,8 +97,8 @@ void setup(void){
    */
   acce.setWakeUpDur(/*dur = */2);
   
-  //Set wakeup threshold, When the acceleration variation exceeds this value, the eWakeUp event will be triggered,unit:mg
-  //The value is within the range.
+  //Set wakeup threshold, when the acceleration variation exceeds this value, the eWakeUp event will be triggered,unit:mg
+  //The value is within the range
   acce.setWakeUpThreshold(/*threshold = */0.2);
   
   /**！
