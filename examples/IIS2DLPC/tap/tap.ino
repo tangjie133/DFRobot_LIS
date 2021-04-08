@@ -1,6 +1,6 @@
 /**！
  * @file tap.ino
- * @brief Single tap and double tap detection, tap the module or the desktop of module accessories to trigger the tap event
+ * @brief Single tap and double tap detection, tapping the module and the desktop of module accessories both can trigger the tap event
  * @n You can select to only detect single tap or to detect both single tap and double tap by the setTapMode() function
  * @n When using SPI, chip select pin can be modified by changing the value of macro IIS2DLPC_CS
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
@@ -155,7 +155,7 @@ void loop(void){
   DFRobot_LIS2DW12::eTapDir_t dir = acce.getTapDirection();
   uint8_t tap = 0;
   if(tapEvent  == DFRobot_LIS2DW12::eSTap){
-      Serial.print("single tap Detected :");
+      Serial.print("Single tap Detected :");
       tap = 1;
   }
   if(tapEvent  == DFRobot_LIS2DW12::eDTap){  
