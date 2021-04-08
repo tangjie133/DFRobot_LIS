@@ -172,7 +172,7 @@ void loop(void){
    
    if(intFlag == 1){
    delay(100);
-   //Free fall event is detected
+   //Free fall event detected
    if(acce.freeFallDetected()){
       Serial.println("free fall detected");
       delay(200);
