@@ -42,7 +42,7 @@ class DFRobot_LIS(object):
   REG_INT1_SRC   = 0x31       #Interrupt source 1 status register
   REG_INT2_SRC   = 0x35       #Interrupt source 2 status register
   SPI_READ_BIT   = 0X80       # bit 0: RW bit. When 0, the data DI(7:0) is written into the device. When 1, the data DO(7:0) from the device is read.
-  ENABLE_FILTER  = 0X10       #使能滤波
+  ENABLE_FILTER  = 0X10       #Enable filter
   __reset = 0
   
   '''
@@ -111,7 +111,7 @@ class DFRobot_LIS(object):
 
   '''
     @brief Initialize the function
-    @return return True(成功)/False(失败)
+    @return return True(Succeed)/False(Failed)
   '''
   def begin(self):
     identifier = self.read_reg(self.REG_CARD_ID)
@@ -205,8 +205,8 @@ class DFRobot_LIS(object):
              Z_LOWERTHAN_TH     = 0X10  #The acceleration in the z direction is less than the threshold
              Z_HIGHERTHAN_TH  = 0X20  #The acceleration in the z direction is greater than the threshold
              EVENT_ERROR      = 0  # No event
-    @return true 产生了此事件
-            false 未产生此事件
+    @return true This event generated
+            false This event not generated
   '''
   def get_int1_event(self,event):
     value = self.read_reg(self.REG_INT1_SRC)
@@ -225,8 +225,8 @@ class DFRobot_LIS(object):
              Z_LOWERTHAN_TH     = 0X10  #The acceleration in the z direction is less than the threshold
              Z_HIGHERTHAN_TH  = 0X20  #The acceleration in the z direction is greater than the threshold
              EVENT_ERROR      = 0  # No event
-    @return true 产生了此事件
-            false 未产生此事件
+    @return true This event generated
+            false This event not generated
   '''
   def get_int2_event(self,event):
     value = self.read_reg(self.REG_INT2_SRC)
@@ -300,7 +300,7 @@ class DFRobot_H3LIS200DL_I2C(DFRobot_LIS):
 
   '''
     @brief Get the acceleration in the three directions of xyz
-     @return Three-axis acceleration(g) ,测量的量程为±100g或±200g,通过set_range()函数设置
+     @return Three-axis acceleration(g), the measurement range is ±100g or ±200g set by the set_range() function
   '''
   def read_acce_xyz(self):
     global _range 
@@ -367,7 +367,7 @@ class DFRobot_H3LIS200DL_SPI(DFRobot_LIS):
 
   '''
     @brief Get the acceleration in the three directions of xyz
-    @return Three-axis acceleration(g),测量的量程为±100g或±200g,通过set_range()函数设置
+    @return Three-axis acceleration(g), the measurement range is ±100g or ±200g set by the set_range() function
   '''
   def read_acce_xyz(self):
     global _range 
@@ -439,7 +439,7 @@ class DFRobot_LIS331HH_I2C(DFRobot_LIS):
 
   '''
     @brief Get the acceleration in the three directions of xyz
-    @return Three-axis acceleration(mg) ,测量的量程为±6g,±12g或±24g,通过set_range()函数设置
+    @return Three-axis acceleration(mg), the measurement range is ±6g, ±12g or ±24g set by the set_range() function
   '''
   def read_acce_xyz(self):
     global _range   
@@ -515,7 +515,7 @@ class DFRobot_LIS331HH_SPI(DFRobot_LIS):
 
   '''
     @brief Get the acceleration in the three directions of xyz
-    @return Three-axis acceleration(mg) ,测量的量程为±6g,±12g或±24g,通过set_range()函数设置
+    @return Three-axis acceleration(mg), the measurement range is ±6g, ±12g or ±24g set by the set_range() function
   '''
   def read_acce_xyz(self):
     global _range   
