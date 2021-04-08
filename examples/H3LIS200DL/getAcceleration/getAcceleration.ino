@@ -1,6 +1,6 @@
 /**！
  * @file getAcceleration.ino
- * @brief Get the acceleration in the three directions of xyz, whose ranges can be ±100g or ±200g
+ * @brief Get the acceleration in the three directions of xyz, the range can be ±100g or ±200g
  * @n When using SPI, chip select pin can be modified by changing the value of macro H3LIS200DL_CS
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
