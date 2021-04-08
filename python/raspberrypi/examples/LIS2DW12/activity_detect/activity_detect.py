@@ -1,11 +1,14 @@
 # -*- coding:utf-8 -*-
 """
    @file activity_detect.py
-   @brief Motion detection,可以检测到模块是否在移动
-   @n 使用此功能,需先进入低功耗模式,然后调用setActMode(),使芯片进入睡眠模式,此种状态下测量速率为12.5hz
-   @n 当检测到某个方向的加速度变化大于阈值时测量速率会提升到设置的正常速率，阈值大小通过setWakeUpThreshold()函数设置
-   @n 但如果停止运动即三个方向加速度的变化小于阈值芯片会在一段时间后进入进入睡模式,这个持续的时间由setWakeUpDur()函数设置
-   @n 在使用SPI时,片选引脚时可以通过改变RASPBERRY_PIN_CS的值修改
+   @brief Motion detection, can detect whether the module is moving
+   @n It’s necessary to go into low power mode before using this function.Then call setActMode() to make the chip in sleep mode.
+   @n In this state, the measurement rate is 12.5hz.
+   @n When the acceleration change in a certain direction is detected to exceed the threshold, the measurement rate will be increased to
+   @n the set normal rate. The threshold can be set by the setWakeUpThreshold() function.
+   @n But if the move stops, that is, the change in acceleration in the three directions is less than the threshold, the chip will be in sleep
+   @n mode after a period of time, which can be set by the setWakeUpDur() function.
+   @n When using SPI, chip select pin can be modified by changing the value of RASPBERRY_PIN_CS
    @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
    @licence     The MIT License (MIT)
    @author [fengli](li.feng@dfrobot.com)
@@ -21,16 +24,16 @@ sys.path.append("../../..") # set system path to top
 from DFRobot_LIS2DW12 import *
 import time
 
-#如果你想要用SPI驱动此模块，打开下面两行的注释,并通过SPI连接好模块和树莓派
-#RASPBERRY_PIN_CS =  27              #Chip selection pin when SPI is selected,使用BCM编码方式,编码号为27,对应引脚GPIO2
+#If you want to use SPI to drive this module, open the following two-line comments, and connect the module with Raspberry Pi via it
+#RASPBERRY_PIN_CS =  27              #Chip selection pin when SPI is selected, use BCM coding method, the number is 27, corresponding to pin GPIO2
 #acce = DFRobot_LIS2DW12_SPI(RASPBERRY_PIN_CS)
 
 
-#如果你想要应IIC驱动此模块，打开下面三行的注释，并通过I2C连接好模块和树莓树莓派
-#可通过板子上的拨码开关（gravity版本）或SDO引脚（Breakout版本）切换I2C地址
+#If you want to use I2C to drive this module, open the following three-line comments, and connect the module with Raspberry Pi via it
+#The I2C address can be switched through the DIP switch (gravity version) or SDO pin (Breakout version) on the board
 I2C_BUS         = 0x01             #default use I2C1
-#ADDRESS_0       = 0x18             #传感器地址0
-ADDRESS_1       = 0x19             #传感器地址1
+#ADDRESS_0       = 0x18             #sensor address 0
+ADDRESS_1       = 0x19             #sensor address 1
 acce = DFRobot_LIS2DW12_I2C(I2C_BUS ,ADDRESS_1)
 
 #Chip initialization
@@ -64,11 +67,11 @@ acce.set_filter_path(acce.LPF)
 acce.set_filter_bandwidth(acce.RATE_DIV_4)
 
 '''
-      唤醒持续时间,在setActMode()函数使用eDetectAct的检测模式时,芯片在被唤醒后,会持续一段时
-    间以正常速率采集数据,然后便会继续休眠,以12.5hz的频率采集数据
+      Wake-up duration, when the setActMode() function uses the detection mode of eDetectAct, it will be a period of time to collect data
+     at a normal rate after the chip is awakened. Then the chip will continue to hibernate, collecting data at a frequency of 12.5hz.
      dur duration(0 ~ 3)
      time = dur * (1/rate)(unit:s)
-     |                                    参数与时间之间的线性关系的示例                                                        |
+     |                               An example of a linear relationship between an argument and time                                                    |
      |------------------------------------------------------------------------------------------------------------------------|
      |                |                     |                          |                          |                           |
      |  Data rate     |       25 Hz         |         100 Hz           |          400 Hz          |         = 800 Hz          |
@@ -78,8 +81,8 @@ acce.set_filter_bandwidth(acce.RATE_DIV_4)
 '''
 acce.set_wakeup_dur(dur = 6)
 
-#Set wakeup threshold,当加速度的变化大于此值时,会触发eWakeUp事件,unit:mg
-#数值是在量程之内
+#Set wakeup threshold, when the acceleration variation exceeds this value, the eWakeUp event will be triggered.
+#The value is within the range.
 acce.set_wakeup_threshold(0.05)
 
 '''
@@ -108,8 +111,10 @@ acce.set_power_mode(acce.CONT_LOWPWRLOWNOISE1_12BIT)
 '''
     Set the mode of motion detection:
                  NO_DETECTION      #No detection
-                 DETECT_ACT        #设置此模式,芯片的速率会降为12.5hz,并且在eWakeUp事件产生后,变为正常测量频率
-                 DETECT_STATMOTION #此模式,仅能检测芯片是否处于睡眠模式,而不改变测量频率和电源模式,一直以正常测量频率测量数据
+                 DETECT_ACT        #If set this mode, the rate of the chip will drop to 12.5hz 
+                                   and turn into normal measurement frequency after the eWakeUp event is generated.
+                 DETECT_STATMOTION #In this mode, it can only detect if the chip is in sleep mode without changing the 
+                                    measurement frequency and power mode, continuously measuring the data at normal frequency.
 '''
 acce.set_act_mode(acce.DETECT_ACT)
 
@@ -125,17 +130,17 @@ acce.set_int1_event(acce.WAKEUP)
 
 '''
     Set the sensor data collection rate:
-        RATE_OFF            #测量关闭
-        RATE_1HZ6           #1.6hz,仅在低功耗模式下使用
+        RATE_OFF            #Measurement off
+        RATE_1HZ6           #1.6hz, use only under low-power mode
         RATE_12HZ5          #12.5hz
         RATE_25HZ           
         RATE_50HZ           
         RATE_100HZ          
         RATE_200HZ          
-        RATE_400HZ          #仅在High-Performance mode下使用
-        RATE_800HZ          #仅在High-Performance mode下使用
-        RATE_1600HZ         #仅在High-Performance mode下使用
-        SETSWTRIG           #软件触发单次测量
+        RATE_400HZ          #Use only under High-Performance mode
+        RATE_800HZ          #Use only under High-Performance mode
+        RATE_1600HZ         #Use only under High-Performance mode
+        SETSWTRIG           #The software triggers a single measurement.
 '''
 acce.set_data_rate(acce.RATE_200HZ)
 time.sleep(0.1)
