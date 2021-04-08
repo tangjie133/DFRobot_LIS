@@ -1,12 +1,13 @@
 # -*- coding:utf-8 -*-
 """
    @file get_acceleration.py
-   @brief Get the acceleration in x, y, z directions,测量的量程为±2g,±4g,±8g或±16g,通过set_range()函数设置
-   @n 本示例默认地选用连续测量模式测量数据，加速度数据会根据测量速率不停地测量，
-   @n 还可使用单次按需求转换模式  1.需要在set_power_mode()函数中选用适合的转换模式
-   @n                             2.然后在set_data_rate()函数填入SETSWTRIG参数
-   @n                             3.使用demandData()函数请求测量一次数据
-   @n 在使用SPI时,片选引脚时可以通过改变RASPBERRY_PIN_CS的值修改
+   @brief Get the acceleration in x, y, z directions. The mearsurement range is ±2g,±4g,±8g or ±16g set by the setRange() function
+   @n In this example, the continuous measurement mode is selected by default -- the acceleration data will be measured continuously 
+   @n according to the measuring rate. You can also use the single data conversion on demand mode. 
+   * @n                           1. You need to select a suitable conversion mode in the setPowerMode() function
+   @n                             2. Then fill in the setDataRate() function with the eSetSwTrig parameter
+   @n                             3. Request a measurement by the demandData() function
+   @n When using SPI, chip select pin can be modified by changing the value of RASPBERRY_PIN_CS
    @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
    @licence     The MIT License (MIT)
    @author [fengli](li.feng@dfrobot.com)
@@ -22,16 +23,16 @@ sys.path.append("../../..") # set system path to top
 from DFRobot_LIS2DW12 import *
 import time
 
-#如果你想要用SPI驱动此模块，打开下面两行的注释,并通过SPI连接好模块和树莓派
-#RASPBERRY_PIN_CS =  27              #Chip selection pin when SPI is selected,使用BCM编码方式,编码号为27,对应引脚GPIO2
+#If you want to use SPI to drive this module, open the following two-line comments, and connect the module with Raspberry Pi via it
+#RASPBERRY_PIN_CS =  27              #Chip selection pin when SPI is selected, use BCM coding method, the number is 27, corresponding to pin GPIO2
 #acce = DFRobot_LIS2DW12_SPI(RASPBERRY_PIN_CS)
 
 
-#如果你想要应IIC驱动此模块，打开下面三行的注释，并通过I2C连接好模块和树莓派
-#可通过板子上的拨码开关（gravity版本）或SDO引脚（Breakout版本）切换I2C地址
+#If you want to use I2C to drive this module, open the following three-line comments, and connect the module with Raspberry Pi via it
+#The I2C address can be switched through the DIP switch (gravity version) or SDO pin (Breakout version) on the board
 I2C_BUS         = 0x01             #default use I2C1
-#ADDRESS_0       = 0x18             #传感器地址0
-ADDRESS_1       = 0x19             #传感器地址1
+#ADDRESS_0       = 0x18             #sensor address 0
+ADDRESS_1       = 0x19             #sensor address 1
 acce = DFRobot_LIS2DW12_I2C(I2C_BUS ,ADDRESS_1)
 
 #Chip initialization
@@ -53,17 +54,17 @@ acce.contin_refresh(True)
 
 '''
     Set the sensor data collection rate:
-        RATE_OFF            #测量关闭
-        RATE_1HZ6           #1.6hz,仅在低功耗模式下使用
+        RATE_OFF            #Measurement off
+        RATE_1HZ6           #1.6hz, use only under low-power mode
         RATE_12HZ5          #12.5hz
         RATE_25HZ           
         RATE_50HZ           
         RATE_100HZ          
         RATE_200HZ          
-        RATE_400HZ          #仅在High-Performance mode下使用
-        RATE_800HZ          #仅在High-Performance mode下使用
-        RATE_1600HZ         #仅在High-Performance mode下使用
-        SETSWTRIG           #软件触发单次测量
+        RATE_400HZ          #Use only under High-Performance mode
+        RATE_800HZ          #Use only under High-Performance mode
+        RATE_1600HZ         #Use only under High-Performance mode
+        SETSWTRIG           #The software triggers a single measurement
 '''
 acce.set_data_rate(acce.RATE_200HZ)
 
@@ -108,10 +109,10 @@ acce.set_power_mode(acce.CONT_LOWPWRLOWNOISE2_14BIT);
 time.sleep(0.1)
 
 while True:
-    #在单次按需求转化模式下,请求测量一次数据
+    #Request a measurement under the single data conversion on demand mode.
     #acce.demand_data()
     #Get the acceleration in the three directions of xyz
-    #测量的量程为±2g,±4g,±8g或±16g,通过set_range()函数设置
+    #The mearsurement range is ±2g,±4g,±8g or ±16g set by the setRange() function
     time.sleep(0.3)
     x = acce.read_acc_x()
     y = acce.read_acc_y()
