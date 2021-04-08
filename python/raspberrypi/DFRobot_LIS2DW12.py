@@ -100,17 +100,17 @@ class DFRobot_LIS2DW12(object):
   '''
   Data collection rate
   '''
-  RATE_OFF            = 0X00  #测量关闭
-  RATE_1HZ6           = 0X01  #1.6hz,仅在低功耗模式下使用
+  RATE_OFF            = 0X00  #Measurement off
+  RATE_1HZ6           = 0X01  #1.6hz, use only under low-power mode
   RATE_12HZ5          = 0X02  #12.5hz
   RATE_25HZ           = 0X03
   RATE_50HZ           = 0X04
   RATE_100HZ          = 0X05
   RATE_200HZ          = 0X06
-  RATE_400HZ          = 0X07  #仅在High-Performance mode下使用
-  RATE_800HZ          = 0X08  #仅在High-Performance mode下使用
-  RATE_1600HZ         = 0X09  #仅在High-Performance mode下使用
-  SETSWTRIG           = 0X12  #软件触发单次测量
+  RATE_400HZ          = 0X07  #Use only under High-Performance mode
+  RATE_800HZ          = 0X08  #Use only under High-Performance mode
+  RATE_1600HZ         = 0X09  #Use only under High-Performance mode
+  SETSWTRIG           = 0X12  #The software triggers a single measurement
   
   '''
     Motion detection mode
@@ -123,11 +123,11 @@ class DFRobot_LIS2DW12(object):
   '''
   Interrupt source 1 trigger event setting
   '''
-  DOUBLE_TAP = 0x08     #双击事件
-  FREEFALL   = 0x10     #自由落体事件
-  WAKEUP     = 0x20     #唤醒事件
-  SINGLE_TAP = 0x40     #单击事件
-  IA6D       = 0x80     #在正面朝上/朝下/朝左/朝右/朝前/朝后 的状态发生改变的事件
+  DOUBLE_TAP = 0x08     #Double tap event
+  FREEFALL   = 0x10     #Freefall event
+  WAKEUP     = 0x20     #Wake-up event
+  SINGLE_TAP = 0x40     #Single tap event
+  IA6D       = 0x80     #An event changed the status of facing up/down/left/right/forward/back
 
   '''
   Interrupt source 2 trigger event setting
@@ -144,17 +144,17 @@ class DFRobot_LIS2DW12(object):
   NO_TAP      = 2  #no tap
   
   #which direction is tap event detected
-  DIR_X_UP   = 0 #在X 正方向发生的点击事件
-  DIR_X_DOWN = 1 #在X 负方向发生的点击事件
-  DIR_Y_UP   = 2 #在Y 正方向发生的点击事件
-  DIR_Y_DOWN = 3 #在Y 负方向发生的点击事件
-  DIR_Z_UP   = 4 #在Z 正方向发生的点击事件
-  DIR_Z_DOWN = 5 #在Z 负方向发生的点击事件
+  DIR_X_UP   = 0 #Tap event generated in the positive X direction
+  DIR_X_DOWN = 1 #Tap event generated in the negative X direction
+  DIR_Y_UP   = 2 #Tap event generated in the positive Y direction
+  DIR_Y_DOWN = 3 #Tap event generated in the negative Y direction
+  DIR_Z_UP   = 4 #Tap event generated in the positive Z direction
+  DIR_Z_DOWN = 5 #Tap event generated in the negative Z direction
   
   #which direction is wake up event detected
-  DIR_X = 0 #X方向的运动唤醒芯片
-  DIR_Y = 1 #Y方向的运动唤醒芯片
-  DIR_Z = 2 #Z方向的运动唤醒芯片
+  DIR_X = 0 #Motion in the X direction woke up the chip
+  DIR_Y = 1 #Motion in the Y direction woke up the chip
+  DIR_Z = 2 #Motion in the Z direction woke up the chip
   
   ERROR = 0XFF
   
@@ -182,7 +182,7 @@ class DFRobot_LIS2DW12(object):
     __reset = 1
   '''
     @brief Initialize the function
-    @return True(初始化成功)/Fasle(初始化失败)
+    @return True(Iniatialization succeed)/Fasle(Initialization failed)
   '''
   def begin(self):
     identifier = self.read_reg(self.REG_CARD_ID)
@@ -320,17 +320,17 @@ class DFRobot_LIS2DW12(object):
   '''
     @brief Set data measurement rate
     @param rate rate
-                 RATE_OFF          #测量关闭
-                 RATE_1HZ6         #1.6hz,仅在低功耗模式下使用
+                 RATE_OFF          #Measurement off
+                 RATE_1HZ6         #1.6hz, use only under low-power mode
                  RATE_12HZ5        #12.5hz
                  RATE_25HZ         
                  RATE_50HZ         
                  RATE_100HZ        
                  RATE_200HZ        
-                 RATE_400HZ        #仅在High-Performance mode下使用
-                 RATE_800HZ        #仅在High-Performance mode下使用
-                 RATE_1600HZ       #仅在High-Performance mode下使用
-                 SETSWTRIG         #软件触发单次测量
+                 RATE_400HZ        #Use only under High-Performance mode
+                 RATE_800HZ        #Use only under High-Performance mode
+                 RATE_1600HZ       #Use only under High-Performance mode
+                 SETSWTRIG         #The software triggers a single measurement
   '''
   def set_data_rate(self, rate):
     value = self.read_reg(self.REG_CTRL_REG1)
@@ -348,10 +348,10 @@ class DFRobot_LIS2DW12(object):
     self.write_reg(self.REG_CTRL_REG3,value)
     
   '''
-     @brief 设置自由落体时间,也可以称作自由落体样本个数，只有产生足够多的自由落体样本，才会产生自由落体事件
-     @param dur duration,范围:0~31
+     @brief Set the free fall time, or the number of free-fall samples. The free-fall events will not occur unless the samples are enough.
+     @param dur duration, range:0~31
      @n time = dur * (1/rate)(unit:s)
-     |                                  参数与时间之间的线性关系的示例                                                        |
+     |                               An example of a linear relationship between an argument and time                                              |
      |------------------------------------------------------------------------------------------------------------------------|
      |                |                     |                          |                          |                           |
      |  Data rate     |       25 Hz         |         100 Hz           |          400 Hz          |         = 800 Hz          |
@@ -386,11 +386,11 @@ class DFRobot_LIS2DW12(object):
   '''
     @brief Set the interrupt source of the int1 pin
     @param event  Several interrupt events, after setting, when an event is generated, a level transition will be generated on the int1 pin
-              DOUBLE_TAP    #双击事件
-              FREEFALL      #自由落体事件
-              WAKEUP        #唤醒事件
-              SINGLE_TAP    #单击事件
-              IA6D          #在正面朝上/朝下/朝左/朝右/朝前/朝后 的状态发生改变的事件
+              DOUBLE_TAP    #Double tap event
+              FREEFALL      #Freefall event
+              WAKEUP        #Wake-up event
+              SINGLE_TAP    #Single tap event
+              IA6D          #An event changed the status of facing up/down/left/right/forward/back
     
   '''
   def set_int1_event(self,event):
@@ -405,11 +405,11 @@ class DFRobot_LIS2DW12(object):
     if event == self.FREEFALL:
       self.__lock_interrupt(True)
   '''
-     @brief 设置唤醒持续时间,在setActMode()函数使用eDetectAct的检测模式时,芯片在被唤醒后,会持续一段时间以正常速率采集数据
-     @n 然后便会继续休眠,以12.5hz的频率采集数据
-     @param dur  duration,范围:0~3
+     @brief Set wake-up duration, when the setActMode() function uses the detection mode of eDetectAct, it will be a period of time to collect data 
+     @n at a normal rate after the chip is awakened. Then the chip will continue to hibernate, collecting data at a frequency of 12.5hz.
+     @param dur  duration, range: 0~3
      @n time = dur * (1/rate)(unit:s)
-     |                                  参数与时间之间的线性关系的示例                                                        |
+     |                               An example of a linear relationship between an argument and time                                                |
      |------------------------------------------------------------------------------------------------------------------------|
      |                |                     |                          |                          |                           |
      |  Data rate     |       25 Hz         |         100 Hz           |          400 Hz          |         = 800 Hz          |
