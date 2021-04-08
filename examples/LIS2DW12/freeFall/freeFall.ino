@@ -1,6 +1,6 @@
 /**！
  * @file freeFall.ino
- * @brief Sensor module free fall detection, Set the free fall time by the setFrDur() function to adjust the sensitivity of the detection.
+ * @brief Sensor module free fall detection, set the free fall time by the setFrDur() function to adjust the sensitivity of the detection.
  * @n The shorter the free fall time, the easier it is to detect the free fall event.
  * @n When using SPI, chip select pin can be modified by changing the value of LIS2DW12_CS
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
