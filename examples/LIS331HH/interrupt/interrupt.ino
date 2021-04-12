@@ -33,7 +33,7 @@ DFRobot_LIS331HH_I2C acce;
 #elif defined(__AVR__) || defined(ARDUINO_SAM_ZERO)
 #define LIS331HH_CS 3
 #elif (defined NRF5)
-#define LIS331HH_CS 2  //The corresponding silkscreen on the development board is the pin of P2
+#define LIS331HH_CS 2  //The pin on the development board with the corresponding silkscreen printed as P2
 #endif
 /*!
  * @brief Constructor 
@@ -140,7 +140,7 @@ void setup(void){
 
 void loop(void){
    //Get the acceleration in the three directions of xyz
-   //The mearsurement range is ±6g, ±12g or ±24g set by the setRange() function
+   //The mearsurement range is ±6g, ±12g or ±24g, set by the setRange() function
    Serial.print("Acceleration x: "); 
    Serial.print(acce.readAccX());
    Serial.print(" mg \ty: ");
@@ -150,7 +150,7 @@ void loop(void){
    Serial.println(" mg");
 
    if(intFlag == 1){
-      //Check whether the interrupt event is generated in interrupt 1
+      //Check whether the interrupt event is generated in int1
       if(acce.getInt1Event(DFRobot_LIS::eYHigherThanTh)){
         Serial.println("The acceleration in the y direction is greater than the threshold");
       }
