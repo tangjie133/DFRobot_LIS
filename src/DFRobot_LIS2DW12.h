@@ -200,12 +200,12 @@ typedef enum {
   which direction is tap event detected
 */
 typedef enum {
-  eDirXUp   = 0,/**<从 X 正方向发生的点击事件>*/
-  eDirXDown = 1,/**<从 X 负方向发生的点击事件>*/
-  eDirYUp   = 2,/**<从 Y 正方向发生的点击事件>*/
-  eDirYDown = 3,/**<从 Y 负方向发生的点击事件>*/
-  eDirZUp   = 4,/**<从 Z 正方向发生的点击事件>*/
-  eDirZDown = 5,/**<从 Z 负方向发生的点击事件>*/
+  eDirXUp   = 0,/**<Tap is detected in the positive direction of X>*/
+  eDirXDown = 1,/**<Tap is detected in the negative direction of X>*/
+  eDirYUp   = 2,/**<Tap is detected in the positive direction of Y>*/
+  eDirYDown = 3,/**<Tap is detected in the negative direction of Y>*/
+  eDirZUp   = 4,/**<Tap is detected in the positive direction of Z>*/
+  eDirZDown = 5,/**<Tap is detected in the negative direction of Z>*/
   eDirNone  = 6,
 }eTapDir_t;
 
@@ -213,10 +213,10 @@ typedef enum {
   which direction is wake up event detected
 */
 typedef enum {
-  eDirX = 0,/**<X方向的运动唤醒芯片>*/
-  eDirY = 1,/**<Y方向的运动唤醒芯片>*/
-  eDirZ = 2,/**<Z方向的运动唤醒芯片>*/
-  eDirError =4,/**<方向检测错误>*/
+  eDirX = 0,/**<Chip woken up by motion in X direction>*/
+  eDirY = 1,/**<Chip woken up by motion in Y direction>*/
+  eDirZ = 2,/**<Chip woken up by motion in Z direction>*/
+  eDirError =4,/**<Direction detection error>*/
 }eWakeUpDir_t;
 
 /**
@@ -235,7 +235,7 @@ public:
   
   /**
    * @brief Initialize the function
-   * @return true(初始化成功)/fasle(初始化失败)
+   * @return true(Initialization succeed)/fasle(Iniatialization failed)
    */
   bool begin(void);
  
@@ -251,7 +251,7 @@ public:
   void softReset();
   
   /**
-   * @brief 使芯片持续采集数据
+   * @brief Enable the chip to collect continuously
    * @param enable  true(continuous update)/false( output registers not updated until MSB and LSB read)
    */
   void continRefresh(bool enable);
@@ -275,9 +275,9 @@ public:
   void setFilterBandwidth(eBWFilter_t bw);
   
   /**
-   * @brief Set power mode,传感器测量加速度数据的模式有了两种 
-   * @n       1.Continuous measurement 这种模式传感器会不停地测量数据然后放在数据寄存器
-   * @n       2.Single data conversion on demand mode,这种模式下，传感器只有接受到外部请求才会测量一次数据
+   * @brief Set power mode, there are two modes for the sensor to measure acceleration
+   * @n       1.Continuous measurement In this mode, the sensor will continuously measure and store the data in data register
+   * @n       2.Single data conversion on demand mode In this mode, the sensor will make a measurement unless it receives an external request
    * @param mode  power modes to choose from
                   eHighPerformance_14bit         /<High-Performance Mode,14-bit resolution>/
                   eContLowPwr4_14bit             /<Continuous measurement,Low-Power Mode 4(14-bit resolution)>/
@@ -302,26 +302,26 @@ public:
   
   /**
    * @brief Chip data collection rate setting
-   * @param rate  加速度测量频率,0-1600hz selection
-                  eRate_0hz            /<测量关闭>/
-                  eRate_1hz6           /<1.6hz,仅在低功耗模式下使用>/
+   * @param rate  Accelerometer frequency,0-1600hz selection
+                  eRate_0hz            /<Measurement off>/
+                  eRate_1hz6           /<1.6hz, use only under low-power mode>/
                   eRate_12hz5          /<12.5hz>/
                   eRate_25hz        
                   eRate_50hz        
                   eRate_100hz       
                   eRate_200hz       
-                  eRate_400hz         /<仅在High-Performance mode下使用>/
-                  eRate_800hz         /<仅在High-Performance mode下使用>/
-                  eRate_1k6hz         /<仅在High-Performance mode下使用>/
-                  eSetSwTrig          /<软件触发单次测量>/
+                  eRate_400hz         /<Use only under High-Performance mode>/
+                  eRate_800hz         /<Use only under High-Performance mode>/
+                  eRate_1k6hz         /<Use only under High-Performance mode>/
+                  eSetSwTrig          /<The software triggers a single measurement>/
    */
   void setDataRate(eRate_t rate);
   
   /**
-   * @brief 设置自由落体时间,也可以称作自由落体样本个数,只有产生足够多的自由落体样本,才会产生自由落体事件
-   * @param dur 自由落体样本数,范围：0~31
+   * @brief Set the free fall time, or the number of free-fall samples. The free-fall events will not occur unless the samples are enough
+   * @param dur Number of freefall samples, range: 0~31
    * @n time = dur * (1/rate)(unit:s)
-     |                                  参数与时间之间的线性关系的示例                                                        |
+     |                                  An example of a linear relationship between an argument and time                                                |
      |------------------------------------------------------------------------------------------------------------------------|
      |                |                     |                          |                          |                           |
      |  Data rate     |       25 Hz         |         100 Hz           |          400 Hz          |         = 800 Hz          |
@@ -332,7 +332,7 @@ public:
   void setFreeFallDur(uint8_t dur);
   
   /**
-   * @brief 选择在中断1引脚产生的中断事件
+   * @brief Select the interrupt event generated on the interrupt 1 pin
    * @param event  中断事件,当此事件产生会在中断1引脚产生电平跳变
                    eDoubleTap    = 0x08,/<双击事件>/
                    eFreeFall     = 0x10,/<自由落体事件>/
@@ -343,7 +343,7 @@ public:
   void setInt1Event(eInt1Event_t event);
   
   /**
-   * @brief 选择在中断2引脚产生的中断事件
+   * @brief Select the interrupt event generated on the interrupt 2 pin
    * @param event 中断事件,当此事件产生会在中断2引脚产生电平跳变
                   eSleepChange = 0x40,/<Sleep change status routed to INT2 pad>/
                   eSleepState  = 0x80,/<Enable routing of SLEEP_STATE on INT2 pad>/
