@@ -71,8 +71,8 @@ public:
 
 /**
    Power mode, there are two modes for the sensor to measure acceleration
-              1.Continuous measurement In this mode, the sensor will continuously measure and store the data in data register
-              2.Single data conversion on demand mode，In this mode, the sensor will make a measurement only when it receives an external request
+              1.Continuous measurement. In this mode, the sensor will continuously measure and store the data in data register.
+              2.Single data conversion on demand mode. In this mode, the sensor will make a measurement only when it receives an external request.
 */
 typedef enum{
   
@@ -178,7 +178,7 @@ typedef enum {
 } eTapMode_t;
 
 /**
-  位置检测角度转变阈值  Position detection angle transition threshold  
+  位置检测角度转变阈值  Position detection angle transition threshold ? 
 */
 typedef enum {
   eDegrees80  ,/**<80 degrees.>*/
@@ -321,7 +321,7 @@ public:
    * @brief Set the free fall time, or the number of free-fall samples. The free-fall events will not occur unless the samples are enough
    * @param dur Number of freefall samples, range: 0~31
    * @n time = dur * (1/rate)(unit:s)
-     |                                  An example of a linear relationship between an argument and time                                                |
+     |                           An example of a linear relationship between an argument and time                             |
      |------------------------------------------------------------------------------------------------------------------------|
      |                |                     |                          |                          |                           |
      |  Data rate     |       25 Hz         |         100 Hz           |          400 Hz          |         = 800 Hz          |
@@ -333,29 +333,29 @@ public:
   
   /**
    * @brief Select the interrupt event generated on the interrupt 1 pin
-   * @param event  中断事件,当此事件产生会在中断1引脚产生电平跳变
-                   eDoubleTap    = 0x08,/<双击事件>/
-                   eFreeFall     = 0x10,/<自由落体事件>/
-                   eWakeUp       = 0x20,/<唤醒事件>/
-                   eSingleTap    = 0x40,/<单击事件>/
-                   e6D           = 0x80,/<在正面朝上/朝下/朝左/朝右/朝前/朝后 的状态发生改变的事件>/
+   * @param event  Interrupt event, 当此事件产生会在中断1引脚产生电平跳变
+                   eDoubleTap    = 0x08,/<Double tap event>/
+                   eFreeFall     = 0x10,/<Freefall event>/
+                   eWakeUp       = 0x20,/<Wake up event>/
+                   eSingleTap    = 0x40,/<Single tap event>/
+                   e6D           = 0x80,/<An event that changes the status of facing up/down/left/right/forward/back>/
    */
   void setInt1Event(eInt1Event_t event);
   
   /**
    * @brief Select the interrupt event generated on the interrupt 2 pin
-   * @param event 中断事件,当此事件产生会在中断2引脚产生电平跳变
+   * @param event Interrupt event, 当此事件产生会在中断2引脚产生电平跳变
                   eSleepChange = 0x40,/<Sleep change status routed to INT2 pad>/
                   eSleepState  = 0x80,/<Enable routing of SLEEP_STATE on INT2 pad>/
    */
   void setInt2Event(eInt2Event_t event);
   
   /**
-   * @brief 设置唤醒持续时间,在setActMode()函数使用eDetectAct的检测模式时,芯片在被唤醒后,会持续一段时间以正常速率采集数据
-   * @n 然后便会继续休眠,以12.5hz的频率采集数据
-   * @param dur duration,范围：0~3
+   * @brief Set the wake-up duration, when using the detection mode of eDetectAct in setActMode() function, it will be a period of time to collect 
+   * @n data at a normal rate after the chip is awakened. Then the chip will continue to hibernate, collecting data at a frequency of 12.5hz.
+   * @param dur duration, range: 0~3
      @n time = dur * (1/rate)(unit:s)
-     |                                  参数与时间之间的线性关系的示例                                                        |
+     |                        An example of a linear relationship between an argument and time                                |
      |------------------------------------------------------------------------------------------------------------------------|
      |                |                     |                          |                          |                           |
      |  Data rate     |       25 Hz         |         100 Hz           |          400 Hz          |         = 800 Hz          |
@@ -366,15 +366,16 @@ public:
   void setWakeUpDur(uint8_t dur);
 
   /**
-   * @brief Set the wake-up threshold,某个方向的加速度大于此值时,会触发wake-up事件
-   * @param th threshold ,unit:mg,数值是在量程之内
+   * @brief Set the wake-up threshold, when the acceleration in a certain direction is greater than this value, a wake-up event will be triggered
+   * @param th threshold ,unit:mg, the value is within the measurement range
    */
   void setWakeUpThreshold(float th);
   
   /**
-   * @brief 设置运动检测的模式,第一种模式不会去检测模块是否在运动，第二种模式在设置后芯片会以较低的频率测量数据,以降低功耗
-   * @n 在检测到运动后会恢复到正常频率,第三种只会检测模块是否处于睡眠状态
-   * @param mode 运动检测模式
+   * @brief Set the mode of motion detection, the first mode will not detect whether the module is moving; the second,once set, will measure data
+   * @n at a lower frequency to save consumption, and return to normal after detecting motion; the third can only detect whether the module is 
+   * @n in sleep state.
+   * @param mode Motion detection mode
                 eNoDetection         /<No detection>/
                 eDetectAct           /<Detect movement,the chip automatically goes to 12.5 Hz rate in the low-power mode>/
                 eDetectStatMotion    /<Detect Motion, the chip detects acceleration below a fixed threshold but does not change either rate or operating mode>/
@@ -383,7 +384,7 @@ public:
   
   /**
    * @brief Set the range
-   * @param range 量程
+   * @param range Measurement range
                    e2_g     = 2, /<±2g>/
                    e4_g     = 4, /<±4g>/
                    e8_g     = 8, /<±8g>/
@@ -393,19 +394,19 @@ public:
   
   /**
    * @brief enable detect tap events in the Z direction
-   * @param enable ture(使能点击检测)\false(禁用点击检测)
+   * @param enable ture(Enable tap detection)\false(Disable tap detection)
    */
   void enableTapDetectionOnZ(bool enable);
   
   /**
    * @brief enable detect tap events in the Y direction
-   * @param enable ture(使能点击检测)\false(禁用点击检测)
+   * @param enable ture(Enable tap detection)\false(Disable tap detection)
    */
   void enableTapDetectionOnY(bool enable);
 
   /**
    * @brief enable detect tap events in the X direction
-   * @param enable ture(使能点击检测)\false(禁用点击检测)
+   * @param enable ture(Enable tap detection)\false(Disable tap detection)
    */
   void enableTapDetectionOnX(bool enable);
 
@@ -431,9 +432,9 @@ public:
    * @brief Duration of maximum time gap for double-tap recognition. When double-tap 
    * @n recognition is enabled, this register expresses the maximum time between two 
    * @n successive detected taps to determine a double-tap event.
-   * @param dur duration,范围:0~15
+   * @param dur duration, range: 0~15
    * @n time = dur * (1/rate)(unit:s)
-     |                                  参数与时间之间的线性关系的示例                                                        |
+     |                      An example of a linear relationship between an argument and time                                  |
      |------------------------------------------------------------------------------------------------------------------------|
      |                |                     |                          |                          |                           |
      |  Data rate     |       25 Hz         |         100 Hz           |          400 Hz          |         = 800 Hz          |
@@ -444,15 +445,15 @@ public:
   void setTapDur(uint8_t dur);
   
   /**
-   * @brief Set the tap detection mode,检测单击或者单击双击都检测
-   * @param mode 点击检测模式
-                     eOnlySingle   /<检测单击>/
-                     eBothSingleDouble /<检测单击和双击>/
+   * @brief Set the tap detection mode, detect single tap or both single tap and double tap.
+   * @param mode Tap detection mode
+                     eOnlySingle   /<Detect only single tap>/
+                     eBothSingleDouble /<Detect both single tap and double tap>/
    */
   void setTapMode(eTapMode_t mode);
 
   /**
-   * @brief Set Thresholds for 4D/6D，当转动的阈值大于指定角度时,就发生方向转变的事件
+   * @brief Set Thresholds for 4D/6D, when the threshold of rotation exceeds the specified angle, a direction change event will occur.
    * @param degree   eDegrees80   /<80°>/
                      eDegrees70   /<70°>/
                      eDegrees60   /<60°>/
@@ -462,42 +463,43 @@ public:
 
   /**
    * @brief Read the acceleration in the x direction
-   * @return  Acceleration data from x(mg),测量的量程为±2g,±4g,±8g或±16g,通过setRange()函数设置
+   * @return  Acceleration data from x(mg), the measurement range is ±2g, ±4g, ±8g or ±16g, set by the setRange() function
    */
   int16_t readAccX();
   
   /**
    * @brief Read the acceleration in the y direction
-   * @return  Acceleration data from y(mg),测量的量程为±2g,±4g,±8g或±16g,通过setRange()函数设置
+   * @return  Acceleration data from y(mg), the measurement range is ±2g, ±4g, ±8g or ±16g, set by the setRange() function
    */
   int16_t readAccY();
   
   /**
    * @brief Read the acceleration in the z direction
-   * @return  Acceleration data from z(mg),测量的量程为±2g,±4g,±8g或±16g,通过setRange()函数设置
+   * @return  Acceleration data from z(mg), the measurement range is ±2g, ±4g, ±8g or ±16g, set by the setRange() function
    */
   int16_t readAccZ();
   
   /**
-   * @brief 检测是否有运动产生
-   * @return true(产生运动)/false(传感器未运动)
+   * @brief Detect whether a motion is generated
+   * @return true(Motion generated)/false(No motion)
    */
   bool actDetected();
   
   /**
-   * @brief 检测是否有自由落体运动发生
-   * @return true(检测到自由落体运动)/false(未检测到自由落体运动)
+   * @brief Detect whether a freefall occurs
+   * @return true(Freefall detected)/false(No freefall detected)
    */
   bool freeFallDetected();
   
   /**
-   * @brief 检测芯片在正面朝上/朝下/朝左/朝右/朝前/朝后（即6D）的状态下是否发生方向的变化
+   * @brief Detect whether the direction of the chip changes when the chip is facing up/down/left/right/forward/back (ie 6D)
    * @return true(a change in position is detected)/false(no event detected)
    */
   bool oriChangeDetected();
   
   /**
-   * @brief 该函数仅用于6D（正面朝上/朝下/朝左/朝右/朝前/朝后）状态下，能获取传感器相对于z轴正向的朝向
+   * @brief Only in 6D (facing up/down/left/right/forward/backward) state can the function get the orientation of the sensor
+   * @n     relative to the positive z-axis.
    * @return    eXDown  /<X is now down>/
                 eXUp    /<X is now up>/
                 eYDown  /<Y is now down>/
@@ -508,15 +510,15 @@ public:
   eOrient_t getOrientation();
   
   /**
-   * @brief 点击检测,能检测是发生的双击,还是单击
+   * @brief Tap detection, can detect it is double tap or single tap
    * @return   eSTap       /<Single Tap>/
                eDTap       /<double Tap>/
-               eNoTap,     //没有点击产生
+               eNoTap,     //No tap
                 */
   eTap_t tapDetect();
   
   /**
-   * @brief 点击方向的源头检测
+   * @brief Tap direction source detection
    * @return   eDirXUp   /<从 X 正方向发生的点击事件>/
                eDirXDown /<从 X 负方向发生的点击事件>/
                eDirYUp   /<从 Y 正方向发生的点击事件>/
