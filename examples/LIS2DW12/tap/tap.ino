@@ -1,6 +1,6 @@
 /**！
  * @file tap.ino
- * @brief Single tap and double tap detection, tap the module or the desktop of module accessories can trigger the tap event
+ * @brief Single tap and double tap detection, tapping the module or the desktop of module accessories can trigger the tap event
  * @n You can select to detect only single tap or to detect both single tap and double tap by the setTapMode() function
  * @n When using SPI, chip select pin can be modified by changing the value of LIS2DW12_CS
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
@@ -32,7 +32,7 @@ DFRobot_LIS2DW12_I2C acce;
 #elif defined(__AVR__) || defined(ARDUINO_SAM_ZERO)
 #define LIS2DW12_CS 3
 #elif (defined NRF5)
-#define LIS2DW12_CS 2  //The corresponding silkscreen on the development board is the pin of P2
+#define LIS2DW12_CS 2  //The pin on the development board with the corresponding silkscreen printed as P2
 #endif
 /*!
  * @brief Constructor 
@@ -132,7 +132,7 @@ void setup(void){
   
   /**！
     Set tap detection mode:
-       eOnlySingle(single tap)
+       eOnlySingle(Single tap)
        eBothSingleDouble(Single tap and double tap)
   */
   acce.setTapMode(DFRobot_LIS2DW12::eBothSingleDouble);
