@@ -157,7 +157,7 @@ void loop(void){
   DFRobot_LIS2DW12::eTapDir_t dir = acce.getTapDirection();
   uint8_t tap = 0;
   if(tapEvent  == DFRobot_LIS2DW12::eSTap){
-      Serial.print("single tap Detected :");
+      Serial.print("Single Tap Detected :");
       tap = 1;
   }
   if(tapEvent  == DFRobot_LIS2DW12::eDTap){  
