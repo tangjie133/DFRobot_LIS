@@ -314,19 +314,19 @@ public:
 
   /**
    * @brief Get the acceleration in the x direction
-   * @return acceleration from x (unit:g), the mearsurement range is ±100g or ±200g set by setRange() function.
+   * @return acceleration from x (unit:g), the mearsurement range is ±100g or ±200g, set by setRange() function.
    */
   int32_t readAccX();
   
   /**
    * @brief Get the acceleration in the y direction
-   * @return acceleration from y(unit:g), the mearsurement range is ±100g or ±200g set by setRange() function.
+   * @return acceleration from y(unit:g), the mearsurement range is ±100g or ±200g, set by setRange() function.
    */
   int32_t readAccY();
   
   /**
    * @brief Get the acceleration in the z direction
-   * @return acceleration from z(unit:g), the mearsurement range is ±100g or ±200g set by setRange() function.
+   * @return acceleration from z(unit:g), the mearsurement range is ±100g or ±200g, set by setRange() function.
    */
   int32_t readAccZ();
   
@@ -388,19 +388,19 @@ public:
   
   /**
    * @brief Get the acceleration in the x direction
-   * @return acceleration from x (unit:g), the mearsurement range is ±100g or ±200g set by setRange() function.
+   * @return acceleration from x (unit:g), the mearsurement range is ±100g or ±200g, set by setRange() function.
    */
   int32_t readAccX();
   
   /**
    * @brief Get the acceleration in the y direction
-   * @return acceleration from y(unit:g), the mearsurement range is ±100g or ±200g set by setRange() function.
+   * @return acceleration from y(unit:g), the mearsurement range is ±100g or ±200g, set by setRange() function.
    */
   int32_t readAccY();
   
   /**
    * @brief Get the acceleration in the z direction
-   * @return acceleration from z(unit:g), the mearsurement range is ±100g or ±200g set by setRange() function.
+   * @return acceleration from z(unit:g), the mearsurement range is ±100g or ±200g, set by setRange() function.
    */
   int32_t readAccZ();
   
@@ -463,19 +463,19 @@ public:
   bool setRange(eRange_t range);
   /**
    * @brief Get the acceleration in the x direction
-   * @return acceleration from x (unit:mg), the mearsurement range is ±6g, ±12g or ±24g set by setRange() function.
+   * @return acceleration from x (unit:mg), the mearsurement range is ±6g, ±12g or ±24g, set by setRange() function.
    */
   int32_t readAccX();
   
   /**
    * @brief Get the acceleration in the y direction
-   * @return acceleration from y(unit:mg), the mearsurement range is ±6g, ±12g or ±24g set by setRange() function.
+   * @return acceleration from y(unit:mg), the mearsurement range is ±6g, ±12g or ±24g, set by setRange() function.
    */
   int32_t readAccY();
   
   /**
    * @brief Get the acceleration in the z direction
-   * @return acceleration from z(unit:mg), the mearsurement range is ±6g, ±12g or ±24g set by setRange() function.
+   * @return acceleration from z(unit:mg), the mearsurement range is ±6g, ±12g or ±24g, set by setRange() function.
    */
   int32_t readAccZ();
   
@@ -541,19 +541,19 @@ public:
   
   /**
    * @brief Get the acceleration in the x direction
-   * @return acceleration from x (unit:mg), the mearsurement range is ±6g, ±12g or ±24g set by setRange() function.
+   * @return acceleration from x (unit:mg), the mearsurement range is ±6g, ±12g or ±24g, set by setRange() function.
    */
   int32_t readAccX();
   
   /**
    * @brief Get the acceleration in the y direction
-   * @return acceleration from y(unit:mg), the mearsurement range is ±6g, ±12g or ±24g set by setRange() function.
+   * @return acceleration from y(unit:mg), the mearsurement range is ±6g, ±12g or ±24g, set by setRange() function.
    */
   int32_t readAccY();
   
   /**
    * @brief Get the acceleration in the z direction
-   * @return acceleration from z(unit:mg), the mearsurement range is ±6g, ±12g or ±24g set by setRange() function.
+   * @return acceleration from z(unit:mg), the mearsurement range is ±6g, ±12g or ±24g, set by setRange() function.
    */
   int32_t readAccZ();
   
