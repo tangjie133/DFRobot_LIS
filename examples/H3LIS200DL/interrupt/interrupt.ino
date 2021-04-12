@@ -1,9 +1,9 @@
 /**！
  * @file interrupt.ino
  * @brief Interrupt detection
- * @n In this example, the enable eZHigherThanTh interrupt event means when the acceleration in the Z direction is above the
- * @n thresholdset by the program, the interrupt level can be detected on the interrupt pin int1/int2 we set, and the level variation on the
- * @n interrupt pin can be used to determine whether the interrupt occurs. The following are the 6 settable interrupt events： eXHigherThanTh,
+ * @n In this example, the enable eZHigherThanTh interrupt event means when the acceleration in the Z direction exceeds the
+ * @n threshold set by the program, the interrupt level can be detected on the interrupt pin int1/int2 we set, and the level change on the
+ * @n interrupt pin can be used to determine whether the interrupt occurs. The following are the 6 settable interrupt events：eXHigherThanTh,
  * @n eXLowerThanTh, eYHigherThanTh, eYLowerThanTh, eZHigherThanTh, eZLowerThanTh. For a detailed explanation of each of them,
  * @n please look up the comments of the enableInterruptEvent() function.
  * @n This example needs to connect the int2/int1 pin of the module to the interrupt pin of the motherboard. Default UNO(2), Mega2560(2), 
