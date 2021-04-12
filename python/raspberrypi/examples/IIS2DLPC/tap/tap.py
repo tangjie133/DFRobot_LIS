@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 """
    @file tap.py
-   @brief Single tap and double tap detection. Tap the module or the desktop of module accessories can trigger the tap event.
+   @brief Single tap and double tap detection. Tapping the module or the desktop of module accessories can trigger the tap event.
    @n You can select to detect only single tap or to detect both single tap and double tap by the setTapMode() function
    @n When using SPI, chip select pin can be modified by changing the value of RASPBERRY_PIN_CS
    @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
@@ -98,7 +98,7 @@ acce.set_tap_threshold_on_z(0.5)
    The interval time between two taps of double tap ：
    dur duration(0 ~ 15)
    time = dur * (1/rate)(unit:s)
-   |                                  An example of a linear relationship between an argument and time                                                 |
+   |                        An example of a linear relationship between an argument and time                                |
    |------------------------------------------------------------------------------------------------------------------------|
    |                |                     |                          |                          |                           |
    |  Data rate     |       25 Hz         |         100 Hz           |          400 Hz          |         = 800 Hz          |
@@ -111,7 +111,7 @@ acce.set_tap_dur(dur = 6)
 '''
   Set the tap detection mode:
       ONLY_SINGLE   //Detect single tap
-      BOTH_SINGLE_DOUBLE //Detect single tap and double tap
+      BOTH_SINGLE_DOUBLE //Detect both single tap and double tap
 '''
 acce.set_tap_mode(acce.BOTH_SINGLE_DOUBLE)
 
