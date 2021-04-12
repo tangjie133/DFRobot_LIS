@@ -82,7 +82,7 @@ python get_acceleration.py
 ```python
   '''
     @brief Initialize the function
-    @return return True(成功)/False(失败)
+    @return return True(Succeed)/False(Failed)
   '''
   def begin(self):
   
