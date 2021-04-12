@@ -159,8 +159,8 @@ class DFRobot_LIS2DW12(object):
   ERROR = 0XFF
   
   #tap detection mode
-  ONLY_SINGLE          = 0 #Only detect single tap events.
-  BOTH_SINGLE_DOUBLE   = 1 #Both single-tap and double-tap events are detected.
+  ONLY_SINGLE          = 0 #Only single tap events detected
+  BOTH_SINGLE_DOUBLE   = 1 #Both single-tap and double-tap events detected
 
   '''
   Position detection
@@ -351,7 +351,7 @@ class DFRobot_LIS2DW12(object):
      @brief Set the free fall time, or the number of free-fall samples. The free-fall events will not occur unless the samples are enough.
      @param dur duration, range:0~31
      @n time = dur * (1/rate)(unit:s)
-     |                               An example of a linear relationship between an argument and time                                              |
+     |                          An example of a linear relationship between an argument and time                              |
      |------------------------------------------------------------------------------------------------------------------------|
      |                |                     |                          |                          |                           |
      |  Data rate     |       25 Hz         |         100 Hz           |          400 Hz          |         = 800 Hz          |
@@ -405,11 +405,11 @@ class DFRobot_LIS2DW12(object):
     if event == self.FREEFALL:
       self.__lock_interrupt(True)
   '''
-     @brief Set wake-up duration, when the setActMode() function uses the detection mode of eDetectAct, it will be a period of time to collect data 
-     @n at a normal rate after the chip is awakened. Then the chip will continue to hibernate, collecting data at a frequency of 12.5hz.
-     @param dur  duration, range: 0~3
+     @brief Set wake-up duration, when using the detection mode of eDetectAct in the setActMode() function, it will be a period of time to collect 
+     @n data at a normal rate after the chip is awakened. Then the chip will continue to hibernate, collecting data at a frequency of 12.5hz.
+     @param dur duration, range: 0~3
      @n time = dur * (1/rate)(unit:s)
-     |                               An example of a linear relationship between an argument and time                                                |
+     |                               An example of a linear relationship between an argument and time                         |
      |------------------------------------------------------------------------------------------------------------------------|
      |                |                     |                          |                          |                           |
      |  Data rate     |       25 Hz         |         100 Hz           |          400 Hz          |         = 800 Hz          |
@@ -551,7 +551,7 @@ class DFRobot_LIS2DW12(object):
    @n successive detected taps to determine a double-tap event.
    @param dur  duration,range: 0~15
    @n time = dur * (1/rate)(unit:s)
-    |                         An example of a linear relationship between an argument and time                                               |
+    |                         An example of a linear relationship between an argument and time                               |
     |------------------------------------------------------------------------------------------------------------------------|
     |                |                     |                          |                          |                           |
     |  Data rate     |       25 Hz         |         100 Hz           |          400 Hz          |         = 800 Hz          |
@@ -679,7 +679,7 @@ class DFRobot_LIS2DW12(object):
 
   '''
     @brief Read the acceleration in the z direction
-    @return Acceleration data from z(mg), the mearsurement range is ±2g,±4g,±8g or ±16g set by the setRange() function
+    @return Acceleration data from z(mg), the mearsurement range is ±2g,±4g,±8g or ±16g, set by the setRange() function
   '''
   def read_acc_z(self):
     value1 = self.read_reg(self.REG_OUT_Z_L)
@@ -809,7 +809,7 @@ class DFRobot_LIS2DW12(object):
     return direction
 
   '''
-    @brief In Single data conversion on demand mode, request a measurement
+    @brief In single data conversion on demand mode, request a measurement
   '''
   def demand_data(self):
     value = self.read_reg(self.REG_CTRL_REG3)
