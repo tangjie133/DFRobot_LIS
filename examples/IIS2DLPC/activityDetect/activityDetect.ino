@@ -3,8 +3,8 @@
  * @brief Motion detection, can detect whether the module is moving.
  * @n It’s necessary to go into low power mode before using this function. Then call setActMode() to make the chip enter sleep mode.
  * @n In this state, the measurement rate is 12.5hz.
- * @n When the acceleration change in a certain direction is detected to exceed the threshold, the measurement rate will be increased to 
- * @n the normal rate we set before. The threshold can be set by the setWakeUpThreshold() function.
+ * @n When the acceleration change in a certain direction is detected to exceed the threshold, the measurement rate will be increased to the normal rate we set before.
+ * @n The threshold can be set by the setWakeUpThreshold() function.
  * @n But if the module stops moving, also, the acceleration change in the three directions is less than the threshold, the chip will go into sleep
  * @n mode after a period of time. This duration time can be set by the setWakeUpDur() function.
  * @n When using SPI, chip select pin can be modified by changing the value of macro IIS2DLPC_CS
