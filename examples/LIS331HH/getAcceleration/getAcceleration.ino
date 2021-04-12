@@ -28,7 +28,7 @@ DFRobot_LIS331HH_I2C acce;
 #elif defined(__AVR__) || defined(ARDUINO_SAM_ZERO)
 #define LIS331HH_CS 3
 #elif (defined NRF5)
-#define LIS331HH_CS 2  //The corresponding silkscreen on the development board is the pin of P2
+#define LIS331HH_CS 2  //The pin on the development board with the corresponding silkscreen printed as P2
 #endif
 /*!
  * @brief Constructor 
@@ -79,12 +79,12 @@ void setup(void){
 void loop(void){
 
     //Get the acceleration in the three directions of xyz
-    //The mearsurement range is ±6g, ±12g or ±24g set by the setRange() function
+    //The mearsurement range is ±6g, ±12g or ±24g, set by the setRange() function
     long ax,ay,az;
     ax = acce.readAccX();//Get the acceleration in the x direction
     ay = acce.readAccY();//Get the acceleration in the y direction
     az = acce.readAccZ();//Get the acceleration in the z direction
-    //acce.getAcceFromXYZ(/*accx = */ax,/*accy = */ay,/*accz = */az);//第二种获取三方向加速度的方法
+    //acce.getAcceFromXYZ(/*accx = */ax,/*accy = */ay,/*accz = */az);//The second way to obtain acceleration in three directions
     Serial.print("x: "); //print acceleration
     Serial.print(ax);
     Serial.print(" mg \ty: ");
