@@ -34,7 +34,7 @@ DFRobot_LIS2DW12_I2C acce;
 #elif defined(__AVR__) || defined(ARDUINO_SAM_ZERO)
 #define LIS2DW12_CS 3
 #elif (defined NRF5)
-#define LIS2DW12_CS 2  //The corresponding silkscreen on the development board is the pin of P2
+#define LIS2DW12_CS 2  //The pin on the development board with the corresponding silkscreen printed as P2
 #endif
 /*!
  * @brief Constructor 
@@ -130,7 +130,7 @@ void setup(void){
 void loop(void){
     //Request a measurement under the single data conversion on demand mode.
     //acce.demandData();
-    //The mearsurement range is ±2g,±4g,±8g or ±16g set by the setRange() function.
+    //The mearsurement range is ±2g,±4g,±8g or ±16g, set by the setRange() function.
     Serial.print("x: ");
     //Read the acceleration in the x direction
     Serial.print(acce.readAccX());
