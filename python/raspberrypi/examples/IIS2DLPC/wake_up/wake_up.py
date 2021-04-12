@@ -97,7 +97,7 @@ acce.set_filter_path(acce.LPF)
   Set the wake-up duration:
      dur duration(0 ~ 3)
      time = dur * (1/rate)(unit:s)
-     |                                  An example of a linear relationship between an argument and time                                                  |
+     |                      An example of a linear relationship between an argument and time                                  |
      |------------------------------------------------------------------------------------------------------------------------|
      |                |                     |                          |                          |                           |
      |  Data rate     |       25 Hz         |         100 Hz           |          400 Hz          |         = 800 Hz          |
