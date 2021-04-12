@@ -35,7 +35,7 @@ DFRobot_IIS2DLPC_I2C acce;
 #elif defined(__AVR__) || defined(ARDUINO_SAM_ZERO)
 #define IIS2DLPC_CS 3
 #elif (defined NRF5)
-#define IIS2DLPC_CS 2  //The corresponding silkscreen on the development board is the pin of P2.
+#define IIS2DLPC_CS 2  //The pin on the development board with the corresponding silkscreen printed as P2
 #endif
 /*!
  * @brief Constructor 
@@ -83,11 +83,11 @@ void setup(void){
   acce.setFilterBandwidth(DFRobot_LIS2DW12::eRateDiv_4);
   
   /**
-      Wake-up duration, when the setActMode() function uses the detection mode of eDetectAct, it will be a period of time to collect data
+      Wake-up duration, when using the detection mode of eDetectAct in the setActMode() function, it will be a period of time to collect data
     at a normal rate after the chip is awakened. Then the chip will continue to hibernate, collecting data at a frequency of 12.5hz.
     dur (0 ~ 3)
     time = dur * (1/Rate)(unit:s)
-    |                                  An example of a linear relationship between an argument and time                                                          |
+    |                       An example of a linear relationship between an argument and time                                 |
     |------------------------------------------------------------------------------------------------------------------------|
     |                |                     |                          |                          |                           |
     |  Data rate     |       25 Hz         |         100 Hz           |          400 Hz          |         = 800 Hz          |
