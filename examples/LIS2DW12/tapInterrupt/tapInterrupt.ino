@@ -32,7 +32,7 @@ DFRobot_LIS2DW12_I2C acce;
 #elif defined(__AVR__) || defined(ARDUINO_SAM_ZERO)
 #define LIS2DW12_CS 3
 #elif (defined NRF5)
-#define LIS2DW12_CS 2  //The corresponding silkscreen on the development board is the pin of P2
+#define LIS2DW12_CS 2  //The pin on the development board with the corresponding silkscreen printed as P2
 #endif
 /*!
  * @brief Constructor 
@@ -157,7 +157,7 @@ void setup(void){
     Set the interval time between two taps when detecting double tap 
     dur duration(0 ~ 15)
     time = dur * (1/ODR)(unit:s)
-    |                                An example of a linear relationship between an argument and time                                                |
+    |                      An example of a linear relationship between an argument and time                                  |
     |------------------------------------------------------------------------------------------------------------------------|
     |                |                     |                          |                          |                           |
     |  Data rate     |       25 Hz         |         100 Hz           |          400 Hz          |         = 800 Hz          |
@@ -193,7 +193,7 @@ void loop(void){
     //Tap source detection
      DFRobot_LIS2DW12::eTapDir_t dir = acce.getTapDirection();
      if(tapEvent  == DFRobot_LIS2DW12::eSTap){
-         Serial.print("single tap Detected :");
+         Serial.print("Single Tap Detected :");
      }
      if(tapEvent  == DFRobot_LIS2DW12::eDTap){  
          Serial.print("Double Tap Detected :");
