@@ -114,7 +114,7 @@ while True:
       
       int_pad_Flag = False
     #Get the acceleration in the three directions of xyz
-    #The measurement can be ±6g,±12g or ±24g set by set_range() function
+    #The measurement can be ±6g,±12g or ±24g, set by set_range() function
     x,y,z = acce.read_acce_xyz()
     print("Acceleration [X = %.2f mg,Y = %.2f mg,Z = %.2f mg]"%(x,y,z))
     time.sleep(0.1)
