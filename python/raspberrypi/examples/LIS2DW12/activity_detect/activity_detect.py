@@ -67,11 +67,11 @@ acce.set_filter_path(acce.LPF)
 acce.set_filter_bandwidth(acce.RATE_DIV_4)
 
 '''
-      Wake-up duration, when the setActMode() function uses the detection mode of eDetectAct, it will be a period of time to collect data
+      Wake-up duration, when using the detection mode of eDetectAct in the setActMode() function, it will be a period of time to collect data
      at a normal rate after the chip is awakened. Then the chip will continue to hibernate, collecting data at a frequency of 12.5hz.
      dur duration(0 ~ 3)
      time = dur * (1/rate)(unit:s)
-     |                               An example of a linear relationship between an argument and time                                                    |
+     |                   An example of a linear relationship between an argument and time                                     |
      |------------------------------------------------------------------------------------------------------------------------|
      |                |                     |                          |                          |                           |
      |  Data rate     |       25 Hz         |         100 Hz           |          400 Hz          |         = 800 Hz          |
