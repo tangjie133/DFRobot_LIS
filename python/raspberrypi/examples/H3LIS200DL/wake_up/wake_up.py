@@ -86,7 +86,7 @@ time.sleep(1)
 
 while True:
     #Get the acceleration in the three directions of xyz
-    #The measurement range can be ±100g or ±200g set by the set_range() function
+    #The measurement range can be ±100g or ±200g, set by the set_range() function
     #When an interrupt is generated, it can be observed that the frequency of measurement is significantly faster
     x,y,z = acce.read_acce_xyz()
     print("Acceleration [X = %.2f g,Y = %.2f g,Z = %.2f g]"%(x,y,z))
