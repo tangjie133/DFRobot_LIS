@@ -1,6 +1,6 @@
 /**！
  * @file freeFallInterrupt.ino
- * @brief Interrupt detection of free fall, an interrupt signal will be generated in int1 once a free fall event occurs.
+ * @brief Interrupt detection of free fall, an interrupt signal will be generated on pin int1 once a free fall event occurs.
  * @n When a free-fall motion is detected, it will be printed on the serial port.
  * @n When using SPI, chip select pin can be modified by changing the value of macro IIS2DLPC_CS.
  * @n In this example, the int2/int1 pin on the module needs to be connected to the interrupt pin on the motherboard, the defaults are UNO(2),
@@ -49,7 +49,7 @@ void setup(void){
 
   Serial.begin(9600);
   while(!acce.begin()){
-     Serial.println("Communication failed, check if the connection is accurate, if the address is set correctly when using I2C communication.");
+     Serial.println("Communication failed, check the connection and I2C address when using I2C communication.");
      delay(1000);
   }
   Serial.print("chip id : ");
@@ -59,8 +59,8 @@ void setup(void){
   //By default, the D6 pin is used as the interrupt pin. Other non-conflicting pins can also be selected as the external interrupt pin.
   attachInterrupt(digitalPinToInterrupt(D6)/*Query the interrupt number of the D6 pin*/,interEvent,CHANGE);
   #elif defined(ARDUINO_SAM_ZERO)
-  //By default, the 5 pin is used as the interrupt pin. Other non-conflicting pins can also be selected as the external interrupt pin.
-  attachInterrupt(digitalPinToInterrupt(5)/*Query the interrupt number of the 5 pin*/,interEvent,CHANGE);
+  //By default, the pin 5 is used as the interrupt pin. Other non-conflicting pins can also be selected as the external interrupt pins.
+  attachInterrupt(digitalPinToInterrupt(5)/*Query the interrupt number of the pin 5*/,interEvent,CHANGE);
   #else
   /*    The Correspondence Table of AVR Series Arduino Interrupt Pins And Terminal Numbers
    * ---------------------------------------------------------------------------------------
@@ -84,7 +84,7 @@ void setup(void){
    * |no need to set it to input mode with pinMode)|Interrupt No|Interrupt number is a pin digital value, such as P0 interrupt number 0, P1 is 1 |
    * |-------------------------------------------------------------------------------------------------------------------------------------------|
    */
-  attachInterrupt(/*Interrupt No*/0,interEvent,CHANGE);//Open the external interrupt 0, connect INT1/2 to the digital pin of the main control: 
+  attachInterrupt(/*Interrupt No*/0,interEvent,CHANGE);//Enable the external interrupt 0, connect INT1/2 to the digital pin of the main control: 
      //UNO(2), Mega2560(2), Leonardo(3), microbit(P0).
   #endif
   
@@ -141,9 +141,9 @@ void setup(void){
   */
   acce.setRange(DFRobot_LIS2DW12::e2_g);
   
-  //The duration of free fall (0~31), the larger the value, the longer the free fall time is needed to be detected
+  //The duration of free fall (0~31), the larger the value, the longer it takes to detect a free fall event
   /**
-   * Set the free fall time (Or the number of free-fall samples. The free-fall events will not occur unless the samples are enough.) 
+   * Set the free fall time (Or the numbers of free-fall samples. In one measurement, only when the free-fall samples are enough, can it be determined as a free fall event.) 
     dur range(0 ~ 31)
     time = dur * (1/Rate)(unit:s)
     |                        An example of a linear relationship between an argument and time                                |
