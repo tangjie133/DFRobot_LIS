@@ -98,7 +98,7 @@ acce.set_range(acce.RANGE_2G)
   Set the free fall time (Or the number of free-fall samples. The free-fall events will not occur unless the samples are enough.)
      dur duration(0 ~ 31)
      time = dur * (1/rate)(unit:s)
-     |                                    An example of a linear relationship between an argument and time                                                 |
+     |                      An example of a linear relationship between an argument and time                                  |
      |------------------------------------------------------------------------------------------------------------------------|
      |                |                     |                          |                          |                           |
      |  Data rate     |       25 Hz         |         100 Hz           |          400 Hz          |         = 800 Hz          |
@@ -110,10 +110,10 @@ acce.set_free_fall_Dur(dur = 0x06)
 
 '''
   Set the interrupt source of the int1 pin:
-          DOUBLE_TAP(Double click)
+          DOUBLE_TAP(Double tap)
           FREEFALL(Free fall)
           WAKEUP(wake)
-          SINGLE_TAP(single-Click)
+          SINGLE_TAP(single tap)
           IA6D(Orientation change check)
 '''
 acce.set_int1_event(acce.FREEFALL)
