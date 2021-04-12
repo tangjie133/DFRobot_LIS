@@ -2,7 +2,7 @@
  * @file wakeUp.ino
  * @brief Use wake-up function
  * @n Phenomenon: To use this function, you need to trun the module into low-power mode first, and the measurement rate will be 
- * @n very slow at this time. When an interrupt event set up before is generated, the module will be in normal mode that the measurement rate 
+ * @n very slow at this time. When an interrupt event set up before occurs, the module will enter normal mode, in which the measurement rate 
  * @n will be accelerated to save power and provide sampling rate. 
  * @n When using SPI, chip select pin can be modified by changing the value of macro H3LIS200DL_CS.
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
@@ -131,7 +131,7 @@ void setup(void){
    * |no need to set it to input mode with pinMode)|Interrupt No|Interrupt number is a pin digital value, such as P0 interrupt number 0, P1 is 1 |
    * |-------------------------------------------------------------------------------------------------------------------------------------------|
    */
-  attachInterrupt(/*Interrupt No*/0,interEvent,CHANGE);//Open the external interrupt 0, connect INT1/2 to the digital pin of the main control: 
+  attachInterrupt(/*Interrupt No*/0,interEvent,CHANGE);//Enable the external interrupt 0, connect INT1/2 to the digital pin of the main control: 
      //UNO(2), Mega2560(2), Leonardo(3), microbit(P0).
   #endif
   delay(1000);
