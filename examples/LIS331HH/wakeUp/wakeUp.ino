@@ -32,7 +32,7 @@ DFRobot_LIS331HH_I2C acce;
 #elif defined(__AVR__) || defined(ARDUINO_SAM_ZERO)
 #define LIS331HH_CS 3
 #elif (defined NRF5)
-#define LIS331HH_CS 2  //The corresponding silkscreen on the development board is the pin of P2
+#define LIS331HH_CS 2  //The pin on the development board with the corresponding silkscreen printed as P2
 #endif
 /*!
  * @brief Constructor 
@@ -143,7 +143,7 @@ void setup(void){
 
 void loop(void){
   //Get the acceleration in the three directions of xyz
-  //The mearsurement range is ±6g, ±12g or ±24g set by the setRange() function
+  //The mearsurement range is ±6g, ±12g or ±24g, set by the setRange() function
   //If the chip is awakened, you can see a change in the frequency of data acquisition
   Serial.print("Acceleration x: "); 
   Serial.print(acce.readAccX());
