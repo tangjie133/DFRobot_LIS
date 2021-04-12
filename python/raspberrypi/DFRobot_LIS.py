@@ -300,7 +300,7 @@ class DFRobot_H3LIS200DL_I2C(DFRobot_LIS):
 
   '''
     @brief Get the acceleration in the three directions of xyz
-     @return Three-axis acceleration(g), the measurement range is ±100g or ±200g set by the set_range() function
+     @return Three-axis acceleration(g), the measurement range is ±100g or ±200g, set by the set_range() function
   '''
   def read_acce_xyz(self):
     global _range 
@@ -367,7 +367,7 @@ class DFRobot_H3LIS200DL_SPI(DFRobot_LIS):
 
   '''
     @brief Get the acceleration in the three directions of xyz
-    @return Three-axis acceleration(g), the measurement range is ±100g or ±200g set by the set_range() function
+    @return Three-axis acceleration(g), the measurement range is ±100g or ±200g, set by the set_range() function
   '''
   def read_acce_xyz(self):
     global _range 
@@ -439,7 +439,7 @@ class DFRobot_LIS331HH_I2C(DFRobot_LIS):
 
   '''
     @brief Get the acceleration in the three directions of xyz
-    @return Three-axis acceleration(mg), the measurement range is ±6g, ±12g or ±24g set by the set_range() function
+    @return Three-axis acceleration(mg), the measurement range is ±6g, ±12g or ±24g, set by the set_range() function
   '''
   def read_acce_xyz(self):
     global _range   
@@ -515,7 +515,7 @@ class DFRobot_LIS331HH_SPI(DFRobot_LIS):
 
   '''
     @brief Get the acceleration in the three directions of xyz
-    @return Three-axis acceleration(mg), the measurement range is ±6g, ±12g or ±24g set by the set_range() function
+    @return Three-axis acceleration(mg), the measurement range is ±6g, ±12g or ±24g, set by the set_range() function
   '''
   def read_acce_xyz(self):
     global _range   
