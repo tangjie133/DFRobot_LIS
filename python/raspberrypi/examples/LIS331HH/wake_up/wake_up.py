@@ -2,9 +2,9 @@
 """
    @file wake_up.py
    @brief Use wake-up function
-   @n Phenomenon: It’s necessary to set the model in low-power mode before using this function. In this time, the measurement rate will be very slow.
-   @n When a interrupt event set up before is generated, the module will be in the normal mode that the measurement rate will be accelerated to
-   @n save power and provide sampling rate
+   @n Phenomenon: It’s necessary to set the model in low-power mode before using this function. In this time, the measurement rate will be very
+   @n slow. When a interrupt event set up before is generated, the module will be in the normal mode that the measurement rate will be accelerated
+   @n to save power and provide sampling rate
    @n When using SPI, chip select pin can be modified by changing the value of RASPBERRY_PIN_CS
    @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
    @licence     The MIT License (MIT)
@@ -99,7 +99,7 @@ time.sleep(1)
 
 while True:
     #Get the acceleration in the three directions of xyz
-    #The measurement range can be ±6g,±12g or ±24g set by set_range() function
+    #The measurement range can be ±6g,±12g or ±24g, set by set_range() function
     #When an interrupt is generated, it can be observed that the frequency of measurement is significantly faster
     x,y,z = acce.read_acce_xyz()
     print("Acceleration [X = %.2f mg,Y = %.2f mg,Z = %.2f mg]"%(x,y,z))
