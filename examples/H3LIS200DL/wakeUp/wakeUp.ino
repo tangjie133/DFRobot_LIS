@@ -1,7 +1,7 @@
 /**！
  * @file wakeUp.ino
  * @brief Use wake-up function
- * @n Phenomenon: To use this function, you need to trun the module into low-power mode first, and the measurement rate will be 
+ * @n Phenomenon: To use this function, you need to turn the module into low-power mode first, and the measurement rate will be 
  * @n very slow at this time. When an interrupt event set up before occurs, the module will enter normal mode, in which the measurement rate 
  * @n will be accelerated to save power and provide sampling rate. 
  * @n When using SPI, chip select pin can be modified by changing the value of macro H3LIS200DL_CS.
