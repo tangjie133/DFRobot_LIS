@@ -66,7 +66,7 @@ public:
   Represents the number of data collected per second
 */
 typedef enum{
-   ePowerDown_0HZ = 0,/*测量关闭*/
+   ePowerDown_0HZ = 0,/*Measurement off*/
    eLowPower_halfHZ = 0x40,/*0.5 hz*/
    eLowPower_1HZ  = 0x60,
    eLowPower_2HZ  = 0x80,
@@ -138,7 +138,7 @@ public:
   DFRobot_LIS();
   /**
    * @brief Initialize the function
-   * @return true(成功)/false(失败)
+   * @return true(Succeed)/false(Failed)
    */
   bool begin(void);
  
@@ -166,7 +166,7 @@ public:
   /**
    * @brief Set data measurement rate
    * @param rate rate(HZ)
-                  ePowerDown_0HZ   //测量关闭
+                  ePowerDown_0HZ   //Measurement off
                   eLowPower_halfHZ //0.5 hz
                   eLowPower_1HZ
                   eLowPower_2HZ
@@ -186,8 +186,8 @@ public:
                  eCutOffMode2,
                  eCutOffMode3,
                  eCutOffMode4,
-                 eShutDown,  无过滤
-     eg：在50HZ的频率下,选择eCutOffMode1,滤波后的频率为 1 HZ
+                 eShutDown,  no filtering
+     eg：Select eCutOffMode1 in 50HZ, and the filtered frequency is 1HZ
    *|---------------------------High-pass filter cut-off frequency configuration-----------------------------|
    *|--------------------------------------------------------------------------------------------------------|
    *|                |    ft [Hz]      |        ft [Hz]       |       ft [Hz]        |        ft [Hz]        |
@@ -206,20 +206,20 @@ public:
 
   /**
    * @brief Set the threshold of interrupt source 1 interrupt
-   * @param threshold 设置的阈值在量程之内(unit:g)
+   * @param threshold The threshold is within the measurement range(unit:g)
    */
   void setInt1Th(uint8_t threshold);
 
   /**
    * @brief Set interrupt source 2 interrupt generation threshold
-   * @param threshold 设置的阈值在量程之内(unit:g）
+   * @param threshold The threshold is within the measurement range(unit:g）
    */
   void setInt2Th(uint8_t threshold);
 
   /**
    * @brief Enable sleep wake function
    * @param enable true(enable)\false(disable)
-   * @return false 表示使能失败/true 表示使能成功
+   * @return false Indicate enable failed/true Indicate enable succeed
    */
   bool enableSleep(bool enable);
   
@@ -232,8 +232,8 @@ public:
                    eYHigherThanTh,/<The acceleration in the y direction is greater than the threshold>/
                    eZLowerThanTh,/<The acceleration in the z direction is less than the threshold>/
                    eZHigherThanTh,/<The acceleration in the z direction is greater than the threshold>/
-   * @return true 产生了此事件
-             false 未产生此事件
+   * @return true Generated
+             false Not generated
    */
   bool getInt1Event(eInterruptEvent_t event);
 
@@ -246,21 +246,21 @@ public:
                    eYHigherThanTh,/<The acceleration in the y direction is greater than the threshold>/
                    eZLowerThanTh,/<The acceleration in the z direction is less than the threshold>/
                    eZHigherThanTh,/<The acceleration in the z direction is greater than the threshold>/
-   * @return true 产生了此事件
-             false 未产生此事件
+   * @return true Generated
+             false Not generated
    */
   bool getInt2Event(eInterruptEvent_t event);
 
   /**
-   * @brief 获取传感器是否处于睡眠模式
-   * @return true(处于睡眠模式)/false(处于正常模式)
+   * @brief Get whether the sensor is in sleep mode
+   * @return true(In sleep mode)/false(In normal mode)
    */
   bool getSleepState();
   
   /**
-   * @brief 设置睡眠状态的标志
-   * @param flag true(将现在的模式标记为睡眠模式)
-                 false(将现在的模式标记为正常模式)
+   * @brief Set the sleep state flag
+   * @param flag true(Flag the current mode as sleep mode)
+                 false(Flag the current mode as normal mode)
    */
   void setSleepFlag(bool flag);
 protected:
@@ -274,7 +274,7 @@ protected:
    * @param reg chip register 
    * @param pBuf  buf for store data to read 
    * @param size  number of data to read
-   * @return 成功读数据的个数
+   * @return The number of successfully read data
    */
   virtual uint8_t readReg(uint8_t reg,void * pBuf ,size_t size) = 0;
   
@@ -283,7 +283,7 @@ protected:
    * @param reg register
    * @param pBuf  buf for store data to write 
    * @param size  The number of the data in pBuf
-   * @return 成功发送数据的个数
+   * @return The number of successfully sent data
    */
   virtual uint8_t  writeReg(uint8_t reg,const void *pBuf,size_t size)= 0; 
 
@@ -299,7 +299,7 @@ public:
   DFRobot_H3LIS200DL_I2C(TwoWire * pWire = &Wire,uint8_t addr = H3LIS200DL_I2C_ADDR);
   /**
    * @brief init function
-   * @return true(成功)/false(失败)
+   * @return true(Succeed)/false(Failed)
    */
   bool begin(void);
   
@@ -308,34 +308,34 @@ public:
    * @param range Range(g)
                   eH3lis200dl_100g, //±100g
                   eH3lis200dl_200g, //±200g
-    @return true(设置成功)/false(设置失败)
+    @return true(Set successfully)/false(Set failed)
    */
   bool setRange(eRange_t range);
 
   /**
    * @brief Get the acceleration in the x direction
-   * @return acceleration from x (unit:g),测量的量程为±100g或±200g,通过setRange()函数设置
+   * @return acceleration from x (unit:g), the mearsurement range is ±100g or ±200g set by setRange() function.
    */
   int32_t readAccX();
   
   /**
    * @brief Get the acceleration in the y direction
-   * @return acceleration from y(unit:g),测量的量程为±100g或±200g,通过setRange()函数设置
+   * @return acceleration from y(unit:g), the mearsurement range is ±100g or ±200g set by setRange() function.
    */
   int32_t readAccY();
   
   /**
    * @brief Get the acceleration in the z direction
-   * @return acceleration from z(unit:g),测量的量程为±100g或±200g,通过setRange()函数设置
+   * @return acceleration from z(unit:g), the mearsurement range is ±100g or ±200g set by setRange() function.
    */
   int32_t readAccZ();
   
   /**
    * @brief Get the acceleration in the three directions of xyz
-   * @param accx 储存x方向加速度的变量
-   * @param accy 储存y方向加速度的变量
-   * @param accz 储存z方向加速度的变量
-   * @return true(成功获取数据)/false(数据未准备好)
+   * @param accx Store the variable of acceleration in x direction
+   * @param accy Store the variable of acceleration in y direction
+   * @param accz Store the variable of acceleration in z direction
+   * @return true(Get data successfully)/false(Data not ready)
    */
   bool getAcceFromXYZ(int32_t &accx,int32_t &accy,int32_t &accz);
 protected:
@@ -345,7 +345,7 @@ protected:
    * @param reg chip register 
    * @param pBuf  buf for store data to read 
    * @param size  number of data to read
-   * @return 成功读数据的个数
+   * @return The number of successfully read data
    */
   uint8_t readReg(uint8_t reg,void * pBuf ,size_t size);
   
@@ -354,7 +354,7 @@ protected:
    * @param reg register
    * @param pBuf  buf for store data to write 
    * @param size  The number of the data in pBuf
-   * @return 成功发送数据的个数
+   * @return The number of successfully sent data
    */
   uint8_t  writeReg(uint8_t reg,const void *pBuf,size_t size); 
 private:
@@ -373,7 +373,7 @@ public:
   
   /**
    * @brief init function
-   * @return true(成功)/false(失败)
+   * @return true(Succeed)/false(Failed)
    */
   bool begin(void);
   
@@ -382,34 +382,34 @@ public:
    * @param range Range(g)
                   eH3lis200dl_100g, //±100g
                   eH3lis200dl_200g, //±200g
-    @return true(设置成功)/false(设置失败)
+    @return true(Set successfully)/false(Set failed)
    */
   bool setRange(eRange_t range);
   
   /**
    * @brief Get the acceleration in the x direction
-   * @return acceleration from x (unit:g),测量的量程为±100g或±200g,通过setRange()函数设置
+   * @return acceleration from x (unit:g), the mearsurement range is ±100g or ±200g set by setRange() function.
    */
   int32_t readAccX();
   
   /**
    * @brief Get the acceleration in the y direction
-   * @return acceleration from y(unit:g),测量的量程为±100g或±200g,通过setRange()函数设置
+   * @return acceleration from y(unit:g), the mearsurement range is ±100g or ±200g set by setRange() function.
    */
   int32_t readAccY();
   
   /**
    * @brief Get the acceleration in the z direction
-   * @return acceleration from z(unit:g),测量的量程为±100g或±200g,通过setRange()函数设置
+   * @return acceleration from z(unit:g), the mearsurement range is ±100g or ±200g set by setRange() function.
    */
   int32_t readAccZ();
   
   /**
    * @brief Get the acceleration in the three directions of xyz
-   * @param accx 储存x方向加速度的变量
-   * @param accy 储存y方向加速度的变量
-   * @param accz 储存z方向加速度的变量
-   * @return true(成功获取数据)/false(数据未准备好)
+   * @param accx Store the variable of acceleration in x direction
+   * @param accy Store the variable of acceleration in y direction
+   * @param accz Store the variable of acceleration in z direction
+   * @return true(Get data successfully)/false(Data not ready)
    */
   bool getAcceFromXYZ(int32_t &accx,int32_t &accy,int32_t &accz);
   
@@ -420,7 +420,7 @@ protected:
    * @param reg chip register 
    * @param pBuf  buf for store data to read 
    * @param size  number of data to read
-   * @return 成功读数据的个数
+   * @return The number of successfully read data
    */
   uint8_t readReg(uint8_t reg,void * pBuf ,size_t size);
   
@@ -429,7 +429,7 @@ protected:
    * @param reg register
    * @param pBuf  buf for store data to write 
    * @param size  The number of the data in pBuf
-   * @return 成功发送数据的个数
+   * @return The number of successfully sent data
    */
   uint8_t  writeReg(uint8_t reg,const void *pBuf,size_t size); 
 private:
@@ -448,7 +448,7 @@ public:
   DFRobot_LIS331HH_I2C(TwoWire * pWire = &Wire,uint8_t addr = LIS331HH_I2C_ADDR);
   /**
    * @brief init function
-   * @return true(成功)/false(失败)
+   * @return true(Succeed)/false(Failed)
    */
   bool begin(void);
   
@@ -458,33 +458,33 @@ public:
                   eLis331hh_6g = 6,//±6g
                   eLis331hh_12g = 12 //±12g
                   eLis331hh_24g = 24 //±24g  
-    @return true(设置成功)/false(设置失败)
+    @return true(Set successfully)/false(Set failed)
    */
   bool setRange(eRange_t range);
   /**
    * @brief Get the acceleration in the x direction
-   * @return acceleration from x (unit:mg),测量的量程为±6g,±12g或±24g,通过setRange()函数设置
+   * @return acceleration from x (unit:mg), the mearsurement range is ±6g, ±12g or ±24g set by setRange() function.
    */
   int32_t readAccX();
   
   /**
    * @brief Get the acceleration in the y direction
-   * @return acceleration from y(unit:mg),测量的量程为±6g,±12g或±24g,通过setRange()函数设置
+   * @return acceleration from y(unit:mg), the mearsurement range is ±6g, ±12g or ±24g set by setRange() function.
    */
   int32_t readAccY();
   
   /**
    * @brief Get the acceleration in the z direction
-   * @return acceleration from z(unit:mg),测量的量程为±6g,±12g或±24g,通过setRange()函数设置
+   * @return acceleration from z(unit:mg), the mearsurement range is ±6g, ±12g or ±24g set by setRange() function.
    */
   int32_t readAccZ();
   
   /**
    * @brief Get the acceleration in the three directions of xyz
-   * @param accx 储存x方向加速度的变量
-   * @param accy 储存y方向加速度的变量
-   * @param accz 储存z方向加速度的变量
-   * @return true(成功获取数据)/false(数据未准备好)
+   * @param accx Store the variable of acceleration in x direction
+   * @param accy Store the variable of acceleration in y direction
+   * @param accz Store the variable of acceleration in z direction
+   * @return true(Get data successfully)/false(Data not ready)
    */
   bool getAcceFromXYZ(int32_t &accx,int32_t &accy,int32_t &accz);
   
@@ -495,7 +495,7 @@ protected:
    * @param reg chip register 
    * @param pBuf  buf for store data to read 
    * @param size  number of data to read
-   * @return 成功读数据的个数
+   * @return The number of successfully read data
    */
   uint8_t readReg(uint8_t reg,void * pBuf ,size_t size);
   
@@ -504,7 +504,7 @@ protected:
    * @param reg register
    * @param pBuf  buf for store data to write 
    * @param size  The number of the data in pBuf
-   * @return 成功发送数据的个数
+   * @return The number of successfully sent data
    */
   uint8_t  writeReg(uint8_t reg,const void *pBuf,size_t size); 
 private:
@@ -525,7 +525,7 @@ public:
   
   /**
    * @brief init function
-   * @return true(成功)/false(失败)
+   * @return true(Succeed)/false(Failed)
    */
   bool begin(void);
   
@@ -535,34 +535,34 @@ public:
                   eLis331hh_6g = 6,//±6g
                   eLis331hh_12g = 12 //±12g
                   eLis331hh_24g = 24 //±24g  
-    @return true(设置成功)/false(设置失败)
+    @return true(Set successfully)/false(Set failed)
    */
   bool setRange(eRange_t range);
   
   /**
    * @brief Get the acceleration in the x direction
-   * @return acceleration from x (unit:mg),测量的量程为±6g,±12g或±24g,通过setRange()函数设置
+   * @return acceleration from x (unit:mg), the mearsurement range is ±6g, ±12g or ±24g set by setRange() function.
    */
   int32_t readAccX();
   
   /**
    * @brief Get the acceleration in the y direction
-   * @return acceleration from y(unit:mg),测量的量程为±6g,±12g或±24g,通过setRange()函数设置
+   * @return acceleration from y(unit:mg), the mearsurement range is ±6g, ±12g or ±24g set by setRange() function.
    */
   int32_t readAccY();
   
   /**
    * @brief Get the acceleration in the z direction
-   * @return acceleration from z(unit:mg),测量的量程为±6g,±12g或±24g,通过setRange()函数设置
+   * @return acceleration from z(unit:mg), the mearsurement range is ±6g, ±12g or ±24g set by setRange() function.
    */
   int32_t readAccZ();
   
   /**
    * @brief Get the acceleration in the three directions of xyz
-   * @param accx 储存x方向加速度的变量
-   * @param accy 储存y方向加速度的变量
-   * @param accz 储存z方向加速度的变量
-   * @return true(成功获取数据)/false(数据未准备好)
+   * @param accx Store the variable of acceleration in x direction
+   * @param accy Store the variable of acceleration in y direction
+   * @param accz Store the variable of acceleration in z direction
+   * @return true(Successfully get data)/false(Data not ready)
    */
   bool getAcceFromXYZ(int32_t &accx,int32_t &accy,int32_t &accz);
 protected:
@@ -572,7 +572,7 @@ protected:
    * @param reg chip register 
    * @param pBuf  buf for store data to read 
    * @param size  number of data to read
-   * @return 成功读数据的个数
+   * @return The number of successfully read data
    */
   uint8_t readReg(uint8_t reg,void * pBuf ,size_t size);
   
@@ -581,7 +581,7 @@ protected:
    * @param reg register
    * @param pBuf  buf for store data to write 
    * @param size  The number of the data in pBuf
-   * @return 成功发送数据的个数
+   * @return The number of successfully sent data
    */
   uint8_t writeReg(uint8_t reg,const void *pBuf,size_t size); 
 private:
