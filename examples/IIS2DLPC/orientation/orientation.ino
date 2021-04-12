@@ -36,7 +36,7 @@ DFRobot_IIS2DLPC_I2C acce;
 #elif defined(__AVR__) || defined(ARDUINO_SAM_ZERO)
 #define IIS2DLPC_CS 3
 #elif (defined NRF5)
-#define IIS2DLPC_CS 2   //The corresponding silkscreen on the development board is the pin of P2
+#define IIS2DLPC_CS 2   //The pin on the development board with the corresponding silkscreen printed as P2
 #endif
 /*!
  * @brief Constructor 
