@@ -2,7 +2,7 @@
 """
    @file interrupt.py
    @brief Interrupt detection
-   @n In this example, the enable eZHigherThanTh interrupt event, which means when the acceleration in the Z direction is bigger than the threshold
+   @n In this example, the enable eZHigherThanTh interrupt event, which means when the acceleration in the Z direction exceeds the threshold
    @n set by the program, the interrupt level can be detected on the interrupt pin int1/int2 we set, and the level variation on the interrupt pin
    @n can be used to determine whether the interrupt occurs. The following are the six settable interrupt events:   
    @n eXHigherThanTh, eXLowerThanTh, eYHigherThanTh, eYLowerThanTh, eZHigherThanTh,eZLowerThanTh.
@@ -112,7 +112,7 @@ while True:
      
      int_pad_Flag = False
    #Get the acceleration in the three directions of xyz
-   #The measurement range can be ±100g or ±200g set by the set_range() function
+   #The measurement range can be ±100g or ±200g, set by the set_range() function
    x,y,z = acce.read_acce_xyz()
    print("Acceleration [X = %.2f g,Y = %.2f g,Z = %.2f g]"%(x,y,z))
    time.sleep(0.1)
