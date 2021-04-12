@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 """
    @file get_acceleration.py
-   @brief Get the acceleration in x, y, z directions, the mearsurement range is ±2g,±4g,±8g or ±16g set by the setRange() function
+   @brief Get the acceleration in x, y, z directions, the mearsurement range is ±2g,±4g,±8g or ±16g, set by the setRange() function
    @n In this example, the continuous measurement mode is selected by default -- the acceleration data will be measured continuously according 
    @n to the measuring rate.
    @n You can also use the single data conversion on demand mode 1. You need to select a suitable conversion mode in the setPowerMode() function
@@ -107,10 +107,10 @@ acce.set_power_mode(acce.CONT_LOWPWRLOWNOISE2_14BIT);
 time.sleep(0.1)
 
 while True:
-    #Request a measurement under the single data conversion on demand mode.
+    #Request a measurement in the single data conversion on demand mode.
     #acce.demand_data()
     #Get the acceleration in the three directions of xyz
-    #The mearsurement range is ±2g,±4g,±8g or ±16g set by the setRange() function
+    #The mearsurement range is ±2g,±4g,±8g or ±16g, set by the setRange() function
     time.sleep(0.3)
     x = acce.read_acc_x()
     y = acce.read_acc_y()
