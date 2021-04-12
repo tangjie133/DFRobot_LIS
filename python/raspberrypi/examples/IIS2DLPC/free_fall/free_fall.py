@@ -2,7 +2,7 @@
 """
    @file free_fall.py
    @brief  Sensor module free fall detection, set the free fall time with the setFrDur() function to adjust the sensitivity of the detection,
-   * @n The shorter the free fall time, the easier it is to detect the free fall event
+   @n The shorter the free fall time is, the easier it is to detect the free fall event
    @n When using SPI, chip select pin can be modified by changing the value of RASPBERRY_PIN_CS
    @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
    @licence     The MIT License (MIT)
@@ -89,7 +89,7 @@ acce.set_range(acce.RANGE_2G)
   Set the free fall time (Or the number of free-fall samples. The free-fall events will not occur unless the samples are enough.) 
      dur duration(0 ~ 31)
      time = dur * (1/rate)(unit:s)
-     |                                    An example of a linear relationship between an argument and time                                                  |
+     |                        An example of a linear relationship between an argument and time                                |
      |------------------------------------------------------------------------------------------------------------------------|
      |                |                     |                          |                          |                           |
      |  Data rate     |       25 Hz         |         100 Hz           |          400 Hz          |         = 800 Hz          |
