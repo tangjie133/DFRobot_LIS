@@ -70,9 +70,9 @@ public:
 
 
 /**
-   Power mode,传感器测量加速度数据的模式有了两种 
-              1.Continuous measurement 这种模式传感器会不停地测量数据然后放在数据寄存器
-              2.Single data conversion on demand mode，这种模式下，传感器只有接收到外部请求才会测量一次数据
+   Power mode, there are two modes for the sensor to measure acceleration
+              1.Continuous measurement In this mode, the sensor will continuously measure and store the data in data register
+              2.Single data conversion on demand mode，In this mode, the sensor will make a measurement only when it receives an external request
 */
 typedef enum{
   
@@ -128,17 +128,17 @@ typedef enum {
   Data collection rate
 */
 typedef enum {
-  eRate_0hz            = 0x00,/**<测量关闭>*/
-  eRate_1hz6           = 0x01,/**<1.6hz,仅在低功耗模式下使用>*/
+  eRate_0hz            = 0x00,/**<Measurement off>*/
+  eRate_1hz6           = 0x01,/**<1.6hz, use only under low-power mode>*/
   eRate_12hz5          = 0x02,/**<12.5hz>*/
   eRate_25hz           = 0x03,
   eRate_50hz           = 0x04,
   eRate_100hz          = 0x05,
   eRate_200hz          = 0x06,
-  eRate_400hz          = 0x07,/**<仅在High-Performance mode下使用>*/
-  eRate_800hz          = 0x08,/**<仅在High-Performance mode下使用>*/
-  eRate_1k6hz          = 0x09,/**<仅在High-Performance mode下使用>*/
-  eSetSwTrig           = 0x12,/**<软件触发单次测量>*/
+  eRate_400hz          = 0x07,/**<Use only under High-Performance mode>*/
+  eRate_800hz          = 0x08,/**<Use only under High-Performance mode>*/
+  eRate_1k6hz          = 0x09,/**<Use only under High-Performance mode>*/
+  eSetSwTrig           = 0x12,/**<The software triggers a single measurement>*/
 } eRate_t;
 
 /**
@@ -154,11 +154,11 @@ typedef enum {
   Interrupt source 1 trigger event setting
 */
 typedef enum{
-  eDoubleTap    = 0x08,/**<双击事件>*/
-  eFreeFall     = 0x10,/**<自由落体事件>*/
-  eWakeUp       = 0x20,/**<唤醒事件>*/
-  eSingleTap    = 0x40,/**<单击事件>*/
-  e6D           = 0x80,/**<在正面朝上/朝下/朝左/朝右/朝前/朝后 的状态发生改变的事件>*/
+  eDoubleTap    = 0x08,/**<Double tap event>*/
+  eFreeFall     = 0x10,/**<Free fall event>*/
+  eWakeUp       = 0x20,/**<Wake-up event>*/
+  eSingleTap    = 0x40,/**<Single tap event>*/
+  e6D           = 0x80,/**<An event that changes the status of facing up/down/left/right/forward/back>*/
 }eInt1Event_t;
 
 /**
@@ -178,7 +178,7 @@ typedef enum {
 } eTapMode_t;
 
 /**
-  位置检测角度转变阈值
+  位置检测角度转变阈值  Position detection angle transition threshold  
 */
 typedef enum {
   eDegrees80  ,/**<80 degrees.>*/
