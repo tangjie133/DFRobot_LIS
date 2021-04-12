@@ -4,7 +4,7 @@
    @brief When the acceleration change in x, y or z direction is detected to exceed the set threshold, the chip will generate a wake-up event.
    @n By accessing the chip register, you can know it is in which direction that the movement has woken up the chip.
    @n In this example, it is necessary to set the wake-up duration by setWakeUpThreshold(). When woken up, the chip will last for a while
-   * @n before it turns into sleep state.
+   @n before it turns into sleep state.
    @n And to set the threshold by setWakeUpDur(). When the acceleration change exceeds this value, the eWakeUp event will be triggered.
    @n When using SPI, chip select pin can be modified by changing the value of RASPBERRY_PIN_CS
    @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
@@ -96,7 +96,7 @@ acce.set_filter_path(acce.LPF)
   Set the wake-up duration:
      dur duration(0 ~ 3)
      time = dur * (1/rate)(unit:s)
-     |                          An example of a linear relationship between an argument and time                                                    |
+     |                          An example of a linear relationship between an argument and time                              |
      |------------------------------------------------------------------------------------------------------------------------|
      |                |                     |                          |                          |                           |
      |  Data rate     |       25 Hz         |         100 Hz           |          400 Hz          |         = 800 Hz          |
