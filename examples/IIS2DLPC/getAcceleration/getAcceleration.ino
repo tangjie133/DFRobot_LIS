@@ -1,6 +1,6 @@
 /**！
  * @file getAcceleration.ino
- * @brief Get the acceleration in x, y, z directions, the measurement range can be ±2g,±4g,±8g or ±16g set by the setRange() function
+ * @brief Get the acceleration in x, y, z directions, the measurement range can be ±2g,±4g,±8g or ±16g, set by the setRange() function
  * @n In this example, the continuous measurement mode is selected by default -- the acceleration data will be measured continuously
  * @n according to the measuring rate.
  * @n You can also use single data conversion on demand mode 1. You need to select a suitable conversion mode in the setPowerMode() function
@@ -34,7 +34,7 @@ DFRobot_IIS2DLPC_I2C acce;
 #elif defined(__AVR__) || defined(ARDUINO_SAM_ZERO)
 #define IIS2DLPC_CS 3
 #elif (defined NRF5)
-#define IIS2DLPC_CS 2  //The corresponding silkscreen on the development board is the pin of P2
+#define IIS2DLPC_CS 2  //The pin on the development board with the corresponding silkscreen printed as P2
 #endif
 /*!
  * @brief Constructor 
@@ -129,7 +129,7 @@ void setup(void){
 void loop(void){
     //Request a measurement under single data conversion on demand mode
     //acce.demandData();
-    //The mearsurement range can be ±2g, ±4g, ±8g or ±16g set by the setRange() function.
+    //The mearsurement range can be ±2g, ±4g, ±8g or ±16g, set by the setRange() function.
     Serial.print("x: ");
     //Read the acceleration in the x direction
     Serial.print(acce.readAccX());
