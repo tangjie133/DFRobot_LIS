@@ -69,7 +69,7 @@ acce.set_filter_bandwidth(acce.RATE_DIV_4)
      normal rate after the chip is awakened. Then the chip will continue to hibernate, collecting data at a frequency of 12.5hz.
      dur duration(0 ~ 3)
      time = dur * (1/rate)(unit:s)
-     |                                  An example of a linear relationship between an argument and time                                                |
+     |                            An example of a linear relationship between an argument and time                            |
      |------------------------------------------------------------------------------------------------------------------------|
      |                |                     |                          |                          |                           |
      |  Data rate     |       25 Hz         |         100 Hz           |          400 Hz          |         = 800 Hz          |
