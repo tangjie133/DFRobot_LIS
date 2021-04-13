@@ -129,7 +129,7 @@ void setup(void){
     eNoDetection       /<No detection>/
     eDetectAct         /<If set this mode, the rate of the chip will drop to 12.5hz and turn normal after the eWakeUp event is generated.>/
     eDetectStatMotion  /<This mode can only detect if the chip is in sleep mode without changing the measurement frequency and power mode,
-  * @n Continuously measure data at normal frequency.>/
+                         continuously measuring data at normal frequency.>/
   */
   acce.setActMode(DFRobot_LIS2DW12::eDetectAct);
   
