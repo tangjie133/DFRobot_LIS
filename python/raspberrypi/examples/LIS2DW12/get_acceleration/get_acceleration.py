@@ -4,7 +4,7 @@
    @brief Get the acceleration in x, y, and z directions. The mearsurement range is ±2g,±4g,±8g or ±16g, set by the setRange() function
    @n In this example, the continuous measurement mode is selected by default -- the acceleration data will be measured continuously 
    @n according to the measuring rate. You can also use the single data conversion on demand mode. 
-   * @n                           1. You need to select a suitable conversion mode in the setPowerMode() function
+   @n                             1. You need to select a suitable conversion mode in the setPowerMode() function
    @n                             2. Then fill in the setDataRate() function with the eSetSwTrig parameter
    @n                             3. Request a measurement by the demandData() function
    @n When using SPI, chip select pin can be modified by changing the value of RASPBERRY_PIN_CS
@@ -112,7 +112,7 @@ while True:
     #Request a measurement under the single data conversion on demand mode.
     #acce.demand_data()
     #Get the acceleration in the three directions of xyz
-    #The mearsurement range is ±2g,±4g,±8g or ±16g, set by the setRange() function
+    #The mearsurement range is ±2g, ±4g, ±8g or ±16g, set by the setRange() function
     time.sleep(0.3)
     x = acce.read_acc_x()
     y = acce.read_acc_y()
