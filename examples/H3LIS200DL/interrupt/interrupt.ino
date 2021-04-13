@@ -88,8 +88,8 @@ void setup(void){
   //The D6 pin is used as the interrupt pin by default, and other non-conflicting pins can also be selected as the external interrupt pin.
   attachInterrupt(digitalPinToInterrupt(D6)/*Query the interrupt number of the D6 pin*/,interEvent,CHANGE);
   #elif defined(ARDUINO_SAM_ZERO)
-  //The 5 pin is used as the interrupt pin by default, and other non-conflicting pins can also be selected as the external interrupt pin.
-  attachInterrupt(digitalPinToInterrupt(5)/*Query the interrupt number of the 5 pin*/,interEvent,CHANGE);
+  //The pin 5 is used as the interrupt pin by default, and other non-conflicting pins can also be selected as the external interrupt pin.
+  attachInterrupt(digitalPinToInterrupt(5)/*Query the interrupt number of the pin 5*/,interEvent,CHANGE);
   #else
   /*    The Correspondence Table of AVR Series Arduino Interrupt Pins And Terminal Numbers
    * ---------------------------------------------------------------------------------------
@@ -154,7 +154,7 @@ void loop(void){
     delay(300);
    //The interrupt flag is set
    if(intFlag == true){
-      //Check wheher the interrupt event is generated in interrupt 1
+      //Check whether the interrupt event is generated in interrupt 1
       if(acce.getInt1Event(DFRobot_LIS::eYHigherThanTh)){
         Serial.println("The acceleration in the y direction is greater than the threshold");
       }
