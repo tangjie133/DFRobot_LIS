@@ -44,7 +44,7 @@ void setup(void){
   //Chip initialization
   while(!acce.begin()){
      delay(1000);
-     Serial.println("Initialization failed, please check the connection and I2C address settings");
+     Serial.println("Initialization failed, please check the connection and I2C address setting");
   }
   //Get chip id
   Serial.print("chip id : ");
