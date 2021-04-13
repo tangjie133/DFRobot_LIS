@@ -71,7 +71,7 @@ Provide an RaspberryPi library to get Three-axis acceleration by reading data fr
 
 ## Installation
 
-下载DFRobot_LIS文件到树莓派文件目录下,然后运行下面两行命令行，使用此传感器:
+Download the DFRobot_LIS file to the Raspberry Pi file directory, then run the following command line to use this sensor:
 ```
 cd DFRobot_LIS/python/raspberry/examples/LIS331HH/get_acceleration
 python get_acceleration.py
