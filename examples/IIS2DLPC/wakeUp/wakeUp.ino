@@ -1,9 +1,9 @@
 /**！
  * @file wakeUp.ino
  * @brief When the acceleration change in x, y or z direction is detected to exceed the set threshold, the chip will generate a wake-up event.
- * @n By accessing the chip register, you can know it is in which direction that the movement has woken up the chip.
+ * @n By accessing the chip register, we can know which direction of movement wakes up the chip.
  * @n In this example, it is necessary to set the wake-up duration by setWakeUpDur().
- * @n When woken up, the chip will last for a while before it turns to be in the sleep state.
+ * @n When woken up, the chip will last for a while before it enters the sleep state.
  * @n And to set the threshold by setWakeUpThreshold(). When the acceleration change exceeds this value, the eWakeUp event will be triggered.
  * @n When using SPI, chip select pin can be modified by changing the value of macro IIS2DLPC_CS.
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
@@ -47,7 +47,7 @@ void setup(void){
 
   Serial.begin(9600);
   while(!acce.begin()){
-     Serial.println("Communication failed, check if the connection is accurate, if the address is set correctly when using I2C communication.");
+     Serial.println("Communication failed, check the connection and I2C address settings when using I2C communication.");
      delay(1000);
   }
   Serial.print("chip id : ");
@@ -111,7 +111,7 @@ void setup(void){
   acce.setFilterPath(DFRobot_LIS2DW12::eLPF);
   
   /**
-    The wake-up duration – when woken up, the chip will last for a while before it turns to be in the sleep state.
+    The wake-up duration – when woken up, the chip will last for a while before it enters the sleep state.
     dur (0 ~ 3)
     time = dur * (1/Rate)(unit:s)
     |                         An example of a linear relationship between an argument and time                               |
@@ -139,7 +139,7 @@ void setup(void){
   acce.setInt1Event(DFRobot_LIS2DW12::eWakeUp);
   
   /**！
-    Set the interrupt event of the int1 pin:
+    Set the interrupt event of the int2 pin:
        eSleepChange = 0x40,/<Sleep change status routed to INT2 pad>/
        eSleepState  = 0x80,/<Enable routing of SLEEP_STATE on INT2 pad>/
   */
