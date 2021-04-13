@@ -4,8 +4,8 @@
  * @n In this example, the continuous measurement mode is selected by default -- the acceleration data will be measured continuously
  * @n according to the measuring rate.
  * @n You can also use single data conversion on demand mode 1. You need to select a suitable conversion mode in the setPowerMode() function
- * @n                             2.Then fill in the setDataRate() function with the eSetSwTrig parameter.
- * @n                             3.Request a measurement by the demandData() function。
+ * @n                                                        2. Then fill in the setDataRate() function with the eSetSwTrig parameter
+ * @n                                                        3. Request a measurement by the demandData() function
  * @n When using SPI, chip select pin can be modified by changing the value of macro IIS2DLPC_CS
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
@@ -48,7 +48,7 @@ void setup(void){
 
   Serial.begin(9600);
   while(!acce.begin()){
-     Serial.println("Communication failed, check if the connection is accurate, if the address is set correctly when using I2C communication.");
+     Serial.println("Communication failed, check the connection and I2C address settings when using I2C communication.");
      delay(1000);
   }
   Serial.print("chip id : ");
