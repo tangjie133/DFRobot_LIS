@@ -49,7 +49,7 @@ void setup(void){
 
   Serial.begin(9600);
   while(!acce.begin()){
-     Serial.println("Communication failed, check if the connection is accurate, if the address is set correctly when using I2C communication");
+     Serial.println("Communication failed, check the connection and I2C address setting when using I2C communication.");
      delay(1000);
   }
   Serial.print("chip id : ");
