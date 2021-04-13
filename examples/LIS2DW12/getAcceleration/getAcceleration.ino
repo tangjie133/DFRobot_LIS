@@ -1,6 +1,6 @@
 /**！
  * @file getAcceleration.ino
- * @brief Get the acceleration in x, y, z directions, the mearsurement range is ±2g,±4g,±8g or ±16g set by the setRange() function
+ * @brief Get the acceleration in x, y, z directions, the mearsurement range is ±2g, ±4g, ±8g or ±16g, set by the setRange() function
  * @n In this example, the continuous measurement mode is selected by default -- the acceleration data will be measured continuously 
  * @n according to the measuring rate.
  * @n You can also use the single data conversion on demand mode 1. You need to select a suitable conversion mode in the setPowerMode() function
@@ -48,7 +48,7 @@ void setup(void){
 
   Serial.begin(9600);
   while(!acce.begin()){
-     Serial.println("Communication failed, check if the connection is accurate, if the address is set correctly when using I2C communication.");
+     Serial.println("Communication failed, check the connection and I2C address setting when using I2C communication.");
      delay(1000);
   }
   Serial.print("chip id : ");
