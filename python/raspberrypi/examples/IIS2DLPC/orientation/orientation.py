@@ -1,13 +1,13 @@
 # -*- coding:utf-8 -*-
 """
    @file orientation.py
-   @brief  When detecting the orientation of the module, the sensor can detect the following six events.
-   @n Z-axis is facing up
-   @n Z-axis is facing down
-   @n Y-axis is facing up
-   @n Y-axis is facing down
-   @n X-axis is facing up
-   @n X-axis is facing down
+   @brief  When detecting the orientation of the module, the sensor can detect the following six events:
+   @n Positive z-axis is facing up
+   @n Positive z-axis is facing down
+   @n Positive y-axis is facing up
+   @n Positive y-axis is facing down
+   @n Positive x-axis is facing up
+   @n Positive x-axis is facing down
    @n When using SPI, chip select pin can be modified by changing the value of RASPBERRY_PIN_CS
    @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
    @licence     The MIT License (MIT)
