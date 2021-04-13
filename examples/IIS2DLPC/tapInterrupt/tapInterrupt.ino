@@ -59,7 +59,7 @@ void setup(void){
   //Chip soft reset
   acce.softReset();
   #if defined(ESP32) || defined(ESP8266)
-  //By default, the D6 pin is used as the interrupt pin. Other non-conflicting pins can also be selected as the external interrupt pin
+  //By default, the D6 pin is used as the interrupt pin. Other non-conflicting pins can also be selected as the external interrupt pins
   attachInterrupt(digitalPinToInterrupt(D6)/*Query the interrupt number of the D6 pin*/,interEvent,CHANGE);
   #elif defined(ARDUINO_SAM_ZERO)
   //By default, the pin 5 is used as the interrupt pin. Other non-conflicting pins can also be selected as the external interrupt pins
