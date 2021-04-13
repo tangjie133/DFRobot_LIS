@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 """
    @file tap.py
-   @brief Single tap and double tap detection, tapping the module or the desktop of module accessories can trigger the tap event
+   @brief Single tap and double tap detection, tapping the module or the desktop nearby can trigger the tap event
    @n You can select to detect only single tap or to detect both single tap and double tap by the set_tap_mode() function
    @n When using SPI, chip select pin can be modified by changing the value of RASPBERRY_PIN_CS
    @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
@@ -26,8 +26,8 @@ import time
 #If you want to use I2C to drive this module, open the following three-line comments, and connect the module with Raspberry Pi via it
 #The I2C address can be switched through the DIP switch (gravity version) or SDO pin (Breakout version) on the board
 I2C_BUS         = 0x01             #default use I2C1
-#ADDRESS_0       = 0x18             #sensor address0
-ADDRESS_1       = 0x19             #sensor address1
+#ADDRESS_0       = 0x18             #sensor address 0
+ADDRESS_1       = 0x19             #sensor address 1
 acce = DFRobot_LIS2DW12_I2C(I2C_BUS ,ADDRESS_1)
 
 #Chip initialization
