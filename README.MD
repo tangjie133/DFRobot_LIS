@@ -317,9 +317,9 @@ To use this library, first download the library file, paste it into the \Arduino
   void setFreeFallDur(uint8_t dur);
   
   /**
-   * @brief 选择在中断1引脚产生的中断事件
-   * @param event  中断事件,当此事件产生会在中断1引脚产生电平跳变
-                   eDoubleTap    = 0x08,/<双击事件>/
+   * @brief Select the interrupt event generated on the int1 pin
+   * @param event  Interrupt event, when it occurs, a level jump will be generated on the int1 pin
+                   eDoubleTap    = 0x08,/<Double tap event>/
                    eFreeFall     = 0x10,/<自由落体事件>/
                    eWakeUp       = 0x20,/<唤醒事件>/
                    eSingleTap    = 0x40,/<单击事件>/
