@@ -49,7 +49,7 @@ void setup(void){
 
   Serial.begin(9600);
   while(!acce.begin()){
-     Serial.println("Communication failed, check the connection and I2C address when using I2C communication.");
+     Serial.println("Communication failed, check the connection and I2C address setting when using I2C communication.");
      delay(1000);
   }
   Serial.print("chip id : ");
@@ -143,7 +143,7 @@ void setup(void){
   
   //The duration of free fall (0~31), the larger the value, the longer it takes to detect a free fall event
   /**
-   * Set the free fall time (Or the numbers of free-fall samples. In one measurement, only when the free-fall samples are enough, can it be determined as a free fall event.) 
+   * Set the free fall time (Or the numbers of free-fall samples. In a measurement, it will not be determined as a free fall event unless the samples are enough.) 
     dur range(0 ~ 31)
     time = dur * (1/Rate)(unit:s)
     |                        An example of a linear relationship between an argument and time                                |
