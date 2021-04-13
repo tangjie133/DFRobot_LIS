@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 """
   @file get_acceleration.py
-  @brief Get the acceleration in x, y, z directions, its measurement range can be ±6g,±12g or ±24g
+  @brief Get the acceleration in x, y, z directions, its measurement range can be ±6g, ±12g or ±24g
   @n When using SPI, chip select pin can be modified by changing the value of RASPBERRY_PIN_CS
   @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
   @licence     The MIT License (MIT)
@@ -59,7 +59,7 @@ time.sleep(0.1)
 
 while True:
     #Get the acceleration in the three directions of xyz
-    #The measurement range can be ±6g,±12g or ±24g, set by set_range() function
+    #The measurement range can be ±6g, ±12g or ±24g, set by set_range() function
     x,y,z = acce.read_acce_xyz()
     print("Acceleration [X = %.2d mg,Y = %.2d mg,Z = %.2d mg]"%(x,y,z))
     time.sleep(1)
