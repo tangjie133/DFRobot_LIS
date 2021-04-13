@@ -1,6 +1,6 @@
 /**！
  * @file tap.ino
- * @brief Single tap and double tap detection, tapping the module or the desktop of module accessories can trigger the tap event
+ * @brief Single tap and double tap detection, tapping the module or nearby desktop can trigger the tap event
  * @n You can select to detect only single tap or to detect both single tap and double tap by the setTapMode() function
  * @n When using SPI, chip select pin can be modified by changing the value of LIS2DW12_CS
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
@@ -45,7 +45,7 @@ DFRobot_LIS2DW12_I2C acce;
 void setup(void){
   Serial.begin(9600);
   while(!acce.begin()){
-     Serial.println("Communication failed, check if the connection is accurate, if the address is set correctly when using I2C communication");
+     Serial.println("Communication failed, check the connection and I2C address setting when using I2C communication.");
      delay(1000);
   }
   Serial.print("chip id : ");
