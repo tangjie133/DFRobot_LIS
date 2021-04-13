@@ -1,6 +1,6 @@
 /**！
  * @file tapInterrupt.ino
- * @brief tap interrupt detection, tapping both the module and the desktop of module accessories can trigger the interrupt level of in1.
+ * @brief Tap interrupt detection, tapping both the module and the desktop near the module can both trigger the interrupt level on pin int1.
  * @n When using SPI communication, use the following program to construct an object by DFRobot_IIS2DLPC_SPI
  * @n In this example, the int2/int1 pin on the module needs to be connected to the interrupt pin on the motherboard, the defaults are UNO(2),
  * @n          Mega2560(2), Leonardo(3), microbit(P0),FireBeetle-ESP8266(D6),FireBeetle-ESP32((D6),FireBeetle-M0(6)        
@@ -51,7 +51,7 @@ void setup(void){
 
   Serial.begin(9600);
   while(!acce.begin()){
-     Serial.println("Communication failed, check if the connection is accurate, if the address is set correctly when using I2C communication.");
+     Serial.println("Communication failed, check the connection and I2C address settings when using I2C communication.");
      delay(1000);
   }
   Serial.print("chip id : ");
@@ -62,8 +62,8 @@ void setup(void){
   //By default, the D6 pin is used as the interrupt pin. Other non-conflicting pins can also be selected as the external interrupt pin
   attachInterrupt(digitalPinToInterrupt(D6)/*Query the interrupt number of the D6 pin*/,interEvent,CHANGE);
   #elif defined(ARDUINO_SAM_ZERO)
-  //By default, the 5 pin is used as the interrupt pin. Other non-conflicting pins can also be selected as the external interrupt pin
-  attachInterrupt(digitalPinToInterrupt(5)/*Query the interrupt number of the 5 pin*/,interEvent,CHANGE);
+  //By default, the pin 5 is used as the interrupt pin. Other non-conflicting pins can also be selected as the external interrupt pins
+  attachInterrupt(digitalPinToInterrupt(5)/*Query the interrupt number of the pin 5*/,interEvent,CHANGE);
   #else
   /*    The Correspondence Table of AVR Series Arduino Interrupt Pins And Terminal Numbers
    * ---------------------------------------------------------------------------------------
@@ -87,7 +87,7 @@ void setup(void){
    * |no need to set it to input mode with pinMode)|Interrupt No|Interrupt number is a pin digital value, such as P0 interrupt number 0, P1 is 1 |
    * |-------------------------------------------------------------------------------------------------------------------------------------------|
    */
-  attachInterrupt(/*Interrupt No*/0,interEvent,CHANGE);//Open the external interrupt 0, connect INT1/2 to the digital pin of the main control: 
+  attachInterrupt(/*Interrupt No*/0,interEvent,CHANGE);//Enable the external interrupt 0, connect INT1/2 to the digital pin of the main controller: 
      //UNO(2), Mega2560(2), Leonardo(3), microbit(P0).
   #endif
   
@@ -146,11 +146,11 @@ void setup(void){
   //Enable tap detection in the Z direction
   acce.enableTapDetectionOnX(true);
   //The threshold setting in the X direction 
-  //Threshold(mg),Can only be used in the range of ±2g
+  //Threshold(mg), can only be used in the range of ±2g
   acce.setTapThresholdOnX(/*Threshold = */0.5);
-  //The threshold setting in the Y direction   //Threshold(mg),Can only be used in the range of ±2g
+  //The threshold setting in the Y direction   //Threshold(mg), can only be used in the range of ±2g
   acce.setTapThresholdOnY(/*Threshold = */0.5);
-  //The threshold setting in the Z direction   //Threshold(mg),Can only be used in the range of ±2g)
+  //The threshold setting in the Z direction   //Threshold(mg), can only be used in the range of ±2g)
   acce.setTapThresholdOnZ(/*Threshold = */0.5);
   
   /*
@@ -188,9 +188,9 @@ void setup(void){
 
 void loop(void){
   if(intFlag == 1){
-   //tap detected
+   //Tap detected
      DFRobot_LIS2DW12:: eTap_t tapEvent = acce.tapDetect();
-    //Tap source detection
+    //Tap direction source detection
      DFRobot_LIS2DW12::eTapDir_t dir = acce.getTapDirection();
      if(tapEvent  == DFRobot_LIS2DW12::eSTap){
          Serial.print("Single tap Detected :");
