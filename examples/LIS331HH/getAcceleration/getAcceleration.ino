@@ -1,6 +1,6 @@
 /**！
  * @file getAcceleration.ino
- * @brief Get the acceleration in x, y, z directions, the measurement range is ±6g,±12g or ±24g
+ * @brief Get the acceleration in x, y, z directions, the measurement range is ±6g, ±12g or ±24g
  * @n When using SPI, chip select pin can be modified by changing the value of LIS331HH_CS
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
