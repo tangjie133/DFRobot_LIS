@@ -3,7 +3,7 @@
    @file wake_up.py
    @brief When the acceleration change in x, y or z direction is detected to exceed the set threshold, the chip will generate
    @n a wake-up event. By accessing the chip register, you can know it is in which direction that the movement 
-   @n has woken up the chip. 
+   @n woke up the chip. 
    @n In this example, it is necessary to set the wake-up duration by setWakeUpThreshold(). When woken up, the chip will last
    @n for a while before it turns into the sleep state. And to set the threshold by setWakeUpDur(). 
    @n When the acceleration change exceeds this value, the eWakeUp event will be triggered. 
