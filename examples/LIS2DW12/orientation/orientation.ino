@@ -1,12 +1,12 @@
 /**！
  * @file orientation.ino
  * @brief When detecting the orientation of the module, the sensor can detect the following six events:
- * @n Z-axis is facing up
- * @n Z-axis is facing down
- * @n Y-axis is facing up
- * @n Y-axis is facing down
- * @n X-axis is facing up
- * @n X-axis is facing down
+ * @n Positive z-axis is facing up
+ * @n Positive z-axis is facing down
+ * @n Positive y-axis is facing up
+ * @n Positive y-axis is facing down
+ * @n Positive x-axis is facing up
+ * @n Positive x-axis is facing down
  * @n When using SPI, chip select pin can be modified by changing the value of macro LIS2DW12_CS
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
@@ -50,7 +50,7 @@ void setup(void){
 
   Serial.begin(9600);
   while(!acce.begin()){
-     Serial.println("Communication failed, check if the connection is accurate, if the address is set correctly when using I2C communication.");
+     Serial.println("Communication failed, check the connection and I2C address setting when using I2C communication.");
      delay(1000);
   }
   Serial.print("chip id : ");
