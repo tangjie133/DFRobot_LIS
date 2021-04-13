@@ -1,6 +1,6 @@
 /**！
  * @file tapInterrupt.ino
- * @brief tap interrupt detection, tap the module or the desktop of module accessories can trigger the interrupt level of in1.
+ * @brief tap interrupt detection, tap the module or the desktop nearby can trigger the interrupt level of in1.
  * @n When using SPI, chip select pin can be modified by changing the value of macro LIS2DW12_CS
  * @n In this example, the int2/int1 pin on the module needs to be connected to the interrupt pin on the motherboard, the defaults are UNO(2),
  * @n                   Mega2560(2), Leonardo(3), microbit(P0),FireBeetle-ESP8266(D6),FireBeetle-ESP32((D6),FireBeetle-M0(6)        
@@ -51,7 +51,7 @@ void setup(void){
 
   Serial.begin(9600);
   while(!acce.begin()){
-     Serial.println("Communication failed, check if the connection is accurate, if the address is set correctly when using I2C communication");
+     Serial.println("Communication failed, check the connection and I2C address setting when using I2C communication.");
      delay(1000);
   }
   Serial.print("chip id : ");
