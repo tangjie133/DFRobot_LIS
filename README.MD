@@ -1,5 +1,5 @@
 # DFRobot_LIS
-LIS系列三轴加速度传感器
+LIS系列三轴加速度传感器 Triple Axis Accelerometer
 
 CHIP                | Work Well    | Work Wrong  | Remarks
 ------------------ | :----------: | :----------| -----
@@ -48,7 +48,7 @@ To use this library, first download the library file, paste it into the \Arduino
   DFRobot_LIS();
   /**
    * @brief Initialize the function
-   * @return true(成功)/false(失败)
+   * @return true(Succeed)/false(Failed)
    */
   bool begin(void);
  
@@ -74,7 +74,7 @@ To use this library, first download the library file, paste it into the \Arduino
   void enableInterruptEvent(eInterruptSource_t source, eInterruptEvent_t event);
   
   /**
-   * @brief Set the measurement range
+   * @brief Set measurement range
    * @param range Range(g)
                   eH3lis200dl_100g, //±100g
                   eH3lis200dl_200g, //±200g
@@ -82,14 +82,14 @@ To use this library, first download the library file, paste it into the \Arduino
                   eLis331hh_6g = 6,//±6g
                   eLis331hh_12g = 12 //±12g
                   eLis331hh_24g = 24 //±24g  
-    @return true(设置成功)/false(设置失败)
+    @return true(Set successfully)/false(Set failed)
    */
   bool setRange(eRange_t range);
   
   /**
    * @brief Set data measurement rate
    * @param rate rate(HZ)
-                  ePowerDown_0HZ   //测量关闭
+                  ePowerDown_0HZ   //Measurement off
                   eLowPower_halfHZ //0.5 hz
                   eLowPower_1HZ
                   eLowPower_2HZ
@@ -109,8 +109,8 @@ To use this library, first download the library file, paste it into the \Arduino
                  eCutOffMode2,
                  eCutOffMode3,
                  eCutOffMode4,
-                 eShutDown,  无过滤
-     eg：在50HZ的频率下,选择eCutOffMode1,滤波后的频率为 1 HZ
+                 eShutDown, no filering
+     eg: Select eCutOffMode1 in 50HZ, and the filtered frequency is 1HZ
    *|---------------------------High-pass filter cut-off frequency configuration-----------------------------|
    *|--------------------------------------------------------------------------------------------------------|
    *|                |    ft [Hz]      |        ft [Hz]       |       ft [Hz]        |        ft [Hz]        |
@@ -129,20 +129,20 @@ To use this library, first download the library file, paste it into the \Arduino
 
   /**
    * @brief Set the threshold of interrupt source 1 interrupt
-   * @param threshold 设置的阈值在量程之内(unit:g)
+   * @param threshold The set threshold is within measurement range(unit:g)
    */
   void setInt1Th(uint8_t threshold);
 
   /**
    * @brief Set interrupt source 2 interrupt generation threshold
-   * @param threshold 设置的阈值在量程之内(unit:g）
+   * @param threshold The set threshold is within measurement range(unit:g）
    */
   void setInt2Th(uint8_t threshold);
 
   /**
    * @brief Enable sleep wake function
    * @param enable true(enable)\false(disable)
-   * @return false 表示使能失败/true 表示使能成功
+   * @return false Indicate enable failed/true Indicate enable successful
    */
   bool enableSleep(bool enable);
   
@@ -155,8 +155,8 @@ To use this library, first download the library file, paste it into the \Arduino
                    eYHigherThanTh,/<The acceleration in the y direction is greater than the threshold>/
                    eZLowerThanTh,/<The acceleration in the z direction is less than the threshold>/
                    eZHigherThanTh,/<The acceleration in the z direction is greater than the threshold>/
-   * @return true 产生了此事件
-             false 未产生此事件
+   * @return true This event generated
+             false This event not generated
    */
   bool getInt1Event(eInterruptEvent_t event);
 
@@ -169,8 +169,8 @@ To use this library, first download the library file, paste it into the \Arduino
                    eYHigherThanTh,/<The acceleration in the y direction is greater than the threshold>/
                    eZLowerThanTh,/<The acceleration in the z direction is less than the threshold>/
                    eZHigherThanTh,/<The acceleration in the z direction is greater than the threshold>/
-   * @return true 产生了此事件
-             false 未产生此事件
+   * @return true This event generated
+             false This event not generated
    */
   bool getInt2Event(eInterruptEvent_t event);
   
@@ -194,23 +194,23 @@ To use this library, first download the library file, paste it into the \Arduino
   
   /**
    * @brief Get the acceleration in the three directions of xyz
-   * @param accx 储存x方向加速度的变量
-   * @param accy 储存y方向加速度的变量
-   * @param accz 储存z方向加速度的变量
-   * @return true(成功获取数据)/false(数据未准备好)
+   * @param accx Store the variable of acceleration in x direction
+   * @param accy Store the variable of acceleration in y direction
+   * @param accz Store the variable of acceleration in z direction
+   * @return true(Get data successfully/false(Data not ready)
    */
   bool getAcceFromXYZ(int32_t &accx,int32_t &accy,int32_t &accz);
 
   /**
-   * @brief 获取传感器是否处于睡眠模式
-   * @return true(处于睡眠模式)/false(处于正常模式)
+   * @brief Get whether the sensor is in sleep mode
+   * @return true(In sleep mode)/false(In normal mode)
    */
   bool getSleepState();
   
   /**
-   * @brief 设置睡眠状态的标志
-   * @param into true(将现在的模式标记为睡眠模式)
-                 false(将现在的模式标记为正常模式)
+   * @brief Set the sleep state flag
+   * @param into true(Flag the current mode as sleep mode)
+                 false(Flag the current mode as normal mode)
    */
   void setSleepFlag(bool into);
 ```
@@ -220,7 +220,7 @@ To use this library, first download the library file, paste it into the \Arduino
   
   /**
    * @brief Initialize the function
-   * @return true(初始化成功)/fasle(初始化失败)
+   * @return true(Initialization succeed)/fasle(Initialization failed)
    */
   bool begin(void);
  
@@ -236,7 +236,7 @@ To use this library, first download the library file, paste it into the \Arduino
   void softReset();
   
   /**
-   * @brief 使芯片持续采集数据
+   * @brief Enable the chip to continuously collect data
    * @param enable  true(continuous update)/false( output registers not updated until MSB and LSB read)
    */
   void continRefresh(bool enable);
@@ -260,7 +260,7 @@ To use this library, first download the library file, paste it into the \Arduino
   void setFilterBandwidth(eBWFilter_t bw);
   
   /**
-   * @brief Set power mode,传感器测量加速度数据的模式有了两种 
+   * @brief Set power mode, there are two modes for the sensor to measure acceleration
    * @n       1.Continuous measurement 这种模式传感器会不停地测量数据然后放在数据寄存器
    * @n       2.Single data conversion on demand mode,这种模式下，传感器只有接受到外部请求才会测量一次数据
    * @param mode  power modes to choose from
