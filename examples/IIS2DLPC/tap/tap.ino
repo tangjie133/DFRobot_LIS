@@ -1,6 +1,6 @@
 /**！
  * @file tap.ino
- * @brief Single tap and double tap detection, tapping the module and the desktop of module accessories both can trigger the tap event
+ * @brief Single tap and double tap detection, tapping the module or the desktop near the module both can trigger the tap event
  * @n You can select to only detect single tap or to detect both single tap and double tap by the setTapMode() function
  * @n When using SPI, chip select pin can be modified by changing the value of macro IIS2DLPC_CS
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
@@ -43,7 +43,7 @@ DFRobot_IIS2DLPC_I2C acce;
 void setup(void){
   Serial.begin(9600);
   while(!acce.begin()){
-     Serial.println("Communication failed, check if the connection is accurate, if the address is set correctly when using I2C communication.");
+     Serial.println("Communication failed, check the connection and I2C address settings when using I2C communication.");
      delay(1000);
   }
   Serial.print("chip id : ");
@@ -101,16 +101,16 @@ void setup(void){
   
   //Enable tap detection in the X direction
   acce.enableTapDetectionOnZ(true);
-  //Enable tap detection in Y direction
+  //Enable tap detection in the Y direction
   acce.enableTapDetectionOnY(true);
   //Enable tap detection in the Z direction
   acce.enableTapDetectionOnX(true);
   //The threshold setting in the X direction 
-  //Threshold(mg),Can only be used in the range of ±2g
+  //Threshold(mg), can only be used in the range of ±2g
   acce.setTapThresholdOnX(/*Threshold = */0.5);
-  //The threshold setting in the Y direction   //Threshold(mg),Can only be used in the range of ±2g
+  //The threshold setting in the Y direction   //Threshold(mg), can only be used in the range of ±2g
   acce.setTapThresholdOnY(/*Threshold = */0.5);
-  //The threshold setting in the Z direction   //Threshold(mg),Can only be used in the range of ±2g)
+  //The threshold setting in the Z direction   //Threshold(mg), can only be used in the range of ±2g)
   acce.setTapThresholdOnZ(/*Threshold = */0.5);
   
   
@@ -151,7 +151,7 @@ void setup(void){
 void loop(void){
   //tap detected
   DFRobot_LIS2DW12:: eTap_t tapEvent = acce.tapDetect();
-  //Tap source detection
+  //Tap direction source detection
   DFRobot_LIS2DW12::eTapDir_t dir = acce.getTapDirection();
   uint8_t tap = 0;
   if(tapEvent  == DFRobot_LIS2DW12::eSTap){
