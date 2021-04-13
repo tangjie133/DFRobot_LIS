@@ -261,8 +261,8 @@ To use this library, first download the library file, paste it into the \Arduino
   
   /**
    * @brief Set power mode, there are two modes for the sensor to measure acceleration
-   * @n       1.Continuous measurement 这种模式传感器会不停地测量数据然后放在数据寄存器
-   * @n       2.Single data conversion on demand mode,这种模式下，传感器只有接受到外部请求才会测量一次数据
+   * @n       1.Continuous measurement In this mode, the sensor will continuously measure and store data in its register
+   * @n       2.Single data conversion on demand mode In this mode, the sensor will not make a measurement unless it receives an external request
    * @param mode  power modes to choose from
                   eHighPerformance_14bit         /<High-Performance Mode,14-bit resolution>/
                   eContLowPwr4_14bit             /<Continuous measurement,Low-Power Mode 4(14-bit resolution)>/
@@ -287,26 +287,26 @@ To use this library, first download the library file, paste it into the \Arduino
   
   /**
    * @brief Chip data collection rate setting
-   * @param rate  加速度测量频率,0-1600hz selection
-                  eRate_0hz            /<测量关闭>/
-                  eRate_1hz6           /<1.6hz,仅在低功耗模式下使用>/
+   * @param rate  Accelerometer frequency, 0-1600hz selection
+                  eRate_0hz            /<Measurement off>/
+                  eRate_1hz6           /<1.6hz, use only under low-power mode>/
                   eRate_12hz5          /<12.5hz>/
                   eRate_25hz        
                   eRate_50hz        
                   eRate_100hz       
                   eRate_200hz       
-                  eRate_400hz         /<仅在High-Performance mode下使用>/
-                  eRate_800hz         /<仅在High-Performance mode下使用>/
-                  eRate_1k6hz         /<仅在High-Performance mode下使用>/
-                  eSetSwTrig          /<软件触发单次测量>/
+                  eRate_400hz         /<Use only under High-Performance mode>/
+                  eRate_800hz         /<Use only under High-Performance mode>/
+                  eRate_1k6hz         /<Use only under High-Performance mode>/
+                  eSetSwTrig          /<The software triggers a single measurement>/
    */
   void setDataRate(eRate_t rate);
   
   /**
-   * @brief 设置自由落体时间,也可以称作自由落体样本个数,只有产生足够多的自由落体样本,才会产生自由落体事件
-   * @param dur 自由落体样本数,范围：0~31
+   * @brief Set the free fall time, or the number of free-fall samples. The free-fall events will not occur unless the samples are enough.
+   * @param dur Freefall samples, range：0~31
    * @n time = dur * (1/rate)(unit:s)
-     |                                  参数与时间之间的线性关系的示例                                                        |
+     |                            An example of a linear relationship between an argument and time                            |
      |------------------------------------------------------------------------------------------------------------------------|
      |                |                     |                          |                          |                           |
      |  Data rate     |       25 Hz         |         100 Hz           |          400 Hz          |         = 800 Hz          |
