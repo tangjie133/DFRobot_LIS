@@ -5,7 +5,7 @@
  * @n In this state, the measurement rate is 12.5hz.
  * @n When the acceleration change in a certain direction is detected to exceed the threshold, the measurement rate will be increased to the normal rate we set before.
  * @n The threshold can be set by the setWakeUpThreshold() function.
- * @n But if the module stops moving, also, the acceleration change in the three directions is less than the threshold, the chip will go into sleep
+ * @n But if the module stops moving, also, the acceleration change in the three directions is less than the threshold, the chip will turn into sleep
  * @n mode after a period of time. This duration time can be set by the setWakeUpDur() function.
  * @n When using SPI, chip select pin can be modified by changing the value of macro IIS2DLPC_CS
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
@@ -49,7 +49,7 @@ void setup(void){
 
   Serial.begin(9600);
   while(!acce.begin()){
-     Serial.println("Communication failed, please check the connection and I2C address settings when using I2C");
+     Serial.println("Communication failed, check the connection and I2C address setting when using I2C communication.");
      delay(1000);
   }
   Serial.print("chip id : ");
