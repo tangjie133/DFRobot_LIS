@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 """
    @file tap.py
-   @brief Single tap and double tap detection. Tapping the module or the desktop of module accessories can trigger the tap event.
+   @brief Single tap and double tap detection. Tapping the module or the desktop nearby can trigger the tap event.
    @n You can select to detect only single tap or to detect both single tap and double tap by the setTapMode() function
    @n When using SPI, chip select pin can be modified by changing the value of RASPBERRY_PIN_CS
    @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
