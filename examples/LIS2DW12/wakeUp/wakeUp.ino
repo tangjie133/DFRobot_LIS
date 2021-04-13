@@ -45,7 +45,7 @@ DFRobot_LIS2DW12_I2C acce;
 void setup(void){
   Serial.begin(9600);
   while(!acce.begin()){
-     Serial.println("Communication failed, check if the connection is accurate, if the address is set correctly when using I2C communication.");
+     Serial.println("Communication failed, check the connection and I2C address setting when using I2C communication.");
      delay(1000);
   }
   Serial.print("chip id : ");
@@ -112,7 +112,7 @@ void setup(void){
     The wake-up duration – when woken up, the chip will last for a while before it turns to be in the sleep state.
     dur (0 ~ 3)
     time = dur * (1/Rate)(unit:s)
-    |                                 An example of a linear relationship between an argument and time                                                         |
+    |                      An example of a linear relationship between an argument and time                                  |
     |------------------------------------------------------------------------------------------------------------------------|
     |                |                     |                          |                          |                           |
     |  Data rate     |       25 Hz         |         100 Hz           |          400 Hz          |         = 800 Hz          |
