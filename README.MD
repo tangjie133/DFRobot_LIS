@@ -320,27 +320,27 @@ To use this library, first download the library file, paste it into the \Arduino
    * @brief Select the interrupt event generated on the int1 pin
    * @param event  Interrupt event, when it occurs, a level jump will be generated on the int1 pin
                    eDoubleTap    = 0x08,/<Double tap event>/
-                   eFreeFall     = 0x10,/<自由落体事件>/
-                   eWakeUp       = 0x20,/<唤醒事件>/
-                   eSingleTap    = 0x40,/<单击事件>/
-                   e6D           = 0x80,/<在正面朝上/朝下/朝左/朝右/朝前/朝后 的状态发生改变的事件>/
+                   eFreeFall     = 0x10,/<Free-fall event>/
+                   eWakeUp       = 0x20,/<Wake-up event>/
+                   eSingleTap    = 0x40,/<Single tap event>/
+                   e6D           = 0x80,/<An event that changes the status of facing up/down/left/right/forward/back>/
    */
   void setInt1Event(eInt1Event_t event);
   
   /**
-   * @brief 选择在中断2引脚产生的中断事件
-   * @param event 中断事件,当此事件产生会在中断2引脚产生电平跳变
+   * @brief Select the interrupt event generated on the int2 pin
+   * @param event Interrupt event, when it occurs, a level jump will be generated on the int2 pin
                   eSleepChange = 0x40,/<Sleep change status routed to INT2 pad>/
                   eSleepState  = 0x80,/<Enable routing of SLEEP_STATE on INT2 pad>/
    */
   void setInt2Event(eInt2Event_t event);
   
   /**
-   * @brief 设置唤醒持续时间,在setActMode()函数使用eDetectAct的检测模式时,芯片在被唤醒后,会持续一段时间以正常速率采集数据
-   * @n 然后便会继续休眠,以12.5hz的频率采集数据
-   * @param dur duration,范围：0~3
+   * @brief Set wake-up duration, when using the detection mode of eDetectAct in setActMode() function, it will be a period of time to collect data
+   * @n at a normal rate after the chip is awakened. Then the chip will continue to hibernate, collecting data at a frequency of 12.5hz.
+   * @param dur duration,range: 0~3
      @n time = dur * (1/rate)(unit:s)
-     |                                  参数与时间之间的线性关系的示例                                                        |
+     |                           An example of a linear relationship between an argument and time                             |
      |------------------------------------------------------------------------------------------------------------------------|
      |                |                     |                          |                          |                           |
      |  Data rate     |       25 Hz         |         100 Hz           |          400 Hz          |         = 800 Hz          |
@@ -351,15 +351,15 @@ To use this library, first download the library file, paste it into the \Arduino
   void setWakeUpDur(uint8_t dur);
 
   /**
-   * @brief Set the wake-up threshold,某个方向的加速度大于此值时,会触发wake-up事件
-   * @param th threshold ,unit:mg,数值是在量程之内
+   * @brief Set the wake-up threshold, when the acceleration in a certain direction is greater than this value, a wake-up event will be triggered
+   * @param th threshold ,unit:mg, the value is within the measurement range
    */
   void setWakeUpThreshold(float th);
   
   /**
-   * @brief 设置运动检测的模式,第一种模式不会去检测模块是否在运动，第二种模式在设置后芯片会以较低的频率测量数据,以降低功耗
-   * @n 在检测到运动后会恢复到正常频率,第三种只会检测模块是否处于睡眠状态
-   * @param mode 运动检测模式
+   * @brief Set the mode of motion detection, the first mode will not detect whether the module is moving; the second, once set, will measure data at a lower 
+   * @n frequency to save consumption, and return to normal after detecting motion; the third can only detect whether the module is in sleep state.
+   * @param mode Motion detection mode
                 eNoDetection         /<No detection>/
                 eDetectAct           /<Detect movement,the chip automatically goes to 12.5 Hz rate in the low-power mode>/
                 eDetectStatMotion    /<Detect Motion, the chip detects acceleration below a fixed threshold but does not change either rate or operating mode>/
@@ -377,20 +377,20 @@ To use this library, first download the library file, paste it into the \Arduino
   void setRange(eRange_t range);
   
   /**
-   * @brief enable detect tap events in the Z direction
-   * @param enable ture(使能点击检测)\false(禁用点击检测)
+   * @brief Enable detect tap events in the Z direction
+   * @param enable ture(Enable tap detection)\false(Disable tap detection)
    */
   void enableTapDetectionOnZ(bool enable);
   
   /**
-   * @brief enable detect tap events in the Y direction
-   * @param enable ture(使能点击检测)\false(禁用点击检测)
+   * @brief Enable detect tap events in the Y direction
+   * @param enable ture(Enable tap detection)\false(Disable tap detection)
    */
   void enableTapDetectionOnY(bool enable);
 
   /**
-   * @brief enable detect tap events in the X direction
-   * @param enable ture(使能点击检测)\false(禁用点击检测)
+   * @brief Enable detect tap events in the X direction
+   * @param enable ture(Enable tap detection)\false(Disable tap detection)
    */
   void enableTapDetectionOnX(bool enable);
 
@@ -416,9 +416,9 @@ To use this library, first download the library file, paste it into the \Arduino
    * @brief Duration of maximum time gap for double-tap recognition. When double-tap 
    * @n recognition is enabled, this register expresses the maximum time between two 
    * @n successive detected taps to determine a double-tap event.
-   * @param dur duration,范围:0~15
+   * @param dur duration, range:0~15
    * @n time = dur * (1/rate)(unit:s)
-     |                                  参数与时间之间的线性关系的示例                                                        |
+     |                        An example of a linear relationship between an argument and time                                |
      |------------------------------------------------------------------------------------------------------------------------|
      |                |                     |                          |                          |                           |
      |  Data rate     |       25 Hz         |         100 Hz           |          400 Hz          |         = 800 Hz          |
@@ -429,15 +429,15 @@ To use this library, first download the library file, paste it into the \Arduino
   void setTapDur(uint8_t dur);
   
   /**
-   * @brief Set the tap detection mode,检测单击或者单击双击都检测
-   * @param mode 点击检测模式
-                     eOnlySingle   /<检测单击>/
-                     eBothSingleDouble /<检测单击和双击>/
+   * @brief Set the tap detection mode, detect single tap or both single tap and double tap 
+   * @param mode Tap detection mode
+                     eOnlySingle   /<Detect single tap>/
+                     eBothSingleDouble /<Detect both single tap and double tap>/
    */
   void setTapMode(eTapMode_t mode);
 
   /**
-   * @brief Set Thresholds for 4D/6D，当转动的阈值大于指定角度时,就发生方向转变的事件
+   * @brief Set Thresholds for 4D/6D, when the threshold of rotation exceeds the specified angle, a direction change event will occur.
    * @param degree   eDegrees80   /<80°>/
                      eDegrees70   /<70°>/
                      eDegrees60   /<60°>/
@@ -447,42 +447,42 @@ To use this library, first download the library file, paste it into the \Arduino
 
   /**
    * @brief Read the acceleration in the x direction
-   * @return  Acceleration data from x(mg),测量的量程为±2g,±4g,±8g或±16g,通过setRange()函数设置
+   * @return  Acceleration data from x(mg), the measurement range is ±2g, ±4g, ±8g or ±16g, set by the setRange() funciton.
    */
   int16_t readAccX();
   
   /**
    * @brief Read the acceleration in the y direction
-   * @return  Acceleration data from y(mg),测量的量程为±2g,±4g,±8g或±16g,通过setRange()函数设置
+   * @return  Acceleration data from y(mg), the measurement range is ±2g, ±4g, ±8g or ±16g, set by the setRange() funciton.
    */
   int16_t readAccY();
   
   /**
    * @brief Read the acceleration in the z direction
-   * @return  Acceleration data from z(mg),测量的量程为±2g,±4g,±8g或±16g,通过setRange()函数设置
+   * @return  Acceleration data from z(mg), the measurement range is ±2g, ±4g, ±8g or ±16g, set by the setRange() funciton.
    */
   int16_t readAccZ();
   
   /**
-   * @brief 检测是否有运动产生
-   * @return true(产生运动)/false(传感器未运动)
+   * @brief Detect motion
+   * @return true(Motion generated)/false(No motion)
    */
   bool actDetected();
   
   /**
-   * @brief 检测是否有自由落体运动发生
-   * @return true(检测到自由落体运动)/false(未检测到自由落体运动)
+   * @brief Detect free fall 
+   * @return true(Free-fall detected)/false(No free-fall)
    */
   bool freeFallDetected();
   
   /**
-   * @brief 检测芯片在正面朝上/朝下/朝左/朝右/朝前/朝后（即6D）的状态下是否发生方向的变化
-   * @return true(a change in position is detected)/false(no event detected)
+   * @brief Detect whether the direction of the chip changes when the chip is facing up/down/left/right/forward/back (ie 6D)
+   * @return true(a change in position detected)/false(no event detected)
    */
   bool oriChangeDetected();
   
   /**
-   * @brief 该函数仅用于6D（正面朝上/朝下/朝左/朝右/朝前/朝后）状态下，能获取传感器相对于z轴正向的朝向
+   * @brief Only in 6D (facing up/down/left/right/forward/backward) state can the function get the orientation of the sensor relative to the positive z-axis.
    * @return    eXDown  /<X is now down>/
                 eXUp    /<X is now up>/
                 eYDown  /<Y is now down>/
@@ -493,35 +493,35 @@ To use this library, first download the library file, paste it into the \Arduino
   eOrient_t getOrientation();
   
   /**
-   * @brief 点击检测,能检测是发生的双击,还是单击
+   * @brief Tap detection, can detect it is double tap or single tap
    * @return   eSTap       /<Single Tap>/
                eDTap       /<double Tap>/
-               eNoTap,     //没有点击产生
+               eNoTap,     //No tap 
                 */
   eTap_t tapDetect();
   
   /**
-   * @brief 点击方向的源头检测
-   * @return   eDirXUp   /<从 X 正方向发生的点击事件>/
-               eDirXDown /<从 X 负方向发生的点击事件>/
-               eDirYUp   /<从 Y 正方向发生的点击事件>/
-               eDirYDown /<从 Y 负方向发生的点击事件>/
-               eDirZUp   /<从 Z 正方向发生的点击事件>/
-               eDirZDown /<从 Z 负方向发生的点击事件>/
+   * @brief Tap direction source detection
+   * @return   eDirXUp   /<Tap is detected in the positive direction of X>/
+               eDirXDown /<Tap is detected in the negative direction of X>/
+               eDirYUp   /<Tap is detected in the positive direction of Y>/
+               eDirYDown /<Tap is detected in the negative direction of Y>/
+               eDirZUp   /<Tap is detected in the positive direction of Z>/
+               eDirZDown /<Tap is detected in the negative direction of Z>/
    */
   eTapDir_t getTapDirection();
   
   /**
-   * @brief 唤醒的运动方向检测
-   * @return   eDirX    /<X方向的运动唤醒芯片>/
-               eDirY    /<Y方向的运动唤醒芯片>/
-               eDirZ    /<Z方向的运动唤醒芯片>/
-               eDirError,/<检测错误>/
+   * @brief Wake-up motion direction detection
+   * @return   eDirX    /<The chip is woken up by the motion in X direction>/
+               eDirY    /<The chip is woken up by the motion in Y direction>/
+               eDirZ    /<The chip is woken up by the motion in Z direction>/
+               eDirError,/<Error detected>/
    */
   eWakeUpDir_t getWakeUpDir();
   
   /**
-   * @brief In Single data conversion on demand mode,请求测量一次数据
+   * @brief In Single data conversion on demand mode, request a measurement.
    */
   void demandData();
 ```
