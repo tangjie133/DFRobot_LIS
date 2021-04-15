@@ -24,11 +24,11 @@ def int_pad_callback(status):
   global int_pad_Flag
   int_pad_Flag = True
 
-#If you want to use SPI to drive this module, open the following two-line comments, and connect the module with Raspberry Pi via it
+#If you want to use SPI to drive this module, uncomment the codes below, and connect the module with Raspberry Pi via SPI port
 #RASPBERRY_PIN_CS =  27              #Chip selection pin when SPI is selected, use BCM coding method, the number is 27, corresponding to pin GPIO2
 #acce = DFRobot_IIS2DLPC_SPI(RASPBERRY_PIN_CS)
 
-#If you want to use I2C to drive this module, open the following three-line comments, and connect the module with Raspberry Pi via it
+#If you want to use I2C to drive this module, uncomment the codes below, and connect the module with Raspberry Pi via I2C port
 #The I2C address can be switched through the DIP switch (gravity version) or SDO pin (Breakout version) on the board
 I2C_BUS         = 0x01             #default use I2C1
 #ADDRESS_0       = 0x18             #sensor address 0
@@ -95,7 +95,7 @@ acce.set_data_rate(acce.RATE_100HZ);
 '''
 acce.set_range(acce.RANGE_2G)
 '''
-  Set the free fall time (Or the number of free-fall samples. The free-fall events will not occur unless the samples are enough.)
+  Set the free fall time (Or the number of free-fall samples.  In a measurement, it will not be determined as a free fall event unless the samples are enough.)
      dur duration(0 ~ 31)
      time = dur * (1/rate)(unit:s)
      |                      An example of a linear relationship between an argument and time                                  |
@@ -121,7 +121,7 @@ time.sleep(0.1)
 
 while True:
   if(int_pad_Flag == True):
-    #Free fall event is detected
+    #Free fall event detected
     time.sleep(0.1)
     free_fall = acce.free_fall_detected()
     if free_fall == True:
