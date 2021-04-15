@@ -1,12 +1,12 @@
 /**！
  * @file interrupt.ino
  * @brief Interrupt detection
- * @n In this example, the enable eZHigherThanTh interrupt event, which means when the acceleration in the Z direction is bigger than
- * @n the threshold set by the program, the interrupt level can be detected on the interrupt pin int1/int2 we set, and the level variation
- * @n on the interrupt pin can be used to determine whether the interrupt occurs. The following are the six settable interrupt events: 
+ * @n In this example, the enable eZHigherThanTh interrupt event means when the acceleration in the Z direction exceeds the
+ * @n the threshold set by the program, the interrupt level can be detected on the interrupt pin int1/int2 we set, and the level change
+ * @n on the interrupt pin can be used to determine whether the interrupt occurs. The following are the 6 settable interrupt events: 
  * @n eXHigherThanTh, eXLowerThanTh, eYHigherThanTh, eYLowerThanTh, eZHigherThanTh,eZLowerThanTh.
- * @n For a detailed explanation of each interrupt event, please see the annotation of function enableInterruptEvent() 
- * @n In this example, the int2/int1 pin on the module needs to be connected to the interrupt pin on the motherboard, the defaults are UNO(2),
+ * @n For a detailed explanation of each of them, please look up the comments of the enableInterruptEvent() function.
+ * @n This example needs to connect the int2/int1 pin of the module to the interrupt pin of the motherboard. Default UNO(2),
  * @n             Mega2560(2), Leonardo(3), microbit(P0),FireBeetle-ESP8266(D6),FireBeetle-ESP32((D6),FireBeetle-M0(6)        
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
@@ -86,8 +86,8 @@ void setup(void){
   //The D6 pin is used as the interrupt pin by default, and other non-conflicting pins can also be selected as the external interrupt pin.
   attachInterrupt(digitalPinToInterrupt(D6)/*Query the interrupt number of the D6 pin*/,interEvent,CHANGE);
   #elif defined(ARDUINO_SAM_ZERO)
-  //The 5 pin is used as the interrupt pin by default, and other non-conflicting pins can also be selected as the external interrupt pin.
-  attachInterrupt(digitalPinToInterrupt(5)/*Query the interrupt number of the 5 pin*/,interEvent,CHANGE);
+  //The pin 5 is used as the interrupt pin by default, and other non-conflicting pins can also be selected as the external interrupt pin.
+  attachInterrupt(digitalPinToInterrupt(5)/*Query the interrupt number of the pin 5*/,interEvent,CHANGE);
   #else
   /*    The Correspondence Table of AVR Series Arduino Interrupt Pins And Terminal Numbers
    * ---------------------------------------------------------------------------------------
