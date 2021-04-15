@@ -24,12 +24,12 @@ sys.path.append("../../..") # set system path to top
 from DFRobot_LIS2DW12 import *
 import time
 
-#If you want to use SPI to drive this module, open the following two-line comments, and connect the module with Raspberry Pi via it
+#If you want to use SPI to drive this module, uncomment the codes below, and connect the module with Raspberry Pi via SPI port
 #RASPBERRY_PIN_CS =  27              #Chip selection pin when SPI is selected, use BCM coding method, the number is 27, corresponding to pin GPIO2
 #acce = DFRobot_LIS2DW12_SPI(RASPBERRY_PIN_CS)
 
 
-#If you want to use I2C to drive this module, open the following three-line comments, and connect the module with Raspberry Pi via it
+#If you want to use I2C to drive this module, uncomment the codes below, and connect the module with Raspberry Pi via I2C port
 #The I2C address can be switched through the DIP switch (gravity version) or SDO pin (Breakout version) on the board
 I2C_BUS         = 0x01             #default use I2C1
 #ADDRESS_0       = 0x18             #sensor address 0
@@ -88,7 +88,7 @@ acce.set_power_mode(acce.CONT_LOWPWRLOWNOISE1_12BIT)
 '''
 acce.set_data_rate(acce.RATE_200HZ)
 '''
-  Set Thresholds for 4D/6D，When the threshold of rotation exceeds the specified angle, a direction change event will occur.
+  Set Thresholds for 4D/6D，when the threshold of rotation exceeds the specified angle, a direction change event will occur.
   degree:         DEGREES_80   (80°)
                   DEGREES_70   (70°)
                   DEGREES_60   (60°)
