@@ -1,8 +1,8 @@
 /**！
  * @file tapInterrupt.ino
- * @brief Tap interrupt detection, tapping both the module and the desktop near the module can both trigger the interrupt level on pin int1.
+ * @brief Tap interrupt detection, tapping the module and the desktop near the module can both trigger the interrupt level on pin int1.
  * @n When using SPI communication, use the following program to construct an object by DFRobot_IIS2DLPC_SPI
- * @n In this example, the int2/int1 pin on the module needs to be connected to the interrupt pin on the motherboard, the defaults are UNO(2),
+ * @n In this example, the int2/int1 pin on the module needs to be connected to the interrupt pin on the motherboard. Default UNO(2),
  * @n          Mega2560(2), Leonardo(3), microbit(P0),FireBeetle-ESP8266(D6),FireBeetle-ESP32((D6),FireBeetle-M0(6)        
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
