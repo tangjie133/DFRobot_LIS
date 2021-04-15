@@ -1,6 +1,6 @@
 /**！
  * @file wakeUp.ino
- * @brief When the acceleration change in x, y or z direction is detected to exceed the set threshold, the chip will generate a wake-up event.
+ * @brief When the acceleration change in x, y or z direction is detected to exceed the threshold we set before, the chip will generate a wake-up event.
  * @n By accessing the chip register, we can know which direction of movement wakes up the chip.
  * @n In this example, it is necessary to set the wake-up duration by setWakeUpDur().
  * @n When woken up, the chip will last for a while before it enters the sleep state.
