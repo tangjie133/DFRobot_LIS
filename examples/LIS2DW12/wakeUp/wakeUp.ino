@@ -1,9 +1,9 @@
 /**！
  * @file wakeUp.ino
- * @brief When the acceleration change in x, y or z direction is detected to exceed the set threshold, the chip will generate a wake-up event.
- * @n By accessing the chip register, you can know it is in which direction that the movement has woken up the chip.
- * @n In this example, it is necessary to set the wake-up duration by setWakeUpDur(). When woken up, the chip will last for a while before 
- * @n it turns into sleep state.
+ * @brief When the acceleration change in x, y or z direction is detected to exceed the threshold we set before, the chip will generate a wake-up event.
+ * @n By accessing the chip register, we can know which direction of movement wakes up the chip.
+ * @n In this example, it is necessary to set the wake-up duration by setWakeUpDur().
+ * @n When woken up, the chip will last for a while before it enters the sleep state.
  * @n And to set the threshold by setWakeUpThreshold(). When the acceleration change exceeds this value, the eWakeUp event will be triggered.
  * @n When using SPI, chip select pin can be modified by changing the value of LIS2DW12_CS
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
@@ -109,7 +109,7 @@ void setup(void){
   acce.setFilterPath(DFRobot_LIS2DW12::eLPF);
   
   /**
-    The wake-up duration – when woken up, the chip will last for a while before it turns to be in the sleep state.
+    The wake-up duration – when woken up, the chip will last for a while before it enters the sleep state.
     dur (0 ~ 3)
     time = dur * (1/Rate)(unit:s)
     |                      An example of a linear relationship between an argument and time                                  |
