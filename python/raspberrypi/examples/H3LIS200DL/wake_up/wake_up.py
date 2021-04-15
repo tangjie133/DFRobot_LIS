@@ -2,9 +2,9 @@
 """
    @file wake_up.py
    @brief Use wake-up function
-   @n Phenomenon: It’s necessary to set the model in low-power mode before using this function.The measurement rate will be very slow.
-   @n When a interrupt event set up before is generated, the module will be in the normal mode that  the measurement rate will be accelerated
-   @n to save power and provide sampling rate.
+   @n Phenomenon: To use this function, you need to turn the module into low-power mode first, and the measurement rate will be 
+   @n very slow at this time. When an interrupt event set up before occurs, the module will enter normal mode, in which the measurement rate 
+   @n will be accelerated to save power and provide sampling rate. 
    @n When using SPI, chip select pin can be modified by changing the value of macro RASPBERRY_PIN_CS
    @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
    @licence     The MIT License (MIT)
@@ -21,15 +21,15 @@ sys.path.append("../../..") # set system path to top
 from DFRobot_LIS import *
 import time
 
-#If you want to use SPI to drive this module, open the following two-line comments, and connect the module with Raspberry Pi via it
+#If you want to use SPI to drive this module, uncomment the codes below, and connect the module with Raspberry Pi via SPI port
 #RASPBERRY_PIN_CS =  27              #Chip selection pin when SPI is selected, use BCM coding method, the number is 27, corresponding to pin GPIO2
 #acce = DFRobot_H3LIS200DL_SPI(RASPBERRY_PIN_CS)
 
-#If you want to use I2C to drive this module, open the following three-line comments, and connect the module with Raspberry Pi via it
+#If you want to use I2C to drive this module, uncomment the codes below, and connect the module with Raspberry Pi via I2C port
 #The I2C address can be switched through the DIP switch (gravity version) or SDO pin (Breakout version) on the board
 I2C_BUS         = 0x01            #default use I2C1
-#ADDRESS_0       = 0x18            #sensor address 0
-ADDRESS_1       = 0x19            #sensor address 1 
+#ADDRESS_0       = 0x18            #Sensor address 0
+ADDRESS_1       = 0x19            #Sensor address 1 
 acce = DFRobot_H3LIS200DL_I2C(I2C_BUS ,ADDRESS_1)
 
 #Chip initialization
