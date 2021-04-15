@@ -1,6 +1,6 @@
 /**！
  * @file getAcceleration.ino
- * @brief Get the acceleration in x, y, z directions, the measurement range is ±6g, ±12g or ±24g
+ * @brief Get the acceleration in the three directions of xyz, the range can be ±6g, ±12g or ±24g
  * @n When using SPI, chip select pin can be modified by changing the value of LIS331HH_CS
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
@@ -79,7 +79,7 @@ void setup(void){
 void loop(void){
 
     //Get the acceleration in the three directions of xyz
-    //The mearsurement range is ±6g, ±12g or ±24g, set by the setRange() function
+    //The mearsurement range can be ±6g, ±12g or ±24g, set by the setRange() function
     long ax,ay,az;
     ax = acce.readAccX();//Get the acceleration in the x direction
     ay = acce.readAccY();//Get the acceleration in the y direction
