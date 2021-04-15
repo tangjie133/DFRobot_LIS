@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 """
    @file tap.py
-   @brief Single tap and double tap detection. Tapping the module or the desktop nearby can trigger the tap event.
+   @brief Single tap and double tap detection. tapping the module or the desktop near the module both can trigger the tap event
    @n You can select to detect only single tap or to detect both single tap and double tap by the setTapMode() function
    @n When using SPI, chip select pin can be modified by changing the value of RASPBERRY_PIN_CS
    @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
@@ -18,11 +18,11 @@ sys.path.append("../../..") # set system path to top
 from DFRobot_LIS2DW12 import *
 import time
 
-#If you want to use SPI to drive this module, open the following two-line comments, and connect the module with Raspberry Pi via it
+#If you want to use SPI to drive this module, uncomment the codes below, and connect the module with Raspberry Pi via SPI port
 #RASPBERRY_PIN_CS =  27              #Chip selection pin when SPI is selected, use BCM coding method, the number is 27, corresponding to pin GPIO2
 #acce = DFRobot_IIS2DLPC_SPI(RASPBERRY_PIN_CS)
 
-#If you want to use I2C to drive this module, open the following three-line comments, and connect the module with Raspberry Pi via it
+#If you want to use I2C to drive this module, uncomment the codes below, and connect the module with Raspberry Pi via I2C port
 #The I2C address can be switched through the DIP switch (gravity version) or SDO pin (Breakout version) on the board
 I2C_BUS         = 0x01             #default use I2C1
 #ADDRESS_0       = 0x18             #sensor address 0
@@ -95,7 +95,7 @@ acce.set_tap_threshold_on_y(0.5)
 #The threshold setting in the Z direction is similar to the sensitivity of detection, the larger the value, the less sensitive (0~31)
 acce.set_tap_threshold_on_z(0.5)
 '''
-   The interval time between two taps of double tap ：
+   The interval time between two taps when detecting double tap
    dur duration(0 ~ 15)
    time = dur * (1/rate)(unit:s)
    |                        An example of a linear relationship between an argument and time                                |
