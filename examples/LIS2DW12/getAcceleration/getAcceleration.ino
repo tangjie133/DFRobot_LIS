@@ -1,11 +1,10 @@
 /**！
  * @file getAcceleration.ino
- * @brief Get the acceleration in x, y, z directions, the mearsurement range is ±2g, ±4g, ±8g or ±16g, set by the setRange() function
- * @n In this example, the continuous measurement mode is selected by default -- the acceleration data will be measured continuously 
- * @n according to the measuring rate.
+ * @brief Get the acceleration in the three directions of xyz, the range can be ±2g, ±4g, ±8g or ±16g, set by the setRange() function
+ * @n In this example, the continuous measurement mode is selected by default -- the acceleration data will be measured continuously according to the measuring rate.
  * @n You can also use the single data conversion on demand mode 1. You need to select a suitable conversion mode in the setPowerMode() function
- * @n                             2. Fill in the setDataRate() function with the eSetSwTrig parameter
- * @n                             3. Request a measurement by the demandData() function
+ * @n                                                            2. Fill in the setDataRate() function with the eSetSwTrig parameter
+ * @n                                                            3. Request a measurement by the demandData() function
  * @n When using SPI, chip select pin can be modified by changing the value of LIS2DW12_CS
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
@@ -71,7 +70,7 @@ void setup(void){
                eRate_400hz       /<Use only under High-Performance mode>/
                eRate_800hz       /<Use only under High-Performance mode>/
                eRate_1k6hz       /<Use only under High-Performance mode>/
-               eSetSwTrig        /<The software triggers a single measurement.>/
+               eSetSwTrig        /<The software triggers a single measurement>/
   */
   acce.setDataRate(DFRobot_LIS2DW12::eRate_50hz);
   
@@ -128,7 +127,7 @@ void setup(void){
 }
 
 void loop(void){
-    //Request a measurement under the single data conversion on demand mode.
+    //Request a measurement under single data conversion on demand mode
     //acce.demandData();
     //The mearsurement range is ±2g,±4g,±8g or ±16g, set by the setRange() function.
     Serial.print("x: ");
