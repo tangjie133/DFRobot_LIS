@@ -2,11 +2,10 @@
 """
    @file get_acceleration.py
    @brief Get the acceleration in x, y, z directions, the mearsurement range is ±2g,±4g,±8g or ±16g, set by the setRange() function
-   @n In this example, the continuous measurement mode is selected by default -- the acceleration data will be measured continuously according 
-   @n to the measuring rate.
-   @n You can also use the single data conversion on demand mode 1. You need to select a suitable conversion mode in the setPowerMode() function
-   @n                             2.Then fill in the setDataRate() function with the SETSWTRIG parameter.
-   @n                             3.Request a measurement by the demandData() function
+   @n In this example, the continuous measurement mode is selected by default -- the acceleration data will be measured continuously according to the measuring rate.
+   @n You can also use single data conversion on demand mode 1. You need to select a suitable conversion mode in the setPowerMode() function
+   @n                                                        2.Then fill in the setDataRate() function with the SETSWTRIG parameter.
+   @n                                                        3.Request a measurement by the demandData() function
    @n When using SPI, chip select pin can be modified by changing the value of RASPBERRY_PIN_CS
    @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
    @licence     The MIT License (MIT)
@@ -22,11 +21,11 @@ sys.path.append("../../..") # set system path to top
 from DFRobot_LIS2DW12 import *
 import time
 
-#If you want to use SPI to drive this module, open the following two-line comments, and connect the module with Raspberry Pi via it
+#If you want to use SPI to drive this module, uncomment the codes below, and connect the module with Raspberry Pi via SPI port
 #RASPBERRY_PIN_CS =  27              #Chip selection pin when SPI is selected, use BCM coding method, the number is 27, corresponding to pin GPIO2
 #acce = DFRobot_IIS2DLPC_SPI(RASPBERRY_PIN_CS)
 
-#If you want to use I2C to drive this module, open the following three-line comments, and connect the module with Raspberry Pi via it
+#If you want to use I2C to drive this module, uncomment the codes below, and connect the module with Raspberry Pi via I2C port
 #The I2C address can be switched through the DIP switch (gravity version) or SDO pin (Breakout version) on the board
 I2C_BUS         = 0x01             #default use I2C1
 #ADDRESS_0       = 0x18             #sensor address 0
@@ -107,10 +106,10 @@ acce.set_power_mode(acce.CONT_LOWPWRLOWNOISE2_14BIT);
 time.sleep(0.1)
 
 while True:
-    #Request a measurement in the single data conversion on demand mode.
+    #Request a measurement under single data conversion on demand mode.
     #acce.demand_data()
     #Get the acceleration in the three directions of xyz
-    #The mearsurement range is ±2g,±4g,±8g or ±16g, set by the setRange() function
+    #The mearsurement range is ±2g, ±4g, ±8g or ±16g, set by the setRange() function
     time.sleep(0.3)
     x = acce.read_acc_x()
     y = acce.read_acc_y()
