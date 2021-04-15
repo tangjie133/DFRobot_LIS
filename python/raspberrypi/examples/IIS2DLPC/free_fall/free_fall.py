@@ -2,7 +2,7 @@
 """
    @file free_fall.py
    @brief  Sensor module free fall detection, set the free fall time with the setFrDur() function to adjust the sensitivity of the detection
-   @n The shorter the free fall time, the easier it is to detect the free fall event
+   @n The shorter the free fall time we set, the easier for the module to detect the free fall event
    @n When using SPI, chip select pin can be modified by changing the value of RASPBERRY_PIN_CS
    @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
    @licence     The MIT License (MIT)
@@ -19,11 +19,11 @@ sys.path.append("../../..") # set system path to top
 from DFRobot_LIS2DW12 import *
 import time
 
-#If you want to use SPI to drive this module, open the following two-line comments, and connect the module with Raspberry Pi via it
+#If you want to use SPI to drive this module, uncomment the codes below, and connect the module with Raspberry Pi via SPI port
 #RASPBERRY_PIN_CS =  27              #Chip selection pin when SPI is selected, use BCM coding method, the number is 27, corresponding to pin GPIO2
 #acce = DFRobot_IIS2DLPC_SPI(RASPBERRY_PIN_CS)
 
-#If you want to use I2C to drive this module, open the following three-line comments, and connect the module with Raspberry Pi via it
+#If you want to use I2C to drive this module, uncomment the codes below, and connect the module with Raspberry Pi via I2C port
 #The I2C address can be switched through the DIP switch (gravity version) or SDO pin (Breakout version) on the board
 I2C_BUS         = 0x01             #default use I2C1
 #ADDRESS_0       = 0x18             #sensor address 0
@@ -86,7 +86,7 @@ acce.set_data_rate(acce.RATE_100HZ);
 '''
 acce.set_range(acce.RANGE_2G)
 '''
-  Set the free fall time (Or the number of free-fall samples. The free-fall events will not occur unless the samples are enough.) 
+  Set the free fall time (Or the number of free-fall samples. In a measurement, it will not be determined as a free-fall event unless the free-fall samples are sufficient.) 
      dur duration(0 ~ 31)
      time = dur * (1/rate)(unit:s)
      |                        An example of a linear relationship between an argument and time                                |
@@ -111,7 +111,7 @@ acce.set_int1_event(acce.FREEFALL)
 time.sleep(0.1)
 
 while True:
-    #Free fall event is detected
+    #Free fall event detected
     free_fall = acce.free_fall_detected()
     if free_fall == True:
       print("free fall detected")
