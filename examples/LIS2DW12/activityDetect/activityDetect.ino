@@ -1,12 +1,12 @@
 /**！
  * @file activityDetect.ino
- * @brief Motion detection, it can detect whether the module is moving
+ * @brief Motion detection, can detect whether the module is moving
  * @n It’s necessary to go into low power mode before using this function. Then call setActMode() to make the chip in sleep mode. 
  * @n In this state, the measurement rate is 12.5hz.
  * @n When the acceleration change in a certain direction is detected to exceed the threshold, the measurement rate will be increased 
- * @n to the set normal rate. The threshold can be set by the setWakeUpThreshold() function.
- * @n But if the move stops, that is, the change in acceleration in the three directions is less than the threshold, the chip will be in sleep
- * @n mode after a period of time, which can be set by the setWakeUpDur() function.
+ * @n to the normal rate we set before. The threshold can be set by the setWakeUpThreshold() function.
+ * @n But if the move stops moving, also, the acceleration change in the three directions is less than the threshold, the chip will turn into sleep
+ * @n mode after a period of time. This duration time can be set by the setWakeUpDur() function.
  * @n When using SPI, chip select pin can be modified by changing the value of LIS2DW12_CS.
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
@@ -81,8 +81,8 @@ void setup(void){
   acce.setFilterBandwidth(DFRobot_LIS2DW12::eRateDiv_4);
   
   /**
-      The wake-up duration -- when the setActMode() function uses the detection mode of eDetectAct, it will be a period of time to collect data
-    at a normal rate after the chip is awakened. Then the chip will continue to hibernate, collecting data at a frequency of 12.5hz.
+     Wake-up duration: when using the detection mode of eDetectAct in the setActMode() function, it will collect data
+   at a normal rate after the chip is awakened. Then after a period of time, the chip will continue to hibernate, collecting data at a frequency of 12.5hz.
     dur (0 ~ 3)
     time = dur * (1/Rate)(unit:s)
     |                    An example of a linear relationship between an argument and time                                    |
