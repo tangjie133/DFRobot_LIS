@@ -1,8 +1,8 @@
 /**！
  * @file tapInterrupt.ino
- * @brief tap interrupt detection, tap the module or the desktop nearby can trigger the interrupt level of in1.
+ * @brief tap interrupt detection, tapping the module and the desktop near the module can both trigger the interrupt level on pin int1.
  * @n When using SPI, chip select pin can be modified by changing the value of macro LIS2DW12_CS
- * @n In this example, the int2/int1 pin on the module needs to be connected to the interrupt pin on the motherboard, the defaults are UNO(2),
+ * @n In this example, the int2/int1 pin on the module needs to be connected to the interrupt pin on the motherboard. Default UNO(2),
  * @n                   Mega2560(2), Leonardo(3), microbit(P0),FireBeetle-ESP8266(D6),FireBeetle-ESP32((D6),FireBeetle-M0(6)        
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
@@ -188,9 +188,9 @@ void setup(void){
 
 void loop(void){
   if(intFlag == 1){
-   //tap detected
+   //Tap detected
      DFRobot_LIS2DW12:: eTap_t tapEvent = acce.tapDetect();
-    //Tap source detection
+    //Tap direction source detection
      DFRobot_LIS2DW12::eTapDir_t dir = acce.getTapDirection();
      if(tapEvent  == DFRobot_LIS2DW12::eSTap){
          Serial.print("Single Tap Detected :");
