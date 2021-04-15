@@ -1,7 +1,7 @@
 /**！
  * @file tap.ino
- * @brief Single tap and double tap detection, tapping the module or nearby desktop can trigger the tap event
- * @n You can select to detect only single tap or to detect both single tap and double tap by the setTapMode() function
+ * @brief Single tap and double tap detection, tapping the module or the desktop near the module both can trigger the tap event
+ * @n You can select to detect single tap or to detect both single tap and double tap by the setTapMode() function
  * @n When using SPI, chip select pin can be modified by changing the value of LIS2DW12_CS
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
