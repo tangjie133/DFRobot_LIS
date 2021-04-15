@@ -1,11 +1,11 @@
 /**！
  * @file wakeUp.ino
  * @brief Use wake-up function
- * @n Phenomenon: It’s necessary to set the model in low-power mode before using this function. Then the measurement rate will be very slow.
- * @n When a interrupt event set up before is generated, the module will be in the normal mode that the measurement rate will be accelerated 
- * @n to save power and provide sampling rate
+ * @n Phenomenon: To use this function, you need to turn the module into low-power mode first, and the measurement rate will be 
+ * @n very slow at this time. When an interrupt event set up before occurs, the module will enter normal mode, in which the measurement rate  
+ * @n will be accelerated to save power and provide sampling rate. 
  * @n When using SPI, chip select pin can be modified by changing the value of macro LIS331HH_CS
- * @n In this example, the int2/int1 pin on the module needs to be connected to the interrupt pin on the motherboard, the defaults are UNO(2),
+ * @n This example needs to connect the int2/int1 pin of the module to the interrupt pin of the motherboard. Default UNO(2),
  * @n               Mega2560(2), Leonardo(3), microbit(P0),FireBeetle-ESP8266(D6),FireBeetle-ESP32((D6),FireBeetle-M0(6)        
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
  * @licence     The MIT License (MIT)
@@ -111,8 +111,8 @@ void setup(void){
   //The D6 pin is used as the interrupt pin by default, and other non-conflicting pins can also be selected as the external interrupt pin.
   attachInterrupt(digitalPinToInterrupt(D6)/*Query the interrupt number of the D6 pin*/,interEvent,CHANGE);
   #elif defined(ARDUINO_SAM_ZERO)
-  //The 5 pin is used as the interrupt pin by default, and other non-conflicting pins can also be selected as the external interrupt pin.
-  attachInterrupt(digitalPinToInterrupt(5)/*Query the interrupt number of the 5 pin*/,interEvent,CHANGE);
+  //The pin 5 is used as the interrupt pin by default, and other non-conflicting pins can also be selected as the external interrupt pin.
+  attachInterrupt(digitalPinToInterrupt(5)/*Query the interrupt number of the pin 5*/,interEvent,CHANGE);
   #else
   /*    The Correspondence Table of AVR Series Arduino Interrupt Pins And Terminal Numbers
    * ---------------------------------------------------------------------------------------
@@ -136,7 +136,7 @@ void setup(void){
    * |no need to set it to input mode with pinMode)|Interrupt No|Interrupt number is a pin digital value, such as P0 interrupt number 0, P1 is 1 |
    * |-------------------------------------------------------------------------------------------------------------------------------------------|
    */
-  attachInterrupt(/*Interrupt No*/0,interEvent,CHANGE);//Open the external interrupt 0, connect INT1/2 to the digital pin of the main control: 
+  attachInterrupt(/*Interrupt No*/0,interEvent,CHANGE);//Enable the external interrupt 0, connect INT1/2 to the digital pin of the main control: 
      //UNO(2), Mega2560(2), Leonardo(3), microbit(P0).
   #endif
 }
