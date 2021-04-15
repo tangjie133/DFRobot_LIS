@@ -1,10 +1,10 @@
 # -*- coding:utf-8 -*-
 """
    @file wake_up.py
-   @brief When the acceleration change in x, y or z direction is detected to exceed the set threshold, the chip will generate a wake-up event.
-   @n By accessing the chip register, you can know it is in which direction that the movement has woken up the chip.
-   @n In this example, it is necessary to set the wake-up duration by setWakeUpThreshold(). When woken up, the chip will last for a while
-   @n before it turns into sleep state.
+   @brief When the acceleration change in x, y or z direction is detected to exceed the threshold we set before, the chip will generate a wake-up event.
+   @n By accessing the chip register, we can know which direction of movement wakes up the chip.
+   @n In this example, it is necessary to set the wake-up duration by setWakeUpThreshold(). 
+   @n When woken up, the chip will last for a while before it enters sleep state.
    @n And to set the threshold by setWakeUpDur(). When the acceleration change exceeds this value, the eWakeUp event will be triggered.
    @n When using SPI, chip select pin can be modified by changing the value of RASPBERRY_PIN_CS
    @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
@@ -22,11 +22,11 @@ sys.path.append("../../..") # set system path to top
 from DFRobot_LIS2DW12 import *
 import time
 
-#If you want to use SPI to drive this module, open the following two-line comments, and connect the module with Raspberry Pi via it
+#If you want to use SPI to drive this module, uncomment the codes below, and connect the module with Raspberry Pi via SPI port
 #RASPBERRY_PIN_CS =  27              #Chip selection pin when SPI is selected, use BCM coding method, the number is 27, corresponding to pin GPIO2
 #acce = DFRobot_LIS2DW12_SPI(RASPBERRY_PIN_CS)
 
-#If you want to use I2C to drive this module, open the following three-line comments, and connect the module with Raspberry Pi via it
+#If you want to use I2C to drive this module, uncomment the codes below, and connect the module with Raspberry Pi via I2C port
 #The I2C address can be switched through the DIP switch (gravity version) or SDO pin (Breakout version) on the board
 I2C_BUS         = 0x01             #default use I2C1
 #ADDRESS_0       = 0x18             #sensor address0
