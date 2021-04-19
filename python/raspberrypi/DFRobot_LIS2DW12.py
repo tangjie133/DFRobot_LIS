@@ -348,7 +348,7 @@ class DFRobot_LIS2DW12(object):
     self.write_reg(self.REG_CTRL_REG3,value)
     
   '''
-     @brief Set the free fall time, or the number of free-fall samples. The free-fall events will not occur unless the samples are enough.
+     @brief Set the free fall time, or the numbers of free-fall samples. In a measurement, it will not be determined as a free fall event unless the samples are enough. 
      @param dur duration, range:0~31
      @n time = dur * (1/rate)(unit:s)
      |                          An example of a linear relationship between an argument and time                              |
@@ -657,7 +657,7 @@ class DFRobot_LIS2DW12(object):
     self.write_reg(self.REG_CTRL_REG7,value)
   '''
     @brief Read the acceleration in the x direction
-    @return Acceleration data from x(mg), the mearsurement range is ±2g,±4g,±8g or ±16g set by the setRange() function
+    @return Acceleration data from x(mg), the mearsurement range is ±2g,±4g,±8g or ±16g, set by the setRange() function
   '''
   def read_acc_x(self):
     value1 = self.read_reg(self.REG_OUT_X_L)
@@ -668,7 +668,7 @@ class DFRobot_LIS2DW12(object):
 
   '''
     @brief Read the acceleration in the y direction
-    @return  Acceleration data from y(mg), the mearsurement range is ±2g,±4g,±8g or ±16g set by the setRange() function
+    @return  Acceleration data from y(mg), the mearsurement range is ±2g,±4g,±8g or ±16g, set by the setRange() function
   '''
   def read_acc_y(self):
     value1 = self.read_reg(self.REG_OUT_Y_L)
