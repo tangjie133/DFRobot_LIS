@@ -310,7 +310,7 @@ python get_acceleration.py
   def set_data_rate(self, rate):
     
   '''
-     @brief Set the free fall time, or the number of free-fall samples. The free-fall events will not occur unless the samples are enough.
+     @brief Set the free fall time, or the numbers of free-fall samples. In a measurement, it will not be determined as a free fall event unless the samples are enough. 
      @param dur duration, range: 0~31
      @n time = dur * (1/rate)(unit:s)
      |                   An example of a linear relationship between an argument and time                                     |
