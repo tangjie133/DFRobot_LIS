@@ -129,13 +129,13 @@ To use this library, first download the library file, paste it into the \Arduino
 
   /**
    * @brief Set the threshold of interrupt source 1 interrupt
-   * @param threshold The set threshold is within measurement range(unit:g)
+   * @param threshold The threshold we set before is within measurement range(unit:g)
    */
   void setInt1Th(uint8_t threshold);
 
   /**
    * @brief Set interrupt source 2 interrupt generation threshold
-   * @param threshold The set threshold is within measurement range(unit:g）
+   * @param threshold The threshold we set before is within measurement range(unit:g）
    */
   void setInt2Th(uint8_t threshold);
 
@@ -303,7 +303,7 @@ To use this library, first download the library file, paste it into the \Arduino
   void setDataRate(eRate_t rate);
   
   /**
-   * @brief Set the free fall time, or the number of free-fall samples. The free-fall events will not occur unless the samples are enough.
+   * @brief Set the free fall time, or the number of free-fall samples. In a measurement, it will not be determined as a free fall event unless the samples are enough.
    * @param dur Freefall samples, range：0~31
    * @n time = dur * (1/rate)(unit:s)
      |                            An example of a linear relationship between an argument and time                            |
@@ -336,8 +336,8 @@ To use this library, first download the library file, paste it into the \Arduino
   void setInt2Event(eInt2Event_t event);
   
   /**
-   * @brief Set wake-up duration, when using the detection mode of eDetectAct in setActMode() function, it will be a period of time to collect data
-   * @n at a normal rate after the chip is awakened. Then the chip will continue to hibernate, collecting data at a frequency of 12.5hz.
+   * @brief Set wake-up duration, when using the detection mode of eDetectAct in setActMode() function, it will collect data at a normal rate
+   * @n     after the chip is awakened. Then after a period of time, the chip will continue to hibernate, collecting data at a frequency of 12.5hz.
    * @param dur duration,range: 0~3
      @n time = dur * (1/rate)(unit:s)
      |                           An example of a linear relationship between an argument and time                             |
