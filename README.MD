@@ -1,5 +1,5 @@
 # DFRobot_LIS
-LIS系列三轴加速度传感器 Triple Axis Accelerometer
+LIS系列三轴加速度传感器 LIS Family Triple Axis Accelerometer
 
 CHIP                | Work Well    | Work Wrong  | Remarks
 ------------------ | :----------: | :----------| -----
