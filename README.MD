@@ -1,5 +1,5 @@
 # DFRobot_LIS
-LIS系列三轴加速度传感器 LIS Family Triple Axis Accelerometer
+LIS Family Triple Axis Accelerometer
 
 CHIP                | Work Well    | Work Wrong  | Remarks
 ------------------ | :----------: | :----------| -----
@@ -8,32 +8,28 @@ LIS331HH      |      √       |              |
 LIS2DW12       |      √       |              |             
 IIS2DLPC      |      √       |              |              
 
-![正反面svg效果图](https://github.com/cdjq/DFRobot_LIS2DW12/raw/master/resources/images/SEN0245svg1.png)
-![正反面svg效果图](https://github.com/cdjq/DFRobot_LIS2DW12/raw/master/resources/images/SEN0245svg2.png)
-![正反面svg效果图](https://github.com/cdjq/DFRobot_LIS2DW12/raw/master/resources/images/SEN0245svg3.png)
-![正反面svg效果图](https://github.com/cdjq/DFRobot_LIS2DW12/raw/master/resources/images/SEN0245svg4.png)
-![正反面svg效果图](https://github.com/cdjq/DFRobot_LIS2DW12/raw/master/resources/images/SEN0245svg1.png)
-![正反面svg效果图](https://github.com/cdjq/DFRobot_LIS2DW12/raw/master/resources/images/SEN0245svg2.png)
-![正反面svg效果图](https://github.com/cdjq/DFRobot_LIS2DW12/raw/master/resources/images/SEN0245svg3.png)
-![正反面svg效果图](https://github.com/cdjq/DFRobot_LIS2DW12/raw/master/resources/images/SEN0245svg4.png)
-## 产品链接（链接到英文商城）
-    SKU：产品名称
-    SKU：产品名称
-    SKU：产品名称
-    SKU：产品名称
-    SKU：产品名称
-    SKU：产品名称
-    SKU：产品名称
-    SKU：产品名称
+
+## Product Link
+    SKU：SEN0405
+    SKU：SEN0407
+    SKU：SEN0408
+    SKU：SEN0409
+    SKU：SEN0411
+    SKU：SEN0412
+
 ## Table of Contents
 
-* [Summary](#summary)
-* [Installation](#installation)
-* [Method_H3LIS200DL_LIS331HH](#Method_H3LIS200DL_LIS331HH)
-* [Method_LIS2DW12_IIS2DLPC](#Method_LIS2DW12_IIS2DLPC)
-* [Compatibility](#compatibility)
-* [History](#history)
-* [Credits](#credits)
+- [DFRobot_LIS](#dfrobot_lis)
+  - [Product Link](#product-link)
+  - [Table of Contents](#table-of-contents)
+  - [Summary](#summary)
+  - [Installation](#installation)
+  - [Method_H3LIS200DL_LIS331HH](#method_h3lis200dl_lis331hh)
+  - [Method_LIS2DW12_IIS2DLPC](#method_lis2dw12_iis2dlpc)
+  - [Method_LIS2DH12](#method_lis2dh12)
+  - [Compatibility](#compatibility)
+  - [History](#history)
+  - [Credits](#credits)
 
 ## Summary
 
@@ -525,25 +521,137 @@ To use this library, first download the library file, paste it into the \Arduino
    */
   void demandData();
 ```
+## Method_LIS2DH12
+```C++
+/**
+   * @brief Initialize the function
+   * @return true(Succeed)/false(Failed)
+   */
+  bool begin(void);
+
+  /**
+   * @brief Set the measurement range
+   * @param range Range(g)
+                  eLIS2DH12_2g, //±2g
+                  eLIS2DH12_4g, //4g
+                  eLIS2DH12_8g, //8g
+                  eLIS2DH12_16g, //16g
+   * @return None
+   */
+  void setRange(eRange_t range);
+
+  /**
+   * @brief Set data measurement rate
+   * @param rate rate(HZ)
+                  ePowerDown_0Hz 
+                  eLowPower_1Hz 
+                  eLowPower_10Hz 
+                  eLowPower_25Hz 
+                  eLowPower_50Hz 
+                  eLowPower_100Hz
+                  eLowPower_200Hz
+                  eLowPower_400Hz
+   */
+  void setAcquireRate(ePowerMode_t rate);
+
+  /**
+   * @brief Get chip id
+   * @return 8 bit serial number
+   */
+  uint8_t getID();
+
+  /**
+   * @brief Get the acceleration in the x direction
+   * @return acceleration from x (unit:g), the mearsurement range is ±100g or ±200g, set by setRange() function.
+   */
+  int32_t readAccX();
+
+  /**
+   * @brief Get the acceleration in the y direction
+   * @return acceleration from y(unit:g), the mearsurement range is ±100g or ±200g, set by setRange() function.
+   */
+  int32_t readAccY();
+
+  /**
+   * @brief Get the acceleration in the z direction
+   * @return acceleration from z(unit:g), the mearsurement range is ±100g or ±200g, set by setRange() function.
+   */
+  int32_t readAccZ();
+  
+  /**
+   * @brief Set the threshold of interrupt source 1 interrupt
+   * @param threshold The threshold is within the measurement range(unit:g)
+   */
+  void setInt1Th(uint8_t threshold);
+
+  /**
+   * @brief Set interrupt source 2 interrupt generation threshold
+   * @param threshold The threshold is within the measurement range(unit:g）
+   */
+  void setInt2Th(uint8_t threshold);
+
+  /**
+   * @brief Enable interrupt
+   * @param source Interrupt pin selection
+              eINT1 = 0,/<int1 >/
+              eINT2,/<int2>/
+   * @param event Interrupt event selection
+                   eXLowerThanTh ,/<The acceleration in the x direction is less than the threshold>/
+                   eXHigherThanTh ,/<The acceleration in the x direction is greater than the threshold>/
+                   eYLowerThanTh,/<The acceleration in the y direction is less than the threshold>/
+                   eYHigherThanTh,/<The acceleration in the y direction is greater than the threshold>/
+                   eZLowerThanTh,/<The acceleration in the z direction is less than the threshold>/
+                   eZHigherThanTh,/<The acceleration in the z direction is greater than the threshold>/
+   */
+  void enableInterruptEvent(eInterruptSource_t source, eInterruptEvent_t event);
+
+   /**
+   * @brief Check whether the interrupt event'event' is generated in interrupt 1
+   * @param event Interrupt event
+                   eXLowerThanTh ,/<The acceleration in the x direction is less than the threshold>/
+                   eXHigherThanTh ,/<The acceleration in the x direction is greater than the threshold>/
+                   eYLowerThanTh,/<The acceleration in the y direction is less than the threshold>/
+                   eYHigherThanTh,/<The acceleration in the y direction is greater than the threshold>/
+                   eZLowerThanTh,/<The acceleration in the z direction is less than the threshold>/
+                   eZHigherThanTh,/<The acceleration in the z direction is greater than the threshold>/
+   * @return true Generated
+             false Not generated
+   */
+  bool getInt1Event(eInterruptEvent_t event);
+
+  /**
+   * @brief Check whether the interrupt event'event' is generated in interrupt 1
+   * @param event Interrupt event
+                   eXLowerThanTh ,/<The acceleration in the x direction is less than the threshold>/
+                   eXHigherThanTh ,/<The acceleration in the x direction is greater than the threshold>/
+                   eYLowerThanTh,/<The acceleration in the y direction is less than the threshold>/
+                   eYHigherThanTh,/<The acceleration in the y direction is greater than the threshold>/
+                   eZLowerThanTh,/<The acceleration in the z direction is less than the threshold>/
+                   eZHigherThanTh,/<The acceleration in the z direction is greater than the threshold>/
+   * @return true Generated
+             false Not generated
+   */
+  bool getInt2Event(eInterruptEvent_t event);
+```
 ## Compatibility
 
 MCU                | Work Well    | Work Wrong   | Untested    | Remarks
 ------------------ | :----------: | :----------: | :---------: | -----
 Arduino Uno        |      √       |              |             | 
-FireBeetle-ESP8266        |      √       |              |             | 
-FireBeetle-ESP32        |      √       |              |             | 
-Arduino MEGA2560        |      √       |              |             | 
-Arduino Leonardo|      √       |              |             | 
-Micro:bit        |      √       |              |             | 
-FireBeetle-M0        |      √       |              |             | 
-Raspberry Pi      |      √       |              |             | 
+FireBeetle-ESP8266 |      √       |              |             | 
+FireBeetle-ESP32   |      √       |              |             | 
+Arduino MEGA2560   |      √       |              |             | 
+Arduino Leonardo   |      √       |              |             | 
+Micro:bit          |      √       |              |             | 
+FireBeetle-M0      |      √       |              |             | 
+Raspberry Pi       |      √       |              |             | 
 
 ## History
 
-- data 2021-2-1
-- version V1.0
+- 2021/2/1 -1.0.0 version
+- 2021/1/6 -1.0.1 version
 
 
 ## Credits
 
-Written by(li.feng@dfrobot.com), 2020. (Welcome to our [website](https://www.dfrobot.com/))
+Written by(li.feng@dfrobot.com,jie.tang@dfrobot.com), 2020. (Welcome to our [website](https://www.dfrobot.com/))

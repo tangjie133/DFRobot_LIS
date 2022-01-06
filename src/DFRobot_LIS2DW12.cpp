@@ -408,8 +408,6 @@ void DFRobot_LIS2DW12::set6DThreshold(e6DTh_t degree)
 
 void DFRobot_LIS2DW12::setInt2Event(eInt2Event_t event)
 {
-
-
   uint8_t value1 = 0;
   uint8_t value2 = 0;
   uint8_t value3 = 0;
@@ -500,73 +498,67 @@ bool DFRobot_LIS2DW12::oriChangeDetected()
 DFRobot_LIS2DW12::eOrient_t DFRobot_LIS2DW12::getOrientation()
 {
   uint8_t value;
-  eOrient_t ret;
   readReg(REG_SIXD_SRC,&value,1);
   if((value & 0x01) > 0){
-     ret =  eXDown;
+     return eXDown;
   } else if((value & 0x2) > 0){
-     ret =  eXUp;
+     return eXUp;
   } else if((value & 0x4) > 0){
-     ret =  eYDown;
+     return eYDown;
   } else if((value & 0x8) > 0){
-     ret =  eYUp;
+     return eYUp;
   } else if((value & 0x10) > 0){
-     ret =  eZDown;
+     return eZDown;
   } else if((value & 0x20) > 0){
-     ret =  eZUp;
+     return eZUp;
   }
-  return ret;
 }
 DFRobot_LIS2DW12::eTap_t DFRobot_LIS2DW12::tapDetect()
 {
   uint8_t value;
-  eTap_t ret = eNoTap;
   readReg(REG_TAP_SRC,&value,1);
   if((value & 0x20) > 0){
-     ret =  eSTap;
+     return eSTap;
   } else if((value & 0x10) > 0){
-     ret =  eDTap;
+     return eDTap;
   } else {
-    ret = eNoTap;
+    return eNoTap;
   }
-  return ret;
 }
 DFRobot_LIS2DW12::eTapDir_t DFRobot_LIS2DW12::getTapDirection()
 {
   uint8_t value;
   readReg(REG_TAP_SRC,&value,1);
   uint8_t positive = value & 0x08;
-  eTapDir_t ret = eDirNone;
+
   if(((value & 0x04) != 0) && (positive > 0)){
-     ret = eDirXUp;
+     return eDirXUp;
   }else if(((value & 0x4) != 0) && (positive == 0)){
-    ret = eDirXDown;
+    return eDirXDown;
   }else if(((value & 0x2) != 0) && (positive > 0)){
-    ret = eDirYUp;
+    return eDirYUp;
   }else if(((value & 0x2) != 0) && (positive == 0)){
-    ret = eDirYDown;
+    return eDirYDown;
   }else if(((value & 0x1) != 0) && (positive > 0)){
-    ret = eDirZUp;
+    return eDirZUp;
   }else if(((value & 0x1) != 0) && (positive == 0)){
-     ret = eDirZDown;
+     return eDirZDown;
   }
-  return ret;
+  return eDirNone;
 }
 DFRobot_LIS2DW12::eWakeUpDir_t DFRobot_LIS2DW12::getWakeUpDir()
 {
   uint8_t value;
-  eWakeUpDir_t ret = eDirError;
   readReg(REG_WAKE_UP_SRC,&value,1);
   if((value & 0x1) > 0){
-     ret = eDirZ;
+     return eDirZ;
   }else if((value & 0x2) > 0){
-     ret = eDirY;
+     return eDirY;
   }else if((value & 0x4) > 0){
-     ret = eDirX;
+     return eDirX;
   }else{
-     ret = eDirError;
+     return eDirError;
   }
-  return ret;
 }
 
 DFRobot_IIS2DLPC_I2C::DFRobot_IIS2DLPC_I2C(TwoWire * pWire,uint8_t addr)
@@ -597,7 +589,6 @@ uint8_t DFRobot_IIS2DLPC_I2C::writeReg(uint8_t reg, const void * pBuf, size_t si
     _pWire->write(_pBuf[i]);
   }
   _pWire->endTransmission();
-  return 0;
 }
 
 uint8_t DFRobot_IIS2DLPC_I2C::readReg(uint8_t reg, uint8_t* pBuf, size_t size)
@@ -672,7 +663,7 @@ uint8_t  DFRobot_IIS2DLPC_SPI::writeReg(uint8_t reg,const void *pBuf,size_t size
   }
   SPI.endTransaction();
   digitalWrite(_cs,1);
-  return 0;
+
 }
 DFRobot_LIS2DW12_I2C::DFRobot_LIS2DW12_I2C(TwoWire * pWire,uint8_t addr)
 {
@@ -701,7 +692,6 @@ uint8_t DFRobot_LIS2DW12_I2C::writeReg(uint8_t reg, const void * pBuf, size_t si
     _pWire->write(_pBuf[i]);
   }
   _pWire->endTransmission();
-  return 0;
 }
 
 uint8_t DFRobot_LIS2DW12_I2C::readReg(uint8_t reg, uint8_t* pBuf, size_t size)
@@ -781,5 +771,5 @@ uint8_t  DFRobot_LIS2DW12_SPI::writeReg(uint8_t reg,const void *pBuf,size_t size
   }
   SPI.endTransaction();
   digitalWrite(_cs,1);
-  return 0;
+
 }

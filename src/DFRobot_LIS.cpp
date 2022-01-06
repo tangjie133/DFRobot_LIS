@@ -216,7 +216,6 @@ bool DFRobot_H3LIS200DL_I2C::setRange(eRange_t range){
    }
   DBG(reg);
   writeReg(REG_CTRL_REG4,&reg,1);
-  return true;
 }
 uint8_t DFRobot_H3LIS200DL_I2C::writeReg(uint8_t reg, const void * pBuf, size_t size)
 {
@@ -231,7 +230,6 @@ uint8_t DFRobot_H3LIS200DL_I2C::writeReg(uint8_t reg, const void * pBuf, size_t 
     _pWire->write(_pBuf[i]);
   }
   _pWire->endTransmission();
-  return 0;
 }
 
 uint8_t DFRobot_H3LIS200DL_I2C::readReg(uint8_t reg, void* pBuf, size_t size)
@@ -334,7 +332,7 @@ bool DFRobot_H3LIS200DL_SPI::setRange(eRange_t range){
    }
   DBG(reg);
   writeReg(REG_CTRL_REG4,&reg,1);
-  return true;
+
 }
 uint8_t DFRobot_H3LIS200DL_SPI::readReg(uint8_t reg,void * pBuf ,size_t size){
   if(pBuf == NULL){
@@ -376,7 +374,6 @@ uint8_t  DFRobot_H3LIS200DL_SPI::writeReg(uint8_t reg,const void *pBuf,size_t si
 
   SPI.endTransaction();
   digitalWrite(_cs,1);
-  return 0;
 }
 DFRobot_LIS331HH_I2C::DFRobot_LIS331HH_I2C(TwoWire * pWire,uint8_t addr)
 {
@@ -434,7 +431,6 @@ bool DFRobot_LIS331HH_I2C::setRange(eRange_t range){
   }
   DBG(reg);
   writeReg(REG_CTRL_REG4,&reg,1);
-  return true;
 }
 int32_t DFRobot_LIS331HH_I2C::readAccX(){
   uint8_t reg = 0;
@@ -501,7 +497,6 @@ uint8_t DFRobot_LIS331HH_I2C::writeReg(uint8_t reg, const void * pBuf, size_t si
     _pWire->write(_pBuf[i]);
   }
   _pWire->endTransmission();
-  return 0;
 }
 
 uint8_t DFRobot_LIS331HH_I2C::readReg(uint8_t reg, void* pBuf, size_t size)
@@ -584,7 +579,6 @@ bool DFRobot_LIS331HH_SPI::setRange(eRange_t range){
   }
   DBG(reg);
   writeReg(REG_CTRL_REG4,&reg,1);
-  return true;
 }
 int32_t DFRobot_LIS331HH_SPI::readAccX(){
   uint8_t reg = 0;
@@ -679,5 +673,4 @@ uint8_t  DFRobot_LIS331HH_SPI::writeReg(uint8_t reg,const void *pBuf,size_t size
 
   SPI.endTransaction();
   digitalWrite(_cs,1);
-  return 0;
 }

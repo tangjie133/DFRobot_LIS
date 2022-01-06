@@ -57,13 +57,17 @@ Provide an RaspberryPi library to get Three-axis acceleration by reading data fr
 
 ## Table of Contents
 
-* [Summary](#summary)
-* [Installation](#installation)
-* [Method_H3LIS200DL_LIS331HH](#Method_H3LIS200DL_LIS331HH)
-* [Method_LIS2DW12_IIS2DLPC](#Method_LIS2DW12_IIS2DLPC)
-* [Compatibility](#compatibility)
-* [History](#history)
-* [Credits](#credits)
+- [DFRobot_LIS](#dfrobot_lis)
+  - [## DFRobot_LIS Library for RaspberryPi](#-dfrobot_lis-library-for-raspberrypi)
+  - [Table of Contents](#table-of-contents)
+  - [Summary](#summary)
+  - [Installation](#installation)
+  - [Method_H3LIS200DL_LIS331HH](#method_h3lis200dl_lis331hh)
+  - [Method_LIS2DW12_IIS2DLPC](#method_lis2dw12_iis2dlpc)
+  - [Method_LIS2DH12](#method_lis2dh12)
+  - [Compatibility](#compatibility)
+  - [History](#history)
+  - [Credits](#credits)
 
 ## Summary
 
@@ -527,6 +531,117 @@ python get_acceleration.py
     @brief In Single data conversion on demand mode, request a measurement 
   '''
   def demand_data(self):
+```
+## Method_LIS2DH12
+```python
+def begin(self)
+    '''!
+      @brief Initialize the function
+      @return true(Succeed)/false(Failed)
+    '''
+
+  def set_range(self, range)
+    '''!
+      @brief Set the measurement range
+      @param range Range(g)
+                  LIS2DH12_2g, //2g
+                  LIS2DH12_4g, //4g
+                  LIS2DH12_8g, //8g
+                  LIS2DH12_16g, //16g
+    '''
+
+  def get_id(self)
+    '''!
+      @brief Get chip id
+      @return 8 bit serial number
+    '''
+  
+  def set_acquire_rate(self, rate)
+    '''!
+      @brief Set data measurement rate
+      @param rate rate(HZ)
+                  POWERDOWN_0HZ 
+                  LOWPOWER_1Hz 
+                  LOWPOWER_10Hz 
+                  LOWPOWER_25Hz 
+                  LOWPOWER_50Hz 
+                  LOWPOWER_100Hz
+                  LOWPOWER_200Hz
+                  LOWPOWER_400Hz
+  
+    '''
+  
+  def set_int1_th(self, threshold)
+    '''!
+      @brief Set the threshold of interrupt source 1 interrupt
+      @param threshold The threshold is within the measurement range(unit:g)
+    '''
+
+  def set_int2_th(self, threshold)
+    '''!
+      @brief Set the threshold of interrupt source 1 interrupt
+      @param threshold The threshold is within the measurement range(unit:g)
+    '''
+
+  def enable_int_event(self, source, event)
+    '''!
+      @brief Enable interrupt
+      @param source Interrupt pin selection
+              INT_1 = 0,/<int1 >/
+              INT_2,/<int2>/
+      @param event Interrupt event selection
+                   X_LOWERTHAN_TH ,/<The acceleration in the x direction is less than the threshold>/
+                   X_HIGHERTHAN_TH ,/<The acceleration in the x direction is greater than the threshold>/
+                   Y_LOWERTHAN_TH,/<The acceleration in the y direction is less than the threshold>/
+                   Y_HIGHERTHAN_TH,/<The acceleration in the y direction is greater than the threshold>/
+                   Z_LOWERTHAN_TH,/<The acceleration in the z direction is less than the threshold>/
+                   Z_HIGHERTHAN_TH,/<The acceleration in the z direction is greater than the threshold>/
+    '''
+
+  def get_int1_event(self, event)
+    '''!
+      @brief Check whether the interrupt event'event' is generated in interrupt 1
+      @param event Interrupt event
+                   X_LOWERTHAN_TH ,/<The acceleration in the x direction is less than the threshold>/
+                   X_HIGHERTHAN_TH ,/<The acceleration in the x direction is greater than the threshold>/
+                   Y_LOWERTHAN_TH,/<The acceleration in the y direction is less than the threshold>/
+                   Y_HIGHERTHAN_TH,/<The acceleration in the y direction is greater than the threshold>/
+                   Z_LOWERTHAN_TH,/<The acceleration in the z direction is less than the threshold>/
+                   Z_HIGHERTHAN_TH,/<The acceleration in the z direction is greater than the threshold>/
+    @return true Generated
+             false Not generated
+    '''
+
+  def get_int2_event(self, event)
+    '''!
+      @brief Check whether the interrupt event'event' is generated in interrupt 1
+      @param event Interrupt event
+                   X_LOWERTHAN_TH ,/<The acceleration in the x direction is less than the threshold>/
+                   X_HIGHERTHAN_TH ,/<The acceleration in the x direction is greater than the threshold>/
+                   Y_LOWERTHAN_TH,/<The acceleration in the y direction is less than the threshold>/
+                   Y_HIGHERTHAN_TH,/<The acceleration in the y direction is greater than the threshold>/
+                   Z_LOWERTHAN_TH,/<The acceleration in the z direction is less than the threshold>/
+                   Z_HIGHERTHAN_TH,/<The acceleration in the z direction is greater than the threshold>/
+      @return true Generated
+             false Not generated
+    ''' 
+
+  def read_acc_x(self)
+    '''!
+      @brief Get the acceleration in the x direction
+      @return acceleration from x (unit:g), the mearsurement range is 2g or 16g, set by setRange() function.
+    '''
+  def read_acc_y(self)
+    '''!
+      @brief Get the acceleration in the y direction
+      @return acceleration from y (unit:g), the mearsurement range is 2g or 16g, set by setRange() function.
+    '''
+
+  def read_acc_z(self)
+    '''!
+      @brief Get the acceleration in the z direction
+      @return acceleration from z (unit:g), the mearsurement range is 2g or 16g, set by setRange() function.
+    '''
 ```
 ## Compatibility
 
