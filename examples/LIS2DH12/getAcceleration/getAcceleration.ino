@@ -2,12 +2,11 @@
  * @file getAcceleration.ino
  * @brief Get the acceleration in the three directions of xyz, the range can be ±2g、±4g、±8g、±16g
  * @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
- * @licence     The MIT License (MIT)
+ * @license     The MIT License (MIT)
  * @author [tangjie](jie.tang@dfrobot.com)
  * @version  V1.0
  * @date  2021-01-16
- * @get from https://www.dfrobot.com
- * @https://github.com/DFRobot/DFRobot_H3LIS
+ * @url https://github.com/DFRobot/DFRobot_LIS
  */
 
 #include <DFRobot_LIS2DH12.h>

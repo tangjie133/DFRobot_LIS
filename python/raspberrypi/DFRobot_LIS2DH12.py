@@ -1,13 +1,12 @@
 # -*- coding:utf-8 -*-
-''' 
+'''!
   @file DFRobot_LIS2DH12.py
   @brief Define the basic structure of class DFRobot_LIS2DH12 
   @copyright   Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
-  @licence     The MIT License (MIT)
+  @license     The MIT License (MIT)
   @author [tangjie](jie.tang@dfrobot.com)
   @version  V1.0
   @date  2022-1-5
-  @get from https://www.dfrobot.com
   @url https://github.com/DFRobot/DFRobot_LIS
 '''
 import time
@@ -41,8 +40,8 @@ class DFRobot_LIS2DH12():
   REG_INT1_SRC     =  0x31     #Interrupt source 1 status register
   REG_INT2_SRC     =  0x35     #Interrupt source 2 status register
 
-  '''
-  Power mode
+  '''!
+    Power mode
   '''
   POWERDOWN_0HZ  = 0X00
   LOWPOWER_1Hz   = 0x10
@@ -53,16 +52,16 @@ class DFRobot_LIS2DH12():
   LOWPOWER_200Hz = 0x60
   LOWPOWER_400Hz = 0x70
 
-  '''
-  Sensor range selection
+  '''!
+    Sensor range selection
   '''
   LIS2DH12_2g = 0x00
   LIS2DH12_4g = 0x10
   LIS2DH12_8g = 0x20
   LIS2DH12_16g = 0x30
 
-  '''
-  Interrupt event
+  '''!
+    Interrupt event
   '''
   X_LOWERTHAN_TH   = 0X01  #The acceleration in the x direction is less than the threshold
   X_HIGHERTHAN_TH  = 0X02  #The acceleration in the x direction is greater than the threshold
@@ -128,15 +127,14 @@ class DFRobot_LIS2DH12():
     '''!
       @brief Set data measurement rate
       @param rate rate(HZ)
-                  POWERDOWN_0HZ 
-                  LOWPOWER_1Hz 
-                  LOWPOWER_10Hz 
-                  LOWPOWER_25Hz 
-                  LOWPOWER_50Hz 
-                  LOWPOWER_100Hz
-                  LOWPOWER_200Hz
-                  LOWPOWER_400Hz
-  
+      @n            POWERDOWN_0HZ 
+      @n            LOWPOWER_1Hz 
+      @n            LOWPOWER_10Hz 
+      @n            LOWPOWER_25Hz 
+      @n            LOWPOWER_50Hz 
+      @n            LOWPOWER_100Hz
+      @n            LOWPOWER_200Hz
+      @n            LOWPOWER_400Hz
     '''
     self._reg = 0x0f
     self._reg = (rate + self._reg)
@@ -176,15 +174,15 @@ class DFRobot_LIS2DH12():
     '''!
       @brief Enable interrupt
       @param source Interrupt pin selection
-              INT_1 = 0,/<int1 >/
-              INT_2,/<int2>/
+      @n        INT_1 = 0,/<int1 >/
+      @n        INT_2,/<int2>/
       @param event Interrupt event selection
-                   X_LOWERTHAN_TH ,/<The acceleration in the x direction is less than the threshold>/
-                   X_HIGHERTHAN_TH ,/<The acceleration in the x direction is greater than the threshold>/
-                   Y_LOWERTHAN_TH,/<The acceleration in the y direction is less than the threshold>/
-                   Y_HIGHERTHAN_TH,/<The acceleration in the y direction is greater than the threshold>/
-                   Z_LOWERTHAN_TH,/<The acceleration in the z direction is less than the threshold>/
-                   Z_HIGHERTHAN_TH,/<The acceleration in the z direction is greater than the threshold>/
+      @n             X_LOWERTHAN_TH ,/<The acceleration in the x direction is less than the threshold>/
+      @n             X_HIGHERTHAN_TH ,/<The acceleration in the x direction is greater than the threshold>/
+      @n             Y_LOWERTHAN_TH,/<The acceleration in the y direction is less than the threshold>/
+      @n             Y_HIGHERTHAN_TH,/<The acceleration in the y direction is greater than the threshold>/
+      @n             Z_LOWERTHAN_TH,/<The acceleration in the z direction is less than the threshold>/
+      @n             Z_HIGHERTHAN_TH,/<The acceleration in the z direction is greater than the threshold>/
     '''
     self._data = (0x80 + event)
     if(source == self.INT_1):
@@ -196,14 +194,13 @@ class DFRobot_LIS2DH12():
     '''!
       @brief Check whether the interrupt event'event' is generated in interrupt 1
       @param event Interrupt event
-                   X_LOWERTHAN_TH ,/<The acceleration in the x direction is less than the threshold>/
-                   X_HIGHERTHAN_TH ,/<The acceleration in the x direction is greater than the threshold>/
-                   Y_LOWERTHAN_TH,/<The acceleration in the y direction is less than the threshold>/
-                   Y_HIGHERTHAN_TH,/<The acceleration in the y direction is greater than the threshold>/
-                   Z_LOWERTHAN_TH,/<The acceleration in the z direction is less than the threshold>/
-                   Z_HIGHERTHAN_TH,/<The acceleration in the z direction is greater than the threshold>/
-    @return true Generated
-             false Not generated
+      @n             X_LOWERTHAN_TH ,/<The acceleration in the x direction is less than the threshold>/
+      @n             X_HIGHERTHAN_TH ,/<The acceleration in the x direction is greater than the threshold>/
+      @n             Y_LOWERTHAN_TH,/<The acceleration in the y direction is less than the threshold>/
+      @n             Y_HIGHERTHAN_TH,/<The acceleration in the y direction is greater than the threshold>/
+      @n             Z_LOWERTHAN_TH,/<The acceleration in the z direction is less than the threshold>/
+      @n             Z_HIGHERTHAN_TH,/<The acceleration in the z direction is greater than the threshold>/
+      @return true Generated/false Not generated
     '''
     self._ret = False
     self._data = self._read_reg(self.REG_INT1_SRC,1)
@@ -238,14 +235,13 @@ class DFRobot_LIS2DH12():
     '''!
       @brief Check whether the interrupt event'event' is generated in interrupt 1
       @param event Interrupt event
-                   X_LOWERTHAN_TH ,/<The acceleration in the x direction is less than the threshold>/
-                   X_HIGHERTHAN_TH ,/<The acceleration in the x direction is greater than the threshold>/
-                   Y_LOWERTHAN_TH,/<The acceleration in the y direction is less than the threshold>/
-                   Y_HIGHERTHAN_TH,/<The acceleration in the y direction is greater than the threshold>/
-                   Z_LOWERTHAN_TH,/<The acceleration in the z direction is less than the threshold>/
-                   Z_HIGHERTHAN_TH,/<The acceleration in the z direction is greater than the threshold>/
-      @return true Generated
-             false Not generated
+      @n             X_LOWERTHAN_TH ,/<The acceleration in the x direction is less than the threshold>/
+      @n             X_HIGHERTHAN_TH ,/<The acceleration in the x direction is greater than the threshold>/
+      @n             Y_LOWERTHAN_TH,/<The acceleration in the y direction is less than the threshold>/
+      @n             Y_HIGHERTHAN_TH,/<The acceleration in the y direction is greater than the threshold>/
+      @n             Z_LOWERTHAN_TH,/<The acceleration in the z direction is less than the threshold>/
+      @n             Z_HIGHERTHAN_TH,/<The acceleration in the z direction is greater than the threshold>/
+      @return true Generated/false Not generated
     '''
     self._ret = False
     self._data =self._read_reg(self.REG_INT2_SRC,1)
@@ -301,9 +297,6 @@ class DFRobot_LIS2DH12():
     self._sensor_data = self._read_reg((self.REG_OUT_Z_L + 0x80),2)
     return -(np.int8(self._sensor_data[1]) * self._mg_scanlevel)
 
-  
-
-    
   def _write_reg(self, reg, data):
     '''!
   		@brief writes data to a register

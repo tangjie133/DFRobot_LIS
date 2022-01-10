@@ -2,12 +2,11 @@
  * @file DFRobot_LIS2DH12.cpp
  * @brief Define the basic structure of class DFRobot_LIS2DH12 
  * @copyright   Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
- * @licence     The MIT License (MIT)
+ * @license     The MIT License (MIT)
  * @author [tangjie](jie.tang@dfrobot.com)
  * @version  V1.0
  * @date  2021-12-29
- * @get from https://www.dfrobot.com
- * @https://github.com/DFRobot/DFRobot_LIS
+ * @url https://github.com/DFRobot/DFRobot_LIS
  */
 
 #include "DFRobot_LIS2DH12.h"

@@ -1,15 +1,14 @@
 # -*- coding:utf-8 -*-
+'''!
+  @file getAcceleration.ino
+  @brief Get the acceleration in the three directions of xyz, the range can be
+  @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
+  @license     The MIT License (MIT)
+  @author [tangjie](jie.tang@dfrobot.com)
+  @version  V1.0
+  @date  2021-01-16
+  @url https://github.com/DFRobot/DFRobot_LIS
 '''
- @file getAcceleration.ino
- @brief Get the acceleration in the three directions of xyz, the range can be
- @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
- @licence     The MIT License (MIT)
- @author [tangjie](jie.tang@dfrobot.com)
- @version  V1.0
- @date  2021-01-16
- @get from https://www.dfrobot.com
- @https://github.com/DFRobot/DFRobot_LIS
- '''
 
 import sys
 sys.path.append("../..") # set system path to top

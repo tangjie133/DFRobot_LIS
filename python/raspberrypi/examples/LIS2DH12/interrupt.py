@@ -1,21 +1,20 @@
 # -*- coding:utf-8 -*-
-"""
-   @file interrupt.py
-   @brief Interrupt detection
-   @n In this example, the enable eZHigherThanTh interrupt event means when the acceleration in the Z direction exceeds the threshold we set 
-   @n before, the interrupt level can be detected on the interrupt pin int1/int2 we set, and the level change on the interrupt pin 
-   @n can be used to determine whether the interrupt occurs. The following are the six settable interrupt events: eXHigherThanTh, eXLowerThanTh, 
-   @n eYHigherThanTh, eYLowerThanTh, eZHigherThanTh,eZLowerThanTh. For a detailed explanation of each interrupt event, please look up the 
-   @n comments of function enableInterruptEvent()
-   @n When using SPI, chip select pin can be modified by changing the value of macro RASPBERRY_PIN_CS
-   @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
-   @licence     The MIT License (MIT)
-   @author [tangjie](jie.tang@dfrobot.com)
-   @version  V1.0
-   @date  2022-01-05
-   @get from https://www.dfrobot.com
-   @https://github.com/DFRobot/DFRobot_LIS
-"""
+'''!
+  @file interrupt.py
+  @brief Interrupt detection
+  @n In this example, the enable eZHigherThanTh interrupt event means when the acceleration in the Z direction exceeds the threshold we set 
+  @n before, the interrupt level can be detected on the interrupt pin int1/int2 we set, and the level change on the interrupt pin 
+  @n can be used to determine whether the interrupt occurs. The following are the six settable interrupt events: eXHigherThanTh, eXLowerThanTh, 
+  @n eYHigherThanTh, eYLowerThanTh, eZHigherThanTh,eZLowerThanTh. For a detailed explanation of each interrupt event, please look up the 
+  @n comments of function enableInterruptEvent()
+  @n When using SPI, chip select pin can be modified by changing the value of macro RASPBERRY_PIN_CS
+  @copyright  Copyright (c) 2010 DFRobot Co.Ltd (http://www.dfrobot.com)
+  @license     The MIT License (MIT)
+  @author [tangjie](jie.tang@dfrobot.com)
+  @version  V1.0
+  @date  2022-01-05
+  @url https://github.com/DFRobot/DFRobot_LIS
+'''
 
 import sys
 sys.path.append("../..") # set system path to top
